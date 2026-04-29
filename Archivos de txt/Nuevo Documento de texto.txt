@@ -1,0 +1,770 @@
+# DOCUMENTACIÓN TÉCNICA DE MATHPATH
+## Aplicación Educativa de Matemáticas Interactiva
+
+---
+
+## ÍNDICE
+
+1. [Resumen Ejecutivo](#1-resumen-ejecutivo)
+2. [Arquitectura del Sistema](#2-arquitectura-del-sistema)
+3. [Orden de Desarrollo y Creación de Archivos](#3-orden-de-desarrollo-y-creación-de-archivos)
+4. [Descripción Detallada de Módulos](#4-descripción-detallada-de-módulos)
+5. [Flujo de Navegación](#5-flujo-de-navegación)
+6. [Base de Datos](#6-base-de-datos)
+7. [Sistema de Autenticación](#7-sistema-de-autenticación)
+8. [Mecánicas de Juego](#8-mecánicas-de-juego)
+9. [Sistema de Rangos y Progresión](#9-sistema-de-rangos-y-progresión)
+10. [Recursos Gráficos](#10-recursos-gráficos)
+11. [Empaquetamiento y Distribución](#11-empaquetamiento-y-distribución)
+
+---
+
+## 1. RESUMEN EJECUTIVO
+
+**MathPath** es una aplicación de escritorio desarrollada en Python utilizando el framework **Flet** (versión 0.21.2), diseñada como una plataforma educativa gamificada para el aprendizaje de matemáticas. La aplicación implementa un sistema de progresión por etapas, sistema de vidas, ranking de usuarios, recuperación de contraseña por email, y panel de administración.
+
+### Características Principales
+
+- **Framework**: Flet 0.21.2 (interfaz moderna y responsiva)
+- **Base de Datos**: SQLite3 (local, embebida)
+- **Sistema de Email**: SMTP con soporte para Gmail
+- **Arquitectura**: MVC simplificado con separación de vistas
+- **Empaquetamiento**: PyInstaller para ejecutable .exe
+
+---
+
+## 2. ARQUITECTURA DEL SISTEMA
+
+### 2.1 Estructura de Directorios
+
+```
+TESIS/
+├── src/                          # Código fuente principal
+│   ├── main.py                   # Punto de entrada de la aplicación
+│   ├── config.py                 # Configuración centralizada y utilidades
+│   ├── enrutador.py              # Sistema de navegación entre vistas
+│   ├── gestor_db.py              # Gestor singleton de base de datos
+│   ├── modelos/                  # Modelos de datos y inicialización
+│   │   ├── __init__.py
+│   │   ├── database.py           # Esquema inicial de base de datos
+│   │   └── init_db.py            # Script de inicialización con usuario admin
+│   ├── utilidades/               # Servicios auxiliares
+│   │   ├── __init__.py
+│   │   ├── email_config.py       # Configuración SMTP
+│   │   ├── email_service.py      # Servicio de envío de emails
+│   │   └── trampa.py             # Inyección de usuarios de prueba (bots)
+│   └── vistas/                   # Interfaces de usuario (MVC - Vistas)
+│       ├── __init__.py
+│       ├── login_vista.py        # Pantalla de inicio de sesión
+│       ├── registro_vista.py     # Pantalla de registro de usuarios
+│       ├── menu_vista.py         # Menú principal "Mi Camino"
+│       ├── etapas_vista.py       # Selector de etapas de aprendizaje
+│       ├── nivel_vista.py        # Vista de ejercicio individual
+│       ├── perfil_vista.py       # Perfil de usuario y estadísticas
+│       ├── logros_vista.py       # Sistema de logros y recompensas
+│       ├── biblioteca_vista.py   # Material educativo de consulta
+│       ├── ajustes_vista.py      # Configuración de avatar
+│       ├── admin_vista.py        # Panel de administración
+│       └── recuperar_password_vista.py  # Recuperación de contraseña por email
+├── recursos/                     # Assets gráficos
+│   ├── icono_mathpath.png
+│   ├── logo.ico
+│   ├── logo.png
+│   ├── logo_claro.png
+│   ├── mathpath_logo.png
+│   └── mathpath_welcome.png
+├── Documentacion.txt             # Notas de desarrollo breves
+└── LEER_ARCHIVOS.txt             # Guía de estructura del proyecto
+```
+
+### 2.2 Diagrama de Componentes
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                          MATHPATH                                  │
+├─────────────────────────────────────────────────────────────────────┤
+│  VISTA (Flet UI)  │  CONTROLADOR  │        MODELO (SQLite3)       │
+├───────────────────┼───────────────┼───────────────────────────────┤
+│  login_vista.py   │  config.py    │  gestor_db.py (Singleton)     │
+│  registro_vista   │  enrutador.py │                               │
+│  menu_vista.py    │               │  Tablas:                      │
+│  nivel_vista.py   │               │  - usuarios                   │
+│  perfil_vista.py  │               │  - ejercicios                 │
+│  logros_vista.py  │               │  - codigos_recuperacion       │
+│  [otras vistas]   │               │                               │
+└───────────────────┴───────────────┴───────────────────────────────┘
+                              │
+                              ▼
+                    ┌─────────────────┐
+                    │  utilidades/    │
+                    │  email_service  │
+                    │  trampa.py      │
+                    └─────────────────┘
+```
+
+---
+
+## 3. ORDEN DE DESARROLLO Y CREACIÓN DE ARCHIVOS
+
+A continuación se detalla el orden cronológico aproximado en que fueron desarrollados los archivos, basado en las dependencias lógicas y la arquitectura del sistema:
+
+### FASE 1: FUNDAMENTOS Y CONFIGURACIÓN (1-3)
+
+| Orden | Archivo | Propósito | Razón de Prioridad |
+|-------|---------|-----------|-------------------|
+| 1 | `src/modelos/database.py` | Esquema inicial de la base de datos | Sin BD no hay persistencia de usuarios |
+| 2 | `src/modelos/init_db.py` | Creación de usuario admin por defecto | Necesario para pruebas iniciales |
+| 3 | `src/config.py` | Configuración centralizada y utilidades compartidas | Evita código duplicado, define colores y rutas |
+
+### FASE 2: NÚCLEO DE DATOS (4-5)
+
+| Orden | Archivo | Propósito | Razón de Prioridad |
+|-------|---------|-----------|-------------------|
+| 4 | `src/gestor_db.py` | Clase singleton para operaciones de BD | Centraliza todas las queries, patron Singleton |
+| 5 | `src/enrutador.py` | Sistema de navegación entre vistas | Evita imports circulares, permite cambio de vistas |
+
+### FASE 3: AUTENTICACIÓN (6-9)
+
+| Orden | Archivo | Propósito | Razón de Prioridad |
+|-------|---------|-----------|-------------------|
+| 6 | `src/vistas/login_vista.py` | Pantalla de inicio de sesión | Primera interfaz de usuario necesaria |
+| 7 | `src/vistas/registro_vista.py` | Pantalla de registro de nuevos usuarios | Complementa el login para nuevos usuarios |
+| 8 | `src/utilidades/email_config.py` | Configuración SMTP | Prerrequisito para recuperación de contraseña |
+| 9 | `src/utilidades/email_service.py` | Servicio de envío de emails | Implementa el envío real de códigos |
+
+### FASE 4: VISTAS PRINCIPALES (10-14)
+
+| Orden | Archivo | Propósito | Razón de Prioridad |
+|-------|---------|-----------|-------------------|
+| 10 | `src/vistas/recuperar_password_vista.py` | Flujo completo de recuperación de contraseña | Necesita email_service y gestor_db |
+| 11 | `src/vistas/menu_vista.py` | Menú principal con progreso del usuario | Vista central después del login |
+| 12 | `src/vistas/etapas_vista.py` | Selector de etapas de aprendizaje | Navegación hacia el contenido educativo |
+| 13 | `src/vistas/nivel_vista.py` | Vista de ejercicio interactivo | Núcleo de la experiencia educativa |
+| 14 | `src/main.py` | Punto de entrada y configuración inicial | Integra todo, crea datos de ejercicios |
+
+### FASE 5: VISTAS SECUNDARIAS Y COMPLEMENTARIAS (15-19)
+
+| Orden | Archivo | Propósito | Razón de Prioridad |
+|-------|---------|-----------|-------------------|
+| 15 | `src/vistas/perfil_vista.py` | Perfil de usuario y estadísticas personales | Mejora engagement del usuario |
+| 16 | `src/vistas/logros_vista.py` | Sistema de logros y ranking | Componente gamificado |
+| 17 | `src/vistas/biblioteca_vista.py` | Material de consulta educativa | Recurso de apoyo al aprendizaje |
+| 18 | `src/vistas/ajustes_vista.py` | Personalización de avatar | Personalización del perfil |
+| 19 | `src/vistas/admin_vista.py` | Panel de administración | Gestión de usuarios (solo admin) |
+
+### FASE 6: UTILIDADES Y PRUEBAS (20)
+
+| Orden | Archivo | Propósito | Razón de Prioridad |
+|-------|---------|-----------|-------------------|
+| 20 | `src/utilidades/trampa.py` | Inyección de usuarios bots para testing | Datos de prueba para el ranking |
+
+---
+
+## 4. DESCRIPCIÓN DETALLADA DE MÓDULOS
+
+### 4.1 CONFIGURACIÓN CENTRALIZADA (`config.py`)
+
+**Ubicación**: `src/config.py`  
+**Líneas de código**: ~216  
+**Dependencias**: `sys`, `os`, `flet`
+
+#### Funciones Principales
+
+```python
+# Gestión de rutas multiplataforma
+def obtener_ruta_base()      # Detecta si es .exe o desarrollo
+def obtener_ruta_db()         # Ruta a mathpath.db
+def obtener_ruta_recurso()  # Ruta a imágenes y assets
+
+# Paleta de colores unificada
+COLORES = {
+    "fondo": "#0F172A",           # Azul oscuro Slate 900
+    "primario": "#9700c4",          # Púrpura vibrante
+    "primario_hover": "#7a00a0",    # Púrpura oscuro
+    "texto": "#FFFFFF",             # Blanco
+    "texto_secundario": "#94A3B8",  # Gris Slate 400
+    "error": "#BE123C",             # Rojo
+    "exito": "#22C55E",             # Verde
+    "advertencia": "#F59E0B",       # Amarillo
+    "oro": "#FACC15",               # Dorado
+    "plata": "#C0C0C0",             # Plateado
+    "bronce": "#CD7F32",            # Bronce
+}
+
+# Sistema de rangos gamificado
+RANGOS = {
+    "Novato":   ("#808080", "military_tech"),
+    "Bronce":   ("#CD7F32", "workspace_premium"),
+    "Plata":    ("#C0C0C0", "workspace_premium"),
+    "Oro":      ("#FACC15", "emoji_events"),
+    "Platino":  ("#2DD4BF", "workspace_premium"),
+    "Perla":    ("#F8FAFC", "stars"),
+    "Diamante": ("#22D3EE", "diamond"),
+}
+
+def obtener_info_rango(puntos)  # Calcula rango según puntuación
+```
+
+#### Sistema de Navegación Centralizada (`NavegadorCentral`)
+
+**Propósito**: Evitar el uso de `page.clean()` que causa parpadeos y pérdida de estado.
+
+**Funcionamiento**:
+1. Crea un layout persistente con sidebar fijo
+2. El contenido central cambia dinámicamente
+3. El sidebar se actualiza para reflejar la vista activa
+4. Mantiene `user_data` en memoria durante toda la sesión
+
+```python
+class NavegadorCentral:
+    def __init__(self, page)
+    def inicializar(user_data)           # Configura layout principal
+    def navegar_a(vista)                 # Cambia vista manteniendo sidebar
+    def actualizar_sidebar(vista_actual) # Actualiza selección visual
+    def cerrar_sesion(e)                 # Vuelve al login
+```
+
+---
+
+### 4.2 SISTEMA DE ENRUTAMIENTO (`enrutador.py`)
+
+**Ubicación**: `src/enrutador.py`  
+**Líneas de código**: ~79  
+**Dependencias**: `flet`
+
+#### Propósito
+
+Resolver el problema de **imports circulares** entre vistas. En lugar de que cada vista importe directamente a otras, todas se registran en un diccionario central.
+
+#### Funciones
+
+```python
+_vistas_registradas = {}  # Diccionario global de vistas
+
+def registrar_vista(nombre, funcion_vista)
+def navegar_a(page, nombre_vista, datos_usuario=None)
+def inicializar_vistas()   # Importaciones diferidas y registro
+```
+
+#### Vistas Registradas
+
+- `login` → `mostrar_login`
+- `registro` → `mostrar_registro`
+- `menu` → `mostrar_interfaz_camino`
+- `perfil` → `mostrar_perfil`
+- `etapas` → `mostrar_etapas`
+- `nivel` → `mostrar_nivel`
+- `logros` → `mostrar_logros`
+- `biblioteca` → `mostrar_biblioteca`
+- `ajustes` → `mostrar_ajustes`
+- `admin` → `mostrar_admin`
+
+---
+
+### 4.3 GESTOR DE BASE DE DATOS (`gestor_db.py`)
+
+**Ubicación**: `src/gestor_db.py`  
+**Líneas de código**: ~304  
+**Dependencias**: `sqlite3`, `datetime`, `config`
+
+#### Patrón Singleton
+
+```python
+class GestorDB:
+    _instance = None
+    
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(GestorDB, cls).__new__(cls)
+            cls._instance._inicializar()
+        return cls._instance
+```
+
+#### Tablas Gestionadas
+
+**1. Tabla `usuarios`**
+```sql
+CREATE TABLE usuarios (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL,
+    apellido TEXT NOT NULL,
+    nombre_usuario TEXT UNIQUE NOT NULL,
+    correo TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    etapa_actual INTEGER DEFAULT 1,
+    nivel_actual INTEGER DEFAULT 1,
+    puntos INTEGER DEFAULT 0,
+    racha_dias INTEGER DEFAULT 0,
+    rango TEXT DEFAULT 'Novato',
+    ultimo_acceso DATE,
+    vidas INTEGER DEFAULT 5,
+    ultima_recarga TEXT,
+    avatar TEXT DEFAULT 'face',
+    color_avatar TEXT DEFAULT '#9333EA'
+);
+```
+
+**2. Tabla `ejercicios`**
+```sql
+CREATE TABLE ejercicios (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    etapa INTEGER NOT NULL,
+    nivel INTEGER NOT NULL,
+    tipo TEXT NOT NULL,              -- seleccion, vf, completacion, conexion
+    enunciado TEXT NOT NULL,
+    ruta_imagen TEXT,
+    opcion_a TEXT,
+    opcion_b TEXT,
+    opcion_c TEXT,
+    opcion_d TEXT,
+    opcion_correcta TEXT NOT NULL,
+    puntos_otorga INTEGER DEFAULT 10
+);
+```
+
+**3. Tabla `codigos_recuperacion`**
+```sql
+CREATE TABLE codigos_recuperacion (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    correo TEXT NOT NULL,
+    codigo TEXT NOT NULL,
+    creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expira_en TIMESTAMP,
+    usado INTEGER DEFAULT 0
+);
+```
+
+#### Operaciones Principales
+
+| Categoría | Métodos |
+|-----------|---------|
+| Autenticación | `obtener_usuario_por_credenciales()`, `obtener_usuario_por_correo()` |
+| Usuarios | `crear_usuario()`, `actualizar_puntuacion()`, `actualizar_vidas()`, `actualizar_avatar()` |
+| Ejercicios | `obtener_ejercicio()`, `contar_ejercicios()`, `insertar_ejercicios_batch()` |
+| Recuperación | `guardar_codigo_recuperacion()`, `verificar_codigo_recuperacion()`, `marcar_codigo_usado()` |
+| Ranking | `obtener_top_usuarios()` |
+
+---
+
+### 4.4 SERVICIO DE EMAIL (`email_service.py`)
+
+**Ubicación**: `src/utilidades/email_service.py`  
+**Líneas de código**: ~83  
+**Dependencias**: `smtplib`, `random`, `string`, `email.message`
+
+#### Configuración SMTP (`email_config.py`)
+
+```python
+SMTP_HOST = "smtp.gmail.com"
+SMTP_PORT = 587
+SMTP_USER = "acurerocesarjose@gmail.com"
+SMTP_PASSWORD = "lbxa nydp xrgw ygqc"  # Contraseña de aplicación
+FROM_EMAIL = "acurerocesarjose@gmail.com"
+CODIGO_EXPIRACION_MINUTOS = 15
+```
+
+#### Funciones
+
+```python
+def generar_codigo_recuperacion(longitud=6)  # Código numérico aleatorio
+def enviar_email_recuperacion(destinatario, codigo)  # Envía email HTML + texto
+```
+
+#### Formato del Email
+
+- **Asunto**: "Codigo de recuperacion - MathPath"
+- **Cuerpo HTML**: Diseño con fondo oscuro (#0F172A), título en púrpura (#9700c4)
+- **Código destacado**: Tamaño 36px, color púrpura, espaciado de 5px entre dígitos
+- **Expiración**: 15 minutos configurables
+
+---
+
+## 5. FLUJO DE NAVEGACIÓN
+
+### 5.1 Diagrama de Flujo Principal
+
+```
+┌─────────────┐
+│   main.py   │  ← Pantalla de bienvenida con logo
+└──────┬──────┘
+       │
+       ▼
+┌─────────────────────┐
+│  mostrar_login()    │  ← Validación de credenciales
+│  (login_vista.py)   │     Opción: "Registrarme" o "Recuperar contraseña"
+└──────┬──────────────┘
+       │
+       ▼ (Login exitoso)
+┌─────────────────────────────┐
+│  NavegadorCentral           │  ← Sidebar persistente + contenido dinámico
+│  ├─ Perfil                  │
+│  ├─ Mi camino               │  ← Muestra progreso por etapas
+│  ├─ Etapa                   │  ← Selector visual de etapas
+│  ├─ Biblioteca              │  ← Material educativo de consulta
+│  ├─ Avatares                │  ← Personalización
+│  ├─ Logros                  │  ← Ranking y sistema de recompensas
+│  └─ Panel Admin (solo admin)│  ← Gestión de usuarios
+└─────────────────────────────┘
+       │
+       ▼ (Seleccionar nivel)
+┌─────────────────────────────┐
+│  mostrar_nivel()            │  ← Ejercicio interactivo
+│  (nivel_vista.py)           │     4 tipos de ejercicios
+└─────────────────────────────┘
+```
+
+### 5.2 Flujo de Recuperación de Contraseña
+
+```
+Paso 1: Solicitar email
+    ↓
+Paso 2: Verificar código (enviado por SMTP)
+    ↓
+Paso 3: Cambiar contraseña
+    ↓
+Retorno a login
+```
+
+---
+
+## 6. BASE DE DATOS
+
+### 6.1 Inicialización de Datos (`main.py`)
+
+La función `preparar_bd()` en `main.py` realiza:
+
+1. **Creación de tablas** (si no existen)
+2. **Inserción de usuario admin**: `admin / 1234`
+3. **Población de ejercicios**: 120 ejercicios predefinidos
+
+### 6.2 Distribución de Ejercicios
+
+| Etapa | Tema | Niveles | Ejercicios |
+|-------|------|---------|------------|
+| 1 | Fracciones Básicas | 1-20 | 20 |
+| 2 | Potencias | 1-20 | 20 |
+| 3 | Raíces Exactas | 1-20 | 20 |
+| 4 | Razones y Porcentajes | 1-20 | 20 |
+| 5 | Ecuaciones Nivel 1 | 1-20 | 20 |
+| 6 | Ecuaciones Nivel 2 | 1-20 | 20 |
+| **TOTAL** | | **120** | **120** |
+
+### 6.3 Tipos de Ejercicios
+
+| Tipo | Descripción | Estructura de datos |
+|------|-------------|---------------------|
+| `seleccion` | Opción múltiple A/B/C/D | 4 opciones, 1 correcta |
+| `vf` | Verdadero/Falso | 2 opciones: "Verdadero", "Falso" |
+| `completacion` | Respuesta escrita | Campo vacío, string de respuesta |
+| `conexion` | Unir conceptos | Opciones en formato "A\|B" para emparejar |
+
+---
+
+## 7. SISTEMA DE AUTENTICACIÓN
+
+### 7.1 Registro (`registro_vista.py`)
+
+**Validaciones implementadas**:
+
+1. **Campos vacíos**: Todos los campos obligatorios
+2. **Nombres**: Solo letras y espacios, mínimo 2 caracteres
+3. **Correo**: Formato válido con regex `^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$`
+4. **Usuario**: Alfanumérico con `_` `.` `-`, 3-20 caracteres
+5. **Contraseña**: Mínimo 6 caracteres
+6. **Confirmación**: Debe coincidir con la contraseña
+7. **Duplicados**: Verifica username y email únicos
+
+### 7.2 Login (`login_vista.py`)
+
+**Flujo de validación**:
+
+1. Campos vacíos
+2. Formato de usuario (regex)
+3. Longitud de contraseña (mínimo 6)
+4. Verificación en BD (usuario existe)
+5. Verificación de contraseña
+6. Inicialización del `NavegadorCentral`
+
+### 7.3 Recuperación de Contraseña
+
+**Flujo de 3 pasos**:
+
+1. **Solicitar email**: Valida formato y existencia en BD
+2. **Verificar código**: Comprueba código de 6 dígitos y expiración
+3. **Nueva contraseña**: Valida y actualiza en BD
+
+---
+
+## 8. MECÁNICAS DE JUEGO
+
+### 8.1 Sistema de Vidas
+
+- **Máximo**: 5 vidas
+- **Pérdida**: 1 vida por respuesta incorrecta
+- **Recarga**: Automática cada 4 horas (hasta 5 vidas)
+- **Visualización**: Indicador en "Mi Camino" con tiempo restante
+
+### 8.2 Sistema de Puntos
+
+- **Respuesta correcta**: +10 puntos (configurable por ejercicio)
+- **Progresión**: Etapa se completa al terminar nivel 20
+- **Desbloqueo**: Siguiente etapa se habilita automáticamente
+
+### 8.3 Tipos de Ejercicios (Implementación en `nivel_vista.py`)
+
+#### Selección Múltiple
+```python
+# Muestra 4 botones (A, B, C, D)
+# Cada botón tiene on_click que verifica contra respuesta_correcta
+```
+
+#### Verdadero/Falso
+```python
+# Dos botones: "Verdadero" y "Falso"
+# Comparación directa con respuesta_correcta ("A" o "B")
+```
+
+#### Completación
+```python
+# TextField para entrada libre
+# Normalización: lower().strip().replace(" ", "")
+# Comparación flexible (acepta "3/4" o "3/ 4")
+```
+
+#### Conexión
+```python
+# Sistema de emparejamiento visual
+# Formato de datos: "concepto|respuesta" en opciones
+# Validación especial: verifica pares correctos
+```
+
+---
+
+## 9. SISTEMA DE RANGOS Y PROGRESIÓN
+
+### 9.1 Rangos por Puntuación
+
+| Rango | Puntos Requeridos | Color | Icono Material |
+|-------|-------------------|-------|----------------|
+| Novato | 0-99 | #808080 (Gris) | military_tech |
+| Bronce | 100-199 | #CD7F32 | workspace_premium |
+| Plata | 200-399 | #C0C0C0 | workspace_premium |
+| Oro | 400-599 | #FACC15 | emoji_events |
+| Platino | 600-799 | #2DD4BF | workspace_premium |
+| Perla | 800-999 | #F8FAFC | stars |
+| Diamante | 1000+ | #22D3EE | diamond |
+
+### 9.2 Cálculo Dinámico
+
+```python
+def obtener_info_rango(puntos):
+    if puntos < 100:      return "Novato",   "#808080", "military_tech"
+    elif puntos < 200:    return "Bronce",   "#CD7F32", "workspace_premium"
+    elif puntos < 400:    return "Plata",    "#C0C0C0", "workspace_premium"
+    elif puntos < 600:    return "Oro",      "#FACC15", "emoji_events"
+    elif puntos < 800:    return "Platino",  "#2DD4BF", "workspace_premium"
+    elif puntos < 1000:   return "Perla",    "#F8FAFC", "stars"
+    else:                 return "Diamante", "#22D3EE", "diamond"
+```
+
+---
+
+## 10. RECURSOS GRÁFICOS
+
+### 10.1 Archivos en `recursos/`
+
+| Archivo | Uso | Dimensiones Aproximadas |
+|---------|-----|------------------------|
+| `icono_mathpath.png` | Favicon/Icono de ventana | 64x64 px |
+| `logo.ico` | Icono para Windows | Multi-resolución |
+| `logo.png` | Logo estándar | 500x200 px |
+| `logo_claro.png` | Logo optimizado (usado en sidebar) | 500x200 px |
+| `mathpath_logo.png` | Logo completo con tipografía | 800x400 px |
+| `mathpath_welcome.png` | Pantalla de bienvenida | 700x700 px |
+
+### 10.2 Paleta de Colores Aplicada
+
+```css
+/* Fondo principal */
+--bg-primary: #0F172A;      /* Slate 900 - fondo oscuro */
+--bg-secondary: #1E293B;    /* Slate 800 - tarjetas */
+--bg-input: #E2E8F0;        /* Slate 200 - campos de texto */
+
+/* Acentos */
+--accent-primary: #9700c4;   /* Púrpura MathPath */
+--accent-hover: #7a00a0;     /* Púrpura oscuro */
+
+/* Texto */
+--text-primary: #FFFFFF;   /* Blanco */
+--text-secondary: #94A3B8;  /* Slate 400 */
+--text-dark: #000000;       /* Negro para inputs */
+```
+
+---
+
+## 11. EMPAQUETAMIENTO Y DISTRIBUCIÓN
+
+### 11.1 Comando PyInstaller
+
+```powershell
+# Desde el directorio src/
+cd src
+
+pyinstaller --noconsole --onefile --add-data "../recursos;recursos" main.py
+```
+
+**Opciones**:
+- `--noconsole`: Oculta la ventana de consola
+- `--onefile`: Genera un único ejecutable .exe
+- `--add-data`: Incluye recursos gráficos en el bundle
+
+### 11.2 Estructura del Ejecutable
+
+```
+dist/
+└── main.exe              # Aplicación empaquetada (~15-20 MB)
+```
+
+### 11.3 Manejo de Rutas en Ejecutable
+
+```python
+# En config.py - detecta automáticamente el entorno
+if getattr(sys, 'frozen', False):
+    # Entorno PyInstaller
+    ruta_base = os.path.dirname(sys.executable)
+    ruta_recursos = os.path.join(sys._MEIPASS, "recursos")
+else:
+    # Entorno de desarrollo
+    ruta_base = os.path.dirname(os.path.abspath(__file__))
+    ruta_recursos = os.path.join(os.path.dirname(__file__), "..", "recursos")
+```
+
+---
+
+## 12. ARCHIVOS LEGACY (Mantenidos por compatibilidad)
+
+### 12.1 `modelos/database.py`
+
+- **Estado**: Legacy
+- **Función**: Esquema inicial simplificado (solo username/password)
+- **Reemplazado por**: `gestor_db.py` con esquema completo
+
+### 12.2 `modelos/init_db.py`
+
+- **Estado**: Legacy
+- **Función**: Creaba usuario admin básico
+- **Integrado en**: `main.py` → `preparar_bd()`
+
+### 12.3 `utilidades/trampa.py`
+
+- **Estado**: Utilidad de desarrollo
+- **Función**: Inyecta 8 "bots matemáticos" con nombres de científicos famosos
+- **Uso**: Ejecutar manualmente para poblar ranking de prueba
+- **Bots incluidos**: Ada Lovelace, Alan Turing, Carl Gauss, Marie Curie, Isaac Newton, Albert Einstein, Pitágoras, Leonhard Euler
+
+---
+
+## 13. CONVENCIONES DE CÓDIGO
+
+### 13.1 Estilo de Nombres
+
+| Tipo | Convención | Ejemplo |
+|------|------------|---------|
+| Funciones | snake_case | `mostrar_login()`, `obtener_ruta_db()` |
+| Clases | PascalCase | `GestorDB`, `NavegadorCentral` |
+| Constantes | UPPER_SNAKE | `COLORES`, `SMTP_HOST` |
+| Variables locales | snake_case | `user_data`, `etapa_actual` |
+| Privadas | _prefijo | `_instance`, `_vistas_registradas` |
+
+### 13.2 Estructura de Vistas
+
+Todas las vistas siguen el patrón:
+
+```python
+def mostrar_XXX(page: ft.Page, user_data=None):
+    # 1. Configuración de la página
+    page.clean()
+    page.title = "MathPath - XXX"
+    page.bgcolor = "#0F172A"
+    
+    # 2. Extracción de datos del usuario
+    if user_data:
+        user_id = user_data[0]
+        # ... extraer más campos
+    
+    # 3. Funciones auxiliares (manejadores de eventos)
+    def manejador_click(e):
+        pass
+    
+    # 4. Construcción de UI con Flet
+    layout = ft.Column([...])
+    
+    # 5. Renderizado
+    page.add(layout)
+    page.update()
+```
+
+---
+
+## 14. DEPENDENCIAS EXTERNAS
+
+### 14.1 Requerimientos (`requirements.txt` implícito)
+
+```
+flet==0.21.2
+# sqlite3 (incluido en stdlib)
+# smtplib (incluido en stdlib)
+# email (incluido en stdlib)
+# re (incluido en stdlib)
+# datetime (incluido en stdlib)
+```
+
+### 14.2 Framework Flet
+
+- **Versión**: 0.21.2
+- **Propósito**: Construcción de interfaces gráficas con sintaxis Python similar a Flutter
+- **Componentes principales usados**:
+  - `ft.Page`: Ventana principal
+  - `ft.Column`/`ft.Row`: Layouts
+  - `ft.TextField`: Inputs
+  - `ft.ElevatedButton`: Botones
+  - `ft.Container`: Contenedores estilizados
+  - `ft.SnackBar`: Notificaciones
+  - `ft.Image`: Visualización de recursos
+
+---
+
+## 15. CONCLUSIONES Y NOTAS DE ARQUITECTURA
+
+### 15.1 Decisiones de Diseño Clave
+
+1. **SQLite Local**: Se eligió SQLite sobre PostgreSQL/MySQL para facilitar la distribución (base de datos embebida en el ejecutable).
+
+2. **Singleton para BD**: El patrón singleton en `GestorDB` garantiza una única conexión activa y evita corrupción de datos.
+
+3. **Navegador Centralizado**: Evita el uso de `page.clean()` que causaba parpadeos visuales y pérdida de estado del sidebar.
+
+4. **Imports Diferidos en Enrutador**: Resuelve imports circulares entre vistas que se referencian mutuamente.
+
+5. **Configuración Centralizada**: `config.py` actúa como única fuente de verdad para colores, rutas y constantes.
+
+### 15.2 Escalabilidad
+
+- **Nuevas etapas**: Agregar más ejercicios a `preparar_bd()` en `main.py`
+- **Nuevos tipos de ejercicios**: Extender `nivel_vista.py` con nuevos handlers
+- **Nuevas vistas**: Registrar en `enrutador.py` y seguir convención de estructura
+- **Nuevos rangos**: Modificar `obtener_info_rango()` en `config.py`
+
+### 15.3 Mantenimiento
+
+- **Base de datos**: Se reinicia con cada ejecución si se borra `mathpath.db`
+- **Ejercicios**: Los 120 ejercicios se insertan automáticamente si la tabla está vacía
+- **Admin**: Siempre se crea con credenciales `admin / 1234`
+
+---
+
+**Documento generado**: Abril 2026  
+**Versión de la aplicación**: MathPath 1.0  
+**Autor del sistema**: Desarrollo académico de tesis
+
+---

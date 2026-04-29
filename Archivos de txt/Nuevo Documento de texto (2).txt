@@ -1,0 +1,130 @@
+# CONSTRUCCIÓN Y FUNCIONES DEL CÓDIGO MATHPATH
+
+## Evolución del Software y Referencia de Funciones
+
+---
+
+## FASE 1: CIMENTACIÓN DEL SISTEMA
+
+La construcción de MathPath comenzó estableciendo las bases técnicas que permitirían que toda la aplicación funcionara como una unidad coherente. El primer paso fue crear el archivo `config.py`, que contenía funciones esenciales para que el software operara correctamente tanto en modo desarrollo como empacado como ejecutable. La función `obtener_ruta_base()` detectaba automáticamente si el programa se ejecutaba desde el código fuente o desde un archivo generado por PyInstaller, permitiendo que las rutas a recursos y base de datos fueran dinámicas. Esta función utilizaba `getattr(sys, 'frozen', False)` para determinar el entorno de ejecución y retornaba la ruta adecuada en cada caso.
+
+Dentro del mismo archivo de configuración, se implementó `obtener_ruta_db()` que simplemente concatenaba la ruta base con el nombre del archivo de base de datos `mathpath.db`. Esta función resultó fundamental porque todos los módulos que necesitaban acceder a la base de datos importaban esta función en lugar de hardcodear rutas, haciendo que el sistema fuera portable. También se creó `obtener_ruta_recurso()` para localizar imágenes y otros archivos estáticos, considerando que en un ejecutable PyInstaller los recursos se extraen temporalmente en carpetas diferentes a las del código fuente.
+
+La clase `NavegadorCentral` representó uno de los desarrollos más importantes de esta fase inicial. Su método `__init__` recibía el objeto `page` de Flet y lo almacenaba para uso posterior. El método `inicializar()` configuraba el layout principal de toda la aplicación, creando un sidebar persistente a la izquierda y un contenedor central dinámico. Esta arquitectura evitaba el uso repetido de `page.clean()`, que causaba parpadeos visuales. El método `_crear_sidebar()` generaba dinámicamente los botones de navegación según el tipo de usuario, agregando la opción de Panel Admin solo cuando detectaba que el usuario era el administrador.
+
+El método `navegar_a()` de la clase `NavegadorCentral` implementaba el corazón del sistema de rutas interno. Esta función recibía un string indicando la vista destino, realizaba imports dinámicos de los módulos correspondientes, ejecutaba la función de contenido pasándole los datos del usuario, y actualizaba el sidebar para reflejar visualmente la nueva ubicación. El método `actualizar_sidebar()` regeneraba la barra lateral con el botón de la vista actual resaltado en color púrpura. Finalmente, `cerrar_sesion()` limpiaba la página completamente y redirigía al login, destruyendo la sesión activa.
+
+El archivo `enrutador.py` se desarrolló como solución al problema de imports circulares. Se definió un diccionario global `_vistas_registradas` que funcionaba como registro central de todas las vistas disponibles. La función `registrar_vista()` añadía entradas a este diccionario asociando nombres de vistas con las funciones que las renderizaban. La función `navegar_a()` permitía cambiar entre vistas usando solo el nombre registrado y opcionalmente los datos del usuario. La función `inicializar_vistas()` se encargaba de importar todos los módulos de vistas y registrarlos, utilizando imports diferidos para evitar que Python detectara dependencias circulares al cargar los archivos.
+
+---
+
+## FASE 2: CAPA DE PERSISTENCIA DE DATOS
+
+La construcción continuó con el desarrollo del sistema de almacenamiento mediante el archivo `gestor_db.py`, que implementaba el patrón Singleton para garantizar una única conexión activa a la base de datos SQLite. El método `__new__` de la clase `GestorDB` verificaba si ya existía una instancia de la clase y, de no ser así, creaba una nueva llamando a `_inicializar()`. Este patrón aseguraba que múltiples partes del código pudieran usar la base de datos simultáneamente sin crear conexiones duplicadas que pudieran corromper los datos.
+
+El método `_conectar()` abría una conexión a SQLite usando la ruta proporcionada por `obtener_ruta_db()` del módulo de configuración. El método `_crear_tablas()` ejecutaba sentencias SQL para crear tres tablas fundamentales: `usuarios` con todos los campos de perfil y progreso, `ejercicios` con el contenido educativo, y `codigos_recuperacion` para el sistema de reseteo de contraseñas. Las operaciones de usuario incluían `crear_usuario()` que intentaba insertar un nuevo registro capturando errores de integridad para evitar duplicados, retornando booleanos indicando éxito o fallo.
+
+La función `obtener_usuario_por_credenciales()` realizaba búsquedas en la tabla de usuarios filtrando por nombre de usuario y contraseña, retornando toda la tupla de datos del usuario si las credenciales coincidían. Su contraparte `obtener_usuario_por_correo()` buscaba exclusivamente por dirección de correo electrónico, siendo esencial para el proceso de recuperación de contraseña. El método `actualizar_puntuacion()` modificaba los puntos acumulados del usuario y opcionalmente su etapa y nivel actuales cuando avanzaba en el contenido educativo.
+
+El sistema de vidas se implementó mediante `actualizar_vidas()`, que recibía el ID de usuario, cantidad de vidas y timestamp de última recarga. Para el ranking de usuarios, `obtener_top_usuarios()` ejecutaba una consulta SQL ordenando por puntos descendente y limitando los resultados. En cuanto a ejercicios, `obtener_ejercicio()` buscaba registros específicos por etapa y nivel, mientras que `contar_ejercicios()` verificaba si ya existían ejercicios en la base para decidir si poblarla inicialmente.
+
+Para la recuperación de contraseña, se implementaron tres métodos especializados. `guardar_codigo_recuperacion()` marcaba códigos anteriores como usados e insertaba uno nuevo con timestamp de expiración calculado sumando minutos a la hora actual usando `datetime.now() + timedelta()`. `verificar_codigo_recuperacion()` comprobaba que un código existiera, no estuviera usado y no hubiera expirado comparando contra la hora actual de la base de datos. Finalmente, `marcar_codigo_usado()` actualizaba el estado del código para evitar reutilizaciones después del cambio de contraseña exitoso.
+
+---
+
+## FASE 3: SERVICIOS AUXILIARES
+
+El archivo `email_config.py` estableció las constantes de configuración para el servicio de correo, definiendo `SMTP_HOST` como el servidor de Gmail, `SMTP_PORT` como 587 para conexión TLS, y las credenciales de autenticación incluyendo una contraseña de aplicación de 16 caracteres generada específicamente para este propósito. Esta separación de configuración permitía modificar los parámetros de email sin tocar la lógica de envío.
+
+El servicio de email propiamente dicho se implementó en `email_service.py` con dos funciones principales. `generar_codigo_recuperacion()` utilizaba `random.choices()` con `string.digits` para crear cadenas aleatorias de seis números, proporcionando un millón de combinaciones posibles. `enviar_email_recuperacion()` construía mensajes usando la clase `EmailMessage` del módulo `email.message`, configurando tanto versión de texto plano como HTML con estilos CSS inline usando la paleta de colores de la aplicación.
+
+Esta función manejaba múltiples excepciones: `SMTPAuthenticationError` para credenciales incorrectas, `SMTPException` para errores de protocolo, y una captura genérica de `Exception` para casos imprevistos. El flujo establecía conexión con `smtplib.SMTP()`, iniciaba TLS con `starttls()`, autenticaba con `login()`, enviaba con `send_message()` y cerraba con `quit()`. El mensaje HTML incluía el código destacado con fuente de 36 píxeles y color púrpura para máxima visibilidad.
+
+El archivo `trampa.py` proporcionó una utilidad de desarrollo mediante la función `inyectar_jugadores_falsos()`, que insertaba ocho usuarios ficticios con nombres de científicos matemáticos históricos como Ada Lovelace, Alan Turing y Albert Einstein. Cada bot tenía puntos, etapas y rangos predefinidos para poblar visualmente el ranking durante las pruebas. La función iteraba sobre una lista de tuplas, intentaba insertar cada una capturando errores de integridad si el usuario ya existía, y reportaba cuántos fueron agregados exitosamente.
+
+---
+
+## FASE 4: CONSTRUCCIÓN DE VISTAS DE AUTENTICACIÓN
+
+El desarrollo de interfaces comenzó con `login_vista.py`, cuya función principal `mostrar_login()` configuraba la página de Flet estableciendo título, color de fondo púrpura oscuro, y alineaciones centr tanto vertical como horizontal. Dentro de esta función, se definía anidada la función `mostrar_mensaje()` que creaba `SnackBar` para notificaciones temporales con colores dinámicos según el tipo de mensaje.
+
+La función `login_click()` manejaba todo el flujo de autenticación. Primero extraía y sanitizaba los valores de los campos de texto usando `strip()`. Aplicaba validaciones secuenciales: campos vacíos mediante verificación de strings vacíos, formato de usuario con regex `^[a-zA-Z0-9_.-]{3,20}$`, y longitud mínima de contraseña. Luego conectaba a la base de datos usando `sqlite3.connect()` con la ruta centralizada, ejecutaba una consulta preparada con `execute()` pasando tuplas como parámetros para prevenir inyección SQL.
+
+La consulta primero verificaba existencia del usuario, luego validaba la contraseña. Si ambas comprobaciones pasaban, invocaba `obtener_navegador()` para inicializar el sistema de navegación persistente y redirigía al menú principal. En caso de fallo, mostraba mensajes específicos diferenciando entre usuario inexistente y contraseña incorrecta, limpiando el campo de contraseña mediante asignación de string vacío.
+
+El archivo `registro_vista.py` contenía `mostrar_registro()` con una función auxiliar `crear_tf()` que generaba campos de texto configurados consistentemente con bordes invisibles, fondo gris claro, iconos prefijos y colores personalizados. La función `registrar_click()` ejecutaba seis validaciones secuenciales: campos vacíos con `all()`, nombres con letras y espacios mediante regex, formato de correo electrónico con patrón estándar, formato de usuario alfanumérico, longitud mínima de contraseña, y coincidencia entre contraseña y confirmación.
+
+Antes de insertar, verificaba duplicados consultando primero por nombre de usuario y luego por correo, proporcionando mensajes de error específicos para cada caso. La inserción usaba una consulta SQL con placeholders `?` y una tupla de valores. Tras éxito, mostraba confirmación y usaba `time.sleep()` para pausa dramática antes de redirigir al login mediante `ir_a_login()`, función que importaba dinámicamente para evitar dependencias circulares.
+
+---
+
+## FASE 5: DESARROLLO DEL SISTEMA DE NAVEGACIÓN PRINCIPAL
+
+El archivo `menu_vista.py` implementó la vista central de la aplicación mediante `mostrar_interfaz_camino()`. Esta función comenzaba extrayendo datos del usuario del parámetro recibido, verificando que `user_data` no fuera nulo y tuviera al menos trece elementos accesibles. Obtenía el ID de usuario, etapa y nivel actuales, puntos totales, racha de días y vidas disponibles. El sistema de recarga automática de vidas calculaba la diferencia temporal entre la última recarga registrada y la hora actual usando `datetime.strptime()` para parsear y `datetime.now()` para obtener momento presente.
+
+La diferencia se convertía a horas totales mediante `total_seconds() / 3600`, y si superaba cuatro horas, ejecutaba una actualización SQL para restablecer vidas a cinco. Si no, calculaba el tiempo restante descomponiendo en horas y minutos mediante operaciones módulo y división entera. La función contenía la lógica de rangos `obtener_info_rango()` que retornaba tuplas de nombre, color e icono según umbrales de puntos, usando condicionales encadenados que verificaban de menor a mayor puntuación.
+
+La construcción visual del camino progresivo utilizaba un bucle `for` sobre veinte niveles, creando contenedores visualmente diferenciados según el estado: niveles completados usaban color púrpura con icono de check, nivel actual usaba borde amarillo brillante con animación sutil, niveles bloqueados usaban gris con icono de candado. Cada contenedor respondía al evento de clic mediante `on_click` que invocaba `mostrar_nivel()` del módulo `nivel_vista` importado localmente dentro del handler.
+
+El archivo `etapas_vista.py` proporcionaba `mostrar_etapas()` como selector visual de etapas temáticas. Extraía la etapa máxima desbloqueada del usuario y generaba seis botones representando cada etapa matemática. Las etapas bloqueadas mostraban candados visuales y no respondían a interacciones, mientras que las desbloqueadas permitían clic para navegar al camino de esa etapa específica mediante `mostrar_interfaz_camino(page, user_data, etapa_vista=num_etapa)`, donde el parámetro `etapa_vista` permitía ver etapas previas sin afectar el progreso real del usuario.
+
+---
+
+## FASE 6: IMPLEMENTACIÓN DEL MOTOR DE EJERCICIOS
+
+El archivo `nivel_vista.py` contenía la lógica más compleja del sistema educativo. La función `mostrar_nivel()` recibía datos de usuario y etapa opcional, determinando el ejercicio a mostrar mediante consulta SQL filtrando por etapa y nivel actuales. Si no encontraba ejercicio, mostraba mensaje de próximamente; si lo encontraba, desempaquetaba la tupla de resultado en variables individuales: tipo, enunciado, opciones y respuesta correcta.
+
+Para ejercicios de selección múltiple, generaba cuatro botones etiquetados A-D usando un diccionario de opciones y el método `items()`. Cada botón tenía su propio handler `verificar_respuesta()` que comparaba la letra seleccionada contra `respuesta_correcta`. Para verdadero/falso, mostraba solo dos botones con texto literal. Para completación, creaba un `TextField` donde el usuario escribía libremente, aplicando normalización de `lower().strip().replace(" ", "")` antes de comparar contra la respuesta almacenada.
+
+Los ejercicios de conexión requerían lógica especial: parseaban el formato "A|B" de las opciones dividiendo por pipe, mantenían estado de selección mediante variables externas, y verificaban pares cuando el usuario hacía dos selecciones consecutivas. El sistema de retroalimentación utilizaba `SnackBar` con colores verde para correcto y rojo para incorrecto, aplicando `page.update()` para refrescar inmediatamente.
+
+Al responder correctamente, incrementaba puntos mediante consulta SQL UPDATE sumando los puntos otorgados por el ejercicio. Si completaba el nivel veinte, actualizaba etapa y reiniciaba nivel a uno. Si respondía incorrectamente, decrementaba vidas y verificaba si llegaba a cero, redirigiendo al menú si se quedaba sin vidas disponibles. Cada resultado actualizaba la base de datos inmediatamente para persistencia de estado.
+
+---
+
+## FASE 7: VISTAS SECUNDARIAS Y COMPLEMENTARIAS
+
+El archivo `perfil_vista.py` implementó `mostrar_perfil()` como dashboard informativo. Esta función organizaba visualmente los datos del usuario en tarjetas usando `ft.Card` con sombras y bordes redondeados. Mostraba avatar con icono y color personalizados usando el componente `ft.Icon` con tamaño 64 y color dinámico desde `user_data`. Las estadísticas se presentaban en grid de dos columnas usando `ft.ResponsiveRow`, mostrando puntos totales, rango calculado mediante `obtener_info_rango()`, etapa y nivel actuales, racha de días consecutivos, vidas disponibles con indicador visual, y fecha de último acceso formateada.
+
+La función `contenido_perfil()` permitió integrar esta vista dentro del sistema de navegación centralizada, adaptándola para mostrarse dentro del contenedor central preservando el sidebar. Esta función recibía los mismos parámetros pero retornaba el contenido como objeto Flet en lugar de añadirlo directamente a la página, permitiendo que el `NavegadorCentral` lo insertara donde correspondía.
+
+El archivo `logros_vista.py` desarrolló el sistema de gamificación con `mostrar_logros()` y `contenido_logros()`. Esta función consultaba los usuarios con más puntos mediante `db.obtener_top_usuarios()`, iteraba sobre los resultados creando filas de tabla con posición, avatar dinámico según su configuración personal, nombre de usuario, puntos formateados con separador de miles, y badge de rango con color correspondiente. El usuario actual se resaltaba con fondo púrpura semitransparente para fácil identificación en la tabla.
+
+El archivo `biblioteca_vista.py` proporcionó `mostrar_biblioteca()` con contenido educativo estático organizado por etapas. Utilizaba `ft.ExpansionTile` para crear secciones colapsables que el usuario podía expandir para leer teoría matemática sin consumir vidas ni afectar su progreso. Cada etapa contenía explicaciones sobre los conceptos que luego se practicaban en los ejercicios, sirviendo como referencia consultable durante el aprendizaje.
+
+El archivo `ajustes_vista.py` permitió personalización mediante `mostrar_ajustes()` y `contenido_ajustes()`. Presentaba una grilla de iconos seleccionables de Material Design, cada uno con su propio `on_click` que actualizaba el avatar en la base de datos mediante `db.actualizar_avatar()` y refrescaba la vista para mostrar la selección actual. Incluía también un selector de color con botones circulares de diferentes colores predefinidos, aplicando el cambio inmediatamente al perfil del usuario.
+
+---
+
+## FASE 8: PANEL DE ADMINISTRACIÓN
+
+El archivo `admin_vista.py` implementó `mostrar_admin()` y `contenido_admin()` como interfaz de supervisión. Esta función comenzaba verificando que el usuario actual fuera efectivamente el administrador comparando el nombre de usuario. Si la verificación fallaba, mostraba mensaje de acceso denegado. Si pasaba, consultaba todos los usuarios registrados con `db._conectar()` y una consulta SQL directa.
+
+Presentaba los datos en tabla con columnas para ID, nombre completo concatenado, nombre de usuario, correo electrónico, puntos, etapa y nivel actuales, y fecha de registro implícita. Cada fila incluía botones de acción para futuras funcionalidades de gestión. La interfaz permitía al administrador tener visión global del rendimiento de todos los estudiantes registrados en el sistema, identificar quiénes avanzaban más rápido y quiénes podrían necesitar apoyo adicional basándose en su progreso por etapas.
+
+---
+
+## FASE 9: INTEGRACIÓN Y PUNTO DE ENTRADA
+
+El archivo `main.py` consolidó toda la aplicación mediante la función `preparar_bd()` y la función principal `main()`. La función de preparación ejecutaba SQL CREATE TABLE IF NOT EXISTS para las tablas de usuarios y ejercicios, asegurando que la estructura existiera antes de usarla. Intentaba insertar el usuario administrador por defecto capturando `sqlite3.IntegrityError` si ya existía para evitar duplicados.
+
+Verificaba si la tabla de ejercicios estaba vacía mediante `SELECT COUNT(*)`, y si retornaba cero, poblaba la base con las seis listas de ejercicios predefinidos. Cada lista contenía veinte tuplas con los datos completos de ejercicios para una etapa específica, incluyendo tipo, enunciado, cuatro opciones y respuesta correcta. Combinaba todas las listas mediante concatenación con `+` e insertaba en batch usando `executemany()` para eficiencia.
+
+La función `main()` recibía el objeto `page` de Flet y configuraba propiedades de ventana: título, dimensiones iniciales de 800x600 píxeles, capacidad de redimensionar, inicio maximizado, color de fondo y alineaciones. Creaba la pantalla de bienvenida con logo grande, título, subtítulo y botón de inicio que llamaba a `mostrar_login()`. Al finalizar, configuraba el directorio de assets para que Flet encontrara las imágenes, usando `sys._MEIPASS` si existía (entorno PyInstaller) o la ruta relativa al proyecto en desarrollo.
+
+La sección `if __name__ == "__main__"` llamaba a `inicializar_vistas()` antes de iniciar la aplicación Flet, asegurando que todas las vistas estuvieran registradas en el enrutador antes de que cualquier código intentara navegar entre ellas. Esta secuencia de inicialización fue crítica para evitar errores de navegación durante la ejecución.
+
+---
+
+## FASE 10: FLUJO DE RECUPERACIÓN DE CONTRASEÑA
+
+El archivo `recuperar_password_vista.py` implementó `mostrar_recuperar_password()` como máquina de estados de tres pasos, controlada por el parámetro `paso`. En paso uno, solicitaba correo electrónico validando formato con regex, verificando existencia en base de datos mediante `db.obtener_usuario_por_correo()`, generando código con `generar_codigo_recuperacion()` y enviando email con `enviar_email_recuperacion()`.
+
+Si el envío era exitoso, almacenaba el correo y código temporalmente y avanzaba a paso dos mediante recursión con parámetros actualizados. El paso dos mostraba campos para ingresar el código recibido, verificándolo contra la base de datos con `db.verificar_codigo_recuperacion()` y marcándolo como usado con `db.marcar_codigo_usado()` tras validación exitosa. El paso tres solicitaba nueva contraseña con dos campos para confirmación, validando longitud mínima y coincidencia, finalizando con `db.actualizar_password()` y redirección al login.
+
+---
+
+## RESUMEN DE ARQUITECTURA DE FUNCIONES
+
+La construcción de MathPath siguió un patrón de capas donde `config.py` proveía utilidades de infraestructura, `gestor_db.py` encapsulaba toda persistencia, `enrutador.py` desacoplaba navegación, los archivos de `vistas/` implementaban interfaces específicas, y `main.py` orquestaba la inicialización. Las funciones se diseñaron con responsabilidad única: validación de entrada en vistas, lógica de negocio en gestores, presentación en componentes Flet, y persistencia en operaciones SQL parametrizadas. El flujo de datos movía tuplas de SQLite hasta las vistas, donde se desempaquetaban en variables individuales para construir interfaces dinámicas según el estado actual del usuario.
+
