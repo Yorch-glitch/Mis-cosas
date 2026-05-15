@@ -1,0 +1,246 @@
+﻿var resource = [
+	// --------------------------------------------------------------------------------------------
+	// HEADER
+	// --------------------------------------------------------------------------------------------
+	{
+		id:		"title",
+		value:	"Guía de instalación del controlador de impresora"
+	},{
+		id:		"home",
+		value:	"Inicio"
+	},{
+		id:		"contents",
+		value:	"Índice"
+	},{
+		id:		"sitemap",
+		value:	"Índice"
+	},{
+		id:		"search",
+		value:	"Buscar"
+	},{
+		id:		"help",
+		value:	"Ayuda"
+	},{
+		id:		"bar_icon_print",
+		value:	"Imprimir<img src=\"../frame_images/bar_icon_print.png\" title=\"Imprimir este tema\" />"
+	},{
+		id:		"product_name",
+		value:	"Guía de instalación del controlador de impresora"
+
+	// --------------------------------------------------------------------------------------------
+	// FOOTER
+	// --------------------------------------------------------------------------------------------
+	},{
+		id:		"copy_right",
+		value:	"Copyright CANON INC. 2014"
+	},{
+		id:		"notice",
+		value:	"Aviso"
+	},{
+		id:		"pub_number",
+		value:	"USRM2-4768-00"
+	// --------------------------------------------------------------------------------------------
+	// NAV
+	// --------------------------------------------------------------------------------------------
+	},{
+		id:		"print_all",
+		value:	"Imprimir todo"
+	},{
+		id:		"print_instructions",
+		value:	"Imprimir esta página con el menú [Imprimir] del navegador."
+	},{
+		id:		"close_toc_all",
+		value:	"Contraer todo"
+	},{
+		id:		"open_toc_all",
+		value:	"Expandir todo"
+	},{
+		id:		"bar_icon_previous",
+		value:	"<img src=\"../frame_images/bar_icon_prev.png\" title=\"Ir al tema anterior\" />"
+	},{
+		id:		"bar_icon_next",
+		value:	"<img src=\"../frame_images/bar_icon_next.png\" title=\"Ir al tema siguiente\" />"
+
+	// --------------------------------------------------------------------------------------------
+	// SITEMAP
+	// --------------------------------------------------------------------------------------------
+	},{
+		id:		"contents_link_prev",
+		value:	"Anterior"
+	},{
+		id:		"contents_link_next",
+		value:	"Siguiente"
+
+	// --------------------------------------------------------------------------------------------
+	// SEARCH
+	// --------------------------------------------------------------------------------------------
+	},{
+		id:		"search_options_show",
+		value:	"Opciones de búsqueda"
+	},{
+		id:		"search_options_hide",
+		value:	"Opciones de búsqueda"
+	},{
+		id:		"search_options_case",
+		value:	"Distinguir mayúsculas de minúsculas"
+	},{
+		id:		"search_options_multibyte",
+		value:	"Diferenciar entre un byte y dos bytes"
+	},{
+		id:		"search_options_search_scope_all",
+		value:	"Buscar todos los capítulos"
+	},{
+		id:		"search_prev",
+		value:	"« Anterior"
+	},{
+		id:		"search_next",
+		value:	"Siguiente »"
+	},{
+		id:		"search_found",
+		value:	"resultado(s)"
+	},{
+		id:		"search_options_search_scope_chapter",
+		value:	"Buscar en los siguientes capítulos"
+	},{
+		id:		"enter_search_keyword",
+		value:	"Introduzca aquí la(s) palabra(s) clave"
+	},{
+		id:		"search_button",
+		value:	"Buscar con estas condiciones"
+	},{
+		id:		"search_glossary",
+		value:	"Buscar temas que utilicen esta terminología..."
+	},{
+		id:		"search_glossary_not_found",
+		value:	"No se encontraron temas."
+	},{
+		id:		"search_result_item",
+		value:	"Buscar:"
+	}
+];
+var link = [
+	// --------------------------------------------------------------------------------------------
+	// HEADER
+	// --------------------------------------------------------------------------------------------
+	{
+		link_name:"home",
+		link_target:"_self",
+		link_href:"../frame_htmls/home.html"
+	},{
+		link_name:"sitemap",
+		link_target:"_self",
+		link_href:"../frame_htmls/contents.html"
+	},{
+		link_name:"help",
+		link_target:"_self"
+
+	// --------------------------------------------------------------------------------------------
+	// FOOTER
+	// --------------------------------------------------------------------------------------------
+	},{
+		link_name:"notice",
+		link_target:"_self",
+		link_resource:"notice",
+		link_href:""
+	}
+];
+var header = "home,sitemap,help,print";
+var footer = "notice";
+var constant = [
+	{
+		/* Remove "//" below to specify the language code. Simplified Chinese must be specified as "zh-CN". Traditional Chinese must be specified as "zh-TW". */
+		//lang_code:					"en",
+		search_show_around:			50,
+		search_show_result_count:	10,
+		search_page_max_range:		5,
+		search_help:				"search",
+		search_option_multibyte:	0,	// [0|1]
+		join_chapters:				0,	// [0|1]
+		markup_glossary:			0,	// [0|1]
+		link_to_top:				0	// [0|1]
+	}
+];
+var link_to_top_title = [
+	{
+	lang:		"ja",
+		title:		"このページのトップへ"
+	},{
+		lang:		"en",
+		title:		"Back to Top"
+	},{
+		lang:		"fr",
+		title:		"Haut de page"
+	},{
+		lang:		"it",
+		title:		"Torna all'inizio"
+	},{
+		lang:		"de",
+		title:		"Zurück zum Seitenanfang"
+	},{
+		lang:		"es",
+		title:		"Volver al principio"
+	},{
+		lang:		"ko",
+		title:		"맨 위로 이동"
+	},{
+		lang:		"zh-CN",
+		title:		"返回首行"
+	},{
+		lang:		"zh-TW",
+		title:		"移至首行"
+	},{
+		lang:		"pt",
+		title:		"Voltar ao Topo"
+	},{
+		lang:		"ca",
+		title:		"Tornar al principi"
+	},{
+		lang:		"cs",
+		title:		"Zpět na začátek"
+	},{
+		lang:		"da",
+		title:		"Tilbage til toppen"
+	},{
+		lang:		"fi",
+		title:		"Takaisin ylös"
+	},{
+		lang:		"nl",
+		title:		"Terug naar boven"
+	},{
+		lang:		"pl",
+		title:		"Powrót do góry"
+	},{
+		lang:		"pt",
+		title:		"Voltar ao início"
+	},{
+		lang:		"ru",
+		title:		"В начало"
+	},{
+		lang:		"sv",
+		title:		"Tillbaka till början"
+	},{
+		lang:		"default",
+		title:		"Back to Top"
+	}
+];
+var cover = [
+	{
+		cover_name:"intro",
+		cover_title:"Introducción"
+	},{
+		cover_name:"install",
+		cover_title:"Instalación"
+	},{
+		cover_name:"server",
+		cover_title:"Configuración de un servidor de impresión"
+	},{
+		cover_name:"uninstall",
+		cover_title:"Actualización y desinstalación"
+	},{
+		cover_name:"trouble",
+		cover_title:"Solución de problemas"
+	},{
+		cover_name:"others",
+		cover_title:"Apéndice"
+	}
+];

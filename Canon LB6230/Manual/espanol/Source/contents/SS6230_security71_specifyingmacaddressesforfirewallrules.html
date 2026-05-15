@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="es" xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta name="Generator" content="CAESAR" />
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+		<meta http-equiv="content-style-type" content="text/css" />
+		<meta http-equiv="content-script-type" content="text/javascript" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Especificación de direcciones MAC para las reglas de firewall - e-Manual</title>
+		<link rel="stylesheet" type="text/css" href="../styles/frame_style.css" />
+		<link rel="stylesheet" type="text/css" href="../styles/frame_sub.css" disabled="disabled" title="sub" />
+		<link href="styles/style000/style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" charset="UTF-8" src="../jsons/resource.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../jsons/toc.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../jsons/search.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../scripts/jquery.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="../scripts/library.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="../scripts/script.js"></script>
+	</head>
+	<body>
+		<div class="page">
+			<div class="center">
+				<div class="header" id="id_header">
+					<div class="right"><ul id="id_header_include"></ul></div>
+					<a href="../frame_htmls/home.html">
+						<img src="../frame_images/C100.gif" title="Canon" class="canon_logo" />
+					</a>
+					<img src="../frame_images/f_product_logo.gif" class="product_logo" />
+				</div>
+				<div class="left" id="id_left">
+					<div class="tab"><button id="id_res_contents" class="active"></button><button id="id_res_search" class="inactive"></button></div>
+					<div class="chapter_title"><span class="chapter_title_left"></span><span class="chapter_title_center" id="id_chapter_title"></span><span class="chapter_title_right"><button id="id_btn_toggle_s"></button><button id="id_btn_toggle_l"></button></span></div>
+					<div id="id_panel_toc">
+						<div class="open_close"><a id="id_res_open_toc_all" href="javascript:void(0);"></a>
+									|
+									<a id="id_res_close_toc_all" href="javascript:void(0);"></a></div>
+						<ul id="id_chapter_icons"></ul>
+						<ul id="id_toc"></ul>
+						<div class="print"><a id="id_res_print_all" href="javascript:void(0);"></a></div>
+					</div>
+					<div id="id_panel_search">
+						<div class="input">
+							<input name="search" type="text" id="id_search" onkeydown="return fncSearchKeyDown(event.keyCode, this.value);" />
+							<button id="id_search_button"></button>
+							<div class="search_options"><button id="id_res_search_options_show"></button></div>
+						</div>
+						<div id="id_search_options">
+							<ul>
+								<li>
+									<input type="radio" name="search_options_search_scope" id="id_search_options_search_scope_all" />
+									<label for="id_search_options_search_scope_all" id="id_res_search_options_search_scope_all"></label>
+								</li>
+								<li>
+									<input type="radio" name="search_options_search_scope" id="id_search_options_search_scope_chapter" />
+									<label for="id_search_options_search_scope_chapter" id="id_res_search_options_search_scope_chapter"></label>
+								</li>
+							</ul>
+							<div id="id_search_chapters"></div>
+							<ul>
+								<li>
+									<input type="checkbox" id="id_search_options_case" />
+									<label for="id_search_options_case" id="id_res_search_options_case"></label>
+								</li>
+								<li>
+									<input type="checkbox" id="id_search_options_multibyte" />
+									<label for="id_search_options_multibyte" id="id_res_search_options_multibyte"></label>
+								</li>
+							</ul>
+							<div class="bottom"><button id="id_res_search_button"></button></div>
+						</div>
+						<div id="id_search_results"></div>
+						<div id="id_search_status"></div>
+					</div>
+				</div>
+				<div class="right" id="id_right">
+					<div id="id_breadcrumbs"><a href="../frame_htmls/home.html" id="id_res_home"></a> » <a href="SS6230_security66_security.html" id="id_level_1" toc_id="SS6230_security66_security" title="Seguridad" >Seguridad</a> » <a href="SS6230_security67_protectingthemachinefromunauthorizedaccess.html" id="id_level_2" toc_id="SS6230_security67_protectingthemachinefromunauthorizedaccess" title="Protección del equipo del acceso no autorizado" >Protección del equipo del acceso no autorizado</a> » <a href="SS6230_security69_restrictingcommunicationbyusingfirewalls.html" id="id_level_3" toc_id="SS6230_security69_restrictingcommunicationbyusingfirewalls" title="Restricción de la comunicación utilizando firewalls" >Restricción de la comunicación utilizando firewalls</a> » <a id="id_level_4" toc_id="SS6230_security71_specifyingmacaddressesforfirewallrules" title="Especificación de direcciones MAC para las reglas de firewall" >Especificación de direcciones MAC para las reglas de firewall</a></div>
+					<div id="id_document_number">0KXF-02X</div>
+					<div class="nav"><button id="id_res_bar_icon_previous"></button><button id="id_res_bar_icon_next"></button></div>
+					<!--CONTENT_START-->
+					<div id="id_content">
+						<div class="h1"><a id="06010020_020"></a>Especificación de direcciones MAC para las reglas de firewall</div>
+						<div class="lead">Usted puede permitir que se establezca comunicación solamente con aquellos dispositivos que tengan unas direcciones MAC concretas y rechazar la comunicación con otros dispositivos. Asimismo, puede configurar las opciones para rechazar la comunicación con dispositivos que tengan unas direcciones MAC concretas y permitir el resto de comunicaciones. Puede especificar hasta 32 direcciones MAC.</div>
+						<div class="table_important_level0">
+							<table class="table_important_level0">
+								<thead class="table_important_level0">
+									<tr class="table_important_level0">
+										<td colspan="1" rowspan="1" class="col_0 row_0 table_important_level0 table_important_level0_col_0 table_important_level0_row_0">
+											<div class="text"><img src="./images/book_images/b_style_important1.gif" alt="" /></div>
+										</td>
+									</tr>
+								</thead>
+								<tbody class="table_important_level0">
+									<tr class="table_important_level0">
+										<td colspan="1" rowspan="1" class="col_0 row_1 table_important_level0 table_important_level0_col_0 table_important_level0_row_1">
+											<div class="text_level0">Esta función no puede utilizarse cuando el equipo está conectado a una red inalámbrica.</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="step_number">1</div>
+						<div class="step_text">Inicie el IU remoto e inicie sesión en modo Administrador del Sistema. <a href="SS6230_using79_startingtheremoteui.html#07010000">Inicio del IU remoto</a></div>
+						<div class="step_number">2</div>
+						<div class="step_text">Haga clic en [Configuración].</div>
+						<div class="figure_level1"><img src="./images/book_images/b_RUI001_c.gif" alt="" /></div>
+						<div class="step_number">3</div>
+						<div class="step_text">Haga clic en [Opciones de seguridad] <img src="./images/book_images/b_key_arrow_right.gif" alt="" /> [Filtro de direcciones MAC].</div>
+						<div class="figure_level1"><img src="./images/book_images/b_RUI038d_c.gif" alt="" /></div>
+						<div class="step_number">4</div>
+						<div class="step_text">Haga clic en [Editar] para especificar un tipo de filtro.</div>
+						<div class="figure_level1"><img src="./images/book_images/b_RUI081_c.gif" alt="" /></div>
+						<div class="text_level1_sub"><span class="bold">[Filtro de salida]<br /></span>Restrinja los datos enviados desde el equipo a un ordenador especificando una dirección MAC.</div>
+						<div class="text_level1_sub"><span class="bold">[Filtro de entrada]<br /></span>Restrinja los datos que recibe el equipo desde un ordenador especificando una dirección MAC.</div>
+						<div class="step_number">5</div>
+						<div class="step_text">Especifique la configuración de filtrado.</div>
+						<div class="list">Conforme a las condiciones de la directiva, seleccione una directiva prefijada para permitir o rechazar la comunicación entre el equipo y otros dispositivos. A continuación, especifique direcciones MAC para las excepciones. </div>
+						<div class="figure_level1"><img src="./images/book_images/b_RUI082_c.gif" alt="" /></div>
+						<div class="table_number">
+							<table class="table_number">
+								<tbody class="table_number">
+									<tr class="table_number">
+										<td colspan="1" rowspan="1" class="col_0 row_0 table_number table_number_col_0 table_number_row_0">
+											<div class="text"><span class="bold">1</span></div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_0 table_number table_number_col_1 table_number_row_0">
+											<div class="text"><span class="bold">Marque la casilla de verificación [Usar filtro] y, a continuación, marque una directiva con [Directiva prefijada].</span></div>
+											<div class="text_sub"><span class="bold">[Usar filtro]<br /></span>Marque la casilla de verificación para restringir la comunicación. Desmarque la casilla de verificación para comunicarse sin restricciones. </div>
+											<div class="text_sub"><span class="bold">[Directiva prefijada]<br /></span>Conforme a las condiciones de la directiva, seleccione si desea permitir o rechazar que otros dispositivos se comuniquen con el equipo. </div>
+											<div class="table_matrix">
+												<table class="table_matrix">
+													<tbody class="table_matrix">
+														<tr class="table_matrix">
+															<td colspan="1" rowspan="1" class="col_0 row_0 table_matrix table_matrix_col_0 table_matrix_row_0">
+																<div class="text">[Rechazar]</div>
+															</td>
+															<td colspan="1" rowspan="1" class="col_1 row_0 table_matrix table_matrix_col_1 table_matrix_row_0">
+																<div class="text">Seleccione esta opción para permitir la comunicación solo cuando los datos se envíen a o se reciban desde dispositivos cuyas direcciones MAC estén incluidas en [Direcciones excluidas]. Está prohibido establecer comunicación con otros dispositivos. </div>
+															</td>
+														</tr>
+														<tr class="table_matrix">
+															<td colspan="1" rowspan="1" class="col_0 row_1 table_matrix table_matrix_col_0 table_matrix_row_1">
+																<div class="text">[Permitir]</div>
+															</td>
+															<td colspan="1" rowspan="1" class="col_1 row_1 table_matrix table_matrix_col_1 table_matrix_row_1">
+																<div class="text">Seleccione esta opción para los datos que se envíen a o se reciban desde dispositivos cuyas direcciones MAC estén incluidas en [Direcciones excluidas]. Está permitido comunicarse con otros dispositivos. </div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</td>
+									</tr>
+									<tr class="table_number">
+										<td colspan="1" rowspan="1" class="col_0 row_1 table_number table_number_col_0 table_number_row_1">
+											<div class="text"><span class="bold">2</span></div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_1 table_number table_number_col_1 table_number_row_1">
+											<div class="text"><span class="bold">Especifique las direcciones excluidas.</span></div>
+											<div class="list">Introduzca una dirección MAC en el cuadro de texto [Dirección para guardar] y haga clic en [Agregar]. </div>
+											<div class="list">No delimite la dirección que introduzca con guiones ni dos puntos.</div>
+											<div class="text_sub"><span class="bold+color_green"><span class="bold+color_green"><span class="bold+color_green"><img src="./images/book_images/b_style_note2.gif" alt="" /></span></span></span></div>
+											<div class="text"><span class="bold+color_green">Si se selecciona [Rechazar] para un filtro de salida</span></div>
+											<div class="text">Los paquetes de difusión y multidifusión de salida no pueden filtrarse. </div>
+											<div class="text_sub"><span class="bold+color_green">Para eliminar una dirección MAC establecida</span></div>
+											<div class="text">Seleccione la dirección MAC que desea eliminar y, a continuación, haga clic en [Eliminar]. </div>
+											<div class="figure"><img src="./images/book_images/b_RUI083_c.gif" alt="" /></div>
+										</td>
+									</tr>
+									<tr class="table_number">
+										<td colspan="1" rowspan="1" class="col_0 row_2 table_number table_number_col_0 table_number_row_2">
+											<div class="text"><span class="bold">3</span></div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_2 table_number table_number_col_1 table_number_row_2">
+											<div class="text"><span class="bold">Haga clic en [Aceptar].</span></div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="step_number">6</div>
+						<div class="step_text">Reinicie el equipo.</div>
+						<div class="list">Apague el equipo, espere al menos 10 segundos y vuelva a encenderlo. </div>
+						<div class="related">VÍNCULOS</div>
+						<div class="list_link_level0"><a href="SS6230_security70_specifyingipaddressesforfirewallrules.html#06010020_010">Especificación de direcciones IP para las reglas de firewall</a></div>
+					</div>
+					<!--CONTENT_END-->
+				</div>
+				<div class="footer"><ul id="id_footer_include"></ul></div>
+				<div id="back_to_the_top"><a href="#id_header"><img src="../frame_images/f_back_3.png" title="" /></a></div>
+			</div>
+		</div>
+	</body>
+</html>

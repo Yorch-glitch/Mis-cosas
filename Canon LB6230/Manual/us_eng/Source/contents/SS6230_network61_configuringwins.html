@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta name="Generator" content="CAESAR" />
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+		<meta http-equiv="content-style-type" content="text/css" />
+		<meta http-equiv="content-script-type" content="text/javascript" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Configuring WINS</title>
+		<link href="styles/style000/style.css" rel="alternate stylesheet" type="text/css" disabled="disabled" title="local" />
+		<script type="text/javascript" charset="UTF-8" src="../jsons/resource.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../jsons/toc.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../scripts/loader.js"></script>
+	</head>
+	<body>
+		<div id="id_header" class="nocontent"><table cellpadding="0" cellspacing="0"><tr><th class="header"><span id="id_res_canon_logo"></span><span id="id_res_guide_name"></span></th><td class="header" id="id_header_include"></td></tr><tr><th class="bar" id="id_tabs"><button id="id_res_contents" class="tab_active" accesskey="c"></button><button id="id_res_search" class="tab_inactive" accesskey="s"></button></th><td class="bar"><button id="id_res_bar_icon_previous" accesskey="b" style="display: none;"></button><label id="id_res_bar_label_previous" for="id_res_bar_icon_previous"></label><button id="id_res_bar_icon_next" accesskey="n" style="display: none;"></button><label id="id_res_bar_label_next" for="id_res_bar_icon_next"></label><button id="id_res_bar_icon_print" accesskey="p" style="display: none;"></button><label id="id_res_bar_label_print" for="id_res_bar_icon_print"></label></td></tr></table></div>
+		<div id="id_panel" class="nocontent">
+			<div id="id_panel_toc" style="display:None;">
+				<div id="id_panel_label"><label id="id_res_chapter"></label><select id="id_chapter_select"></select></div>
+				<div id="id_toc_open_close"><a id="id_res_open_toc_all" href="#"></a><a id="id_res_close_toc_all" href="#"></a></div>
+				<ul id="id_toc"></ul>
+				<div id="id_print_all"><a id="id_res_print_all" href="#"></a></div>
+			</div>
+			<div id="id_panel_search" style="display:None;"></div>
+		</div>
+		<!--CONTENT_START-->
+		<div id="id_content">
+			<h1><a id="05040060"></a>Configuring WINS</h1>
+			<div class="lead">Windows Internet Name Service (WINS) is a name resolution service that associates a NetBIOS name (a computer or printer name in a NetBIOS network) with an IP address. To use WINS, a WINS server must be specified. </div>
+			<div class="table_important_level0">
+				<table class="table_important_level0">
+					<thead class="table_important_level0">
+						<tr class="table_important_level0">
+							<td colspan="1" rowspan="1" class="col_0 row_0 table_important_level0 table_important_level0_col_0 table_important_level0_row_0">
+								<div class="text"><img src="./images/book_images/b_style_important1.gif" alt="" /></div>
+							</td>
+						</tr>
+					</thead>
+					<tbody class="table_important_level0">
+						<tr class="table_important_level0">
+							<td colspan="1" rowspan="1" class="col_0 row_1 table_important_level0 table_important_level0_col_0 table_important_level0_row_1">
+								<div class="list">To register this machine with a WINS server, a NetBIOS name and workgroup name must be set. <span class="no_break"><a href="SS6230_network62_configuringnetbios.html#05040060_010">Configuring NetBIOS</a></span></div>
+								<div class="list">This function is not available in an IPv6 environment. </div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="step_number">1</div>
+			<div class="step_text">Start the Remote UI and log on in System Manager Mode. <a href="SS6230_using79_startingtheremoteui.html#07010000">Starting the Remote UI</a></div>
+			<div class="step_number">2</div>
+			<div class="step_text">Click [Settings/Registration].</div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI001_c.gif" alt="" /></div>
+			<div class="step_number">3</div>
+			<div class="step_text">Click [Network Settings] <img src="./images/book_images/b_key_arrow_right.gif" alt="" /> [TCP/IP Settings].</div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI002_c.gif" alt="" /></div>
+			<div class="step_number">4</div>
+			<div class="step_text">Click [Edit] in [WINS Settings].</div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI020_c.gif" alt="" /></div>
+			<div class="step_number">5</div>
+			<div class="step_text">Select the [WINS Resolution] check box and enter the required information.</div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI021_c.gif" alt="" /></div>
+			<div class="text_level1_sub"><span class="bold">[WINS Resolution]<br /></span>Select the check box to use WINS for name resolution. When not using WINS, clear the check box. </div>
+			<div class="text_level1_sub"><span class="bold">[WINS Server Address]<br /></span>Enter the IP address (IPv4) of the WINS server. </div>
+			<div class="text_level1"><img src="./images/book_images/b_style_important2.gif" alt="" /></div>
+			<div class="text_level1">If the IP address of the WINS server is obtained from a DHCP server, the obtained IP address overrides the IP address entered in the [WINS Server Address] text box. </div>
+			<div class="text_level1_sub"><span class="bold">[Scope ID]<br /></span>If the network is divided into several groups with scope IDs (identifiers for groups of devices in the network), enter up to 63 alphanumeric characters for the scope ID. Leave the text box blank if there is no scope ID set for your computer. </div>
+			<div class="step_number">6</div>
+			<div class="step_text">Click [OK].</div>
+			<div class="step_number">7</div>
+			<div class="step_text">Restart the machine.</div>
+			<div class="list">Turn OFF the machine, wait for at least 10 seconds, and turn it back ON. </div>
+			<div class="related">LINKS</div>
+			<div class="list_link_level0"><a href="SS6230_network50_settingipv4address.html#05010040_010">Setting IPv4 Address</a></div>
+		</div>
+		<!--CONTENT_END-->
+		<div id="id_footer" class="nocontent"><table cellpadding="0" cellspacing="0"><tr><th><span id="id_res_copy_right"></span></th><td id="id_footer_include"></td></tr></table></div>
+		<div id="id_breadcrumbs" class="nocontent"><a href="../frame_htmls/home.html" id="id_res_home"></a> &gt; <a href="SS6230_network45_network.html" id="id_level_1" toc_id="SS6230_network45_network" title="Network" >Network</a> &gt; <a href="SS6230_network56_configuringthemachineforyournetworkenvironment.html" id="id_level_2" toc_id="SS6230_network56_configuringthemachineforyournetworkenvironment" title="Configuring the Machine for Your Network Environment" >Configuring the Machine for Your Network Environment</a> &gt; <a id="id_level_3" toc_id="SS6230_network61_configuringwins" title="Configuring WINS" >Configuring WINS</a></div>
+		<div id="id_document_number">0JWS-02E</div>
+	</body>
+</html>

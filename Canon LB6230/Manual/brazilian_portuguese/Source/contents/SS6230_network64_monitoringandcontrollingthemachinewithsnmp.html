@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="pt" xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta name="Generator" content="CAESAR" />
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+		<meta http-equiv="content-style-type" content="text/css" />
+		<meta http-equiv="content-script-type" content="text/javascript" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Monitorando e controlando a impressora com SNMP - Manual eletrônico</title>
+		<link rel="stylesheet" type="text/css" href="../styles/frame_style.css" />
+		<link rel="stylesheet" type="text/css" href="../styles/frame_sub.css" disabled="disabled" title="sub" />
+		<link href="styles/style000/style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" charset="UTF-8" src="../jsons/resource.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../jsons/toc.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../jsons/search.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../scripts/jquery.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="../scripts/library.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="../scripts/script.js"></script>
+	</head>
+	<body>
+		<div class="page">
+			<div class="center">
+				<div class="header" id="id_header">
+					<div class="right"><ul id="id_header_include"></ul></div>
+					<a href="../frame_htmls/home.html">
+						<img src="../frame_images/C100.gif" title="Canon" class="canon_logo" />
+					</a>
+					<img src="../frame_images/f_product_logo.gif" class="product_logo" />
+				</div>
+				<div class="left" id="id_left">
+					<div class="tab"><button id="id_res_contents" class="active"></button><button id="id_res_search" class="inactive"></button></div>
+					<div class="chapter_title"><span class="chapter_title_left"></span><span class="chapter_title_center" id="id_chapter_title"></span><span class="chapter_title_right"><button id="id_btn_toggle_s"></button><button id="id_btn_toggle_l"></button></span></div>
+					<div id="id_panel_toc">
+						<div class="open_close"><a id="id_res_open_toc_all" href="javascript:void(0);"></a>
+									|
+									<a id="id_res_close_toc_all" href="javascript:void(0);"></a></div>
+						<ul id="id_chapter_icons"></ul>
+						<ul id="id_toc"></ul>
+						<div class="print"><a id="id_res_print_all" href="javascript:void(0);"></a></div>
+					</div>
+					<div id="id_panel_search">
+						<div class="input">
+							<input name="search" type="text" id="id_search" onkeydown="return fncSearchKeyDown(event.keyCode, this.value);" />
+							<button id="id_search_button"></button>
+							<div class="search_options"><button id="id_res_search_options_show"></button></div>
+						</div>
+						<div id="id_search_options">
+							<ul>
+								<li>
+									<input type="radio" name="search_options_search_scope" id="id_search_options_search_scope_all" />
+									<label for="id_search_options_search_scope_all" id="id_res_search_options_search_scope_all"></label>
+								</li>
+								<li>
+									<input type="radio" name="search_options_search_scope" id="id_search_options_search_scope_chapter" />
+									<label for="id_search_options_search_scope_chapter" id="id_res_search_options_search_scope_chapter"></label>
+								</li>
+							</ul>
+							<div id="id_search_chapters"></div>
+							<ul>
+								<li>
+									<input type="checkbox" id="id_search_options_case" />
+									<label for="id_search_options_case" id="id_res_search_options_case"></label>
+								</li>
+								<li>
+									<input type="checkbox" id="id_search_options_multibyte" />
+									<label for="id_search_options_multibyte" id="id_res_search_options_multibyte"></label>
+								</li>
+							</ul>
+							<div class="bottom"><button id="id_res_search_button"></button></div>
+						</div>
+						<div id="id_search_results"></div>
+						<div id="id_search_status"></div>
+					</div>
+				</div>
+				<div class="right" id="id_right">
+					<div id="id_breadcrumbs"><a href="../frame_htmls/home.html" id="id_res_home"></a> » <a href="SS6230_network45_network.html" id="id_level_1" toc_id="SS6230_network45_network" title="Rede" >Rede</a> » <a href="SS6230_network56_configuringthemachineforyournetworkenvironment.html" id="id_level_2" toc_id="SS6230_network56_configuringthemachineforyournetworkenvironment" title="Configurando sua impressora para seu ambiente de rede" >Configurando sua impressora para seu ambiente de rede</a> » <a id="id_level_3" toc_id="SS6230_network64_monitoringandcontrollingthemachinewithsnmp" title="Monitorando e controlando a impressora com SNMP" >Monitorando e controlando a impressora com SNMP</a></div>
+					<div id="id_document_number">0KU8-02J</div>
+					<div class="nav"><button id="id_res_bar_icon_previous"></button><button id="id_res_bar_icon_next"></button></div>
+					<!--CONTENT_START-->
+					<div id="id_content">
+						<div class="h1"><a id="05040080"></a>Monitorando e controlando a impressora com SNMP</div>
+						<div class="lead">O Simple Network Management Protocol (SNMP) é um protocolo para monitorar e controlar os dispositivos de comunicação em uma rede usando um banco de dados de informações de gerenciamento (MIB). A impressora suporta o SNMPv1 o SNMPv3 com segurança aprimorada. Eles permitem verificar o status da impressora de um computador quando você imprime documentos ou usa o Remote UI. Você pode ativar o SNMPv1 ou o SNMPv3, ou ambos ao mesmo tempo. Especifique as definições para que cada versão seja compatível com seu ambiente de rede e a finalidade de uso. </div>
+						<div class="figure_center"><img src="./images/book_images/b_C214_L.gif" alt="" /></div>
+						<div class="h5">SNMPv1</div>
+						<div class="text">O SNMPv1 usa informações chamadas de &quot;cadeia de comunidade&quot; para definir o escopo da comunicação SNMP. Como essa informação está exposta à rede em texto sem formatação, sua rede estará vulnerável a ataques. Para garantir a segurança da rede, desative o SNMPv1 e use o SNMPv3. </div>
+						<div class="h5">SNMPv3</div>
+						<div class="text">Com o SNMPv3, é possível implementar o gerenciamento de dispositivos de rede que é protegido por recursos de segurança robustos. Use o Remote UI para fazer as configurações. Antes de iniciar, ative o SSL (<a href="SS6230_security73_enablingsslencryptedcommunicationfortheremoteu.html#06030000">Ativando a comunicação criptografada SSL para o Remote UI</a>). </div>
+						<div class="annotation"> </div>
+						<div class="table_note_level0">
+							<table class="table_note_level0">
+								<thead class="table_note_level0">
+									<tr class="table_note_level0">
+										<td colspan="1" rowspan="1" class="col_0 row_0 table_note_level0 table_note_level0_col_0 table_note_level0_row_0">
+											<div class="text"><img src="./images/book_images/b_style_note2.gif" alt="" /></div>
+										</td>
+									</tr>
+								</thead>
+								<tbody class="table_note_level0">
+									<tr class="table_note_level0">
+										<td colspan="1" rowspan="1" class="col_0 row_1 table_note_level0 table_note_level0_col_0 table_note_level0_row_1">
+											<div class="list">A impressora não suporta o recurso de interceptação de notificação do SNMP. </div>
+											<div class="list">Para alterar os números de porta do protocolo SNMP <span class="no_break"><a href="SS6230_security72_changingportnumbers.html#06010030">Alterando os números de portas</a></span></div>
+											<div class="list">O software de gerenciamento de SNMP permite configurar, monitorar e controlar a impressora remotamente a partir do computador onde o software está instalado. Para mais informações, consulte os manuais de instruções do seu software de gerenciamento. </div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="step_number">1</div>
+						<div class="step_text">Inicie o Remote UI e faça o logon no modo Administrador Sistema. <a href="SS6230_using79_startingtheremoteui.html#07010000">Iniciando o Remote UI</a></div>
+						<div class="step_number">2</div>
+						<div class="step_text">Clique em [Settings/Registration].</div>
+						<div class="figure_level1"><img src="./images/book_images/b_RUI001_c.gif" alt="" /></div>
+						<div class="step_number">3</div>
+						<div class="step_text">Clique em [Network Settings] <img src="./images/book_images/b_key_arrow_right.gif" alt="" /> [SNMP Settings].</div>
+						<div class="figure_level1"><img src="./images/book_images/b_RUI002b_c.gif" alt="" /></div>
+						<div class="step_number">4</div>
+						<div class="step_text">Clique em [Edit].</div>
+						<div class="figure_level1"><img src="./images/book_images/b_RUI028_c.gif" alt="" /></div>
+						<div class="step_number">5</div>
+						<div class="step_text">Especifique as definições SNMPv1.</div>
+						<div class="list">Se você não precisar especificar as configurações SNMPv1, prossiga para a etapa. </div>
+						<div class="figure_level1"><img src="./images/book_images/b_RUI029_c.gif" alt="" /></div>
+						<div class="text_level1_sub"><span class="bold">[Use SNMPv1]<br /></span>Marque a caixa de seleção para ativar o SNMPv1. Você pode especificar o resto das definições SNMPv1 apenas quando essa caixa de seleção estiver marcada. </div>
+						<div class="text_level1_sub"><span class="bold">[Community Name 1]/[Community Name 2]<br /></span>Digite até 32 caracteres alfanuméricos para o nome da comunidade. </div>
+						<div class="text_level1_sub"><span class="bold">[MIB Access Permission 1]/[MIB Access Permission 2]<br /></span>Para cada comunidade, selecione [Read/Write] ou [Read Only] para os privilégios de acesso aos objetos MIB. </div>
+						<div class="table_matrix_level1">
+							<table class="table_matrix_level1">
+								<tbody class="table_matrix_level1">
+									<tr class="table_matrix_level1">
+										<td colspan="1" rowspan="1" class="col_0 row_0 table_matrix_level1 table_matrix_level1_col_0 table_matrix_level1_row_0">
+											<div class="text">[Read/Write]</div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_0 table_matrix_level1 table_matrix_level1_col_1 table_matrix_level1_row_0">
+											<div class="text">Permite ambos, a visualização e a alteração de valores dos objetos MIB. </div>
+										</td>
+									</tr>
+									<tr class="table_matrix_level1">
+										<td colspan="1" rowspan="1" class="col_0 row_1 table_matrix_level1 table_matrix_level1_col_0 table_matrix_level1_row_1">
+											<div class="text">[Read Only]</div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_1 table_matrix_level1 table_matrix_level1_col_1 table_matrix_level1_row_1">
+											<div class="text">Permite apenas a visualização de valores dos objetos MIB. </div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="text_level1_sub"><span class="bold">[Dedicated Community Settings]<br /></span>A Comunidade Dedicada é uma comunidade pré-definida, destinada exclusivamente para administradores usando o software Canon, como o imageWARE Enterprise Management Console. Selecione [Off], [Read/Write] ou [Read Only] para os privilégios de acesso aos objetos MIB. </div>
+						<div class="table_matrix_level1">
+							<table class="table_matrix_level1">
+								<tbody class="table_matrix_level1">
+									<tr class="table_matrix_level1">
+										<td colspan="1" rowspan="1" class="col_0 row_0 table_matrix_level1 table_matrix_level1_col_0 table_matrix_level1_row_0">
+											<div class="text">[Off]</div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_0 table_matrix_level1 table_matrix_level1_col_1 table_matrix_level1_row_0">
+											<div class="text">Não use a Comunidade Dedicada. </div>
+										</td>
+									</tr>
+									<tr class="table_matrix_level1">
+										<td colspan="1" rowspan="1" class="col_0 row_1 table_matrix_level1 table_matrix_level1_col_0 table_matrix_level1_row_1">
+											<div class="text">[Read/Write]</div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_1 table_matrix_level1 table_matrix_level1_col_1 table_matrix_level1_row_1">
+											<div class="text">Permite à Comunidade Dedicada a visualização e a alteração de valores dos objetos MIB. </div>
+										</td>
+									</tr>
+									<tr class="table_matrix_level1">
+										<td colspan="1" rowspan="1" class="col_0 row_2 table_matrix_level1 table_matrix_level1_col_0 table_matrix_level1_row_2">
+											<div class="text">[Read Only]</div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_2 table_matrix_level1 table_matrix_level1_col_1 table_matrix_level1_row_2">
+											<div class="text">Permite à Comunidade Dedicada apenas a visualização de objetos MIB. </div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="step_number">6</div>
+						<div class="step_text">Especifique as definições SNMPv3.</div>
+						<div class="list">Se você não precisar especificar as configurações SNMPv3, prossiga para a etapa. </div>
+						<div class="figure_level1"><img src="./images/book_images/b_RUI030_c.gif" alt="" /></div>
+						<div class="text_level1_sub"><span class="bold">[Use SNMPv3]<br /></span>Marque a caixa de seleção para ativar o SNMPv3. Você pode especificar o resto das definições SNMPv3 apenas quando essa caixa de seleção estiver marcada. </div>
+						<div class="text_level1_sub"><span class="bold">[Enable User]<br /></span>Marque a caixa de seleção para ativar [User Settings 1]/[User Settings 2]/[User Settings 3]. Para desativar as configurações do usuário, limpe a caixa de seleção correspondente. </div>
+						<div class="text_level1_sub"><span class="bold">[User Name]<br /></span>Digite até 32 caracteres alfanuméricos para o nome de usuário. </div>
+						<div class="text_level1_sub"><span class="bold">[MIB Access Permission]<br /></span>Selecione [Read/Write] ou [Read Only] para os privilégios de acesso aos objetos MIB. </div>
+						<div class="table_matrix_level1">
+							<table class="table_matrix_level1">
+								<tbody class="table_matrix_level1">
+									<tr class="table_matrix_level1">
+										<td colspan="1" rowspan="1" class="col_0 row_0 table_matrix_level1 table_matrix_level1_col_0 table_matrix_level1_row_0">
+											<div class="text">[Read/Write]</div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_0 table_matrix_level1 table_matrix_level1_col_1 table_matrix_level1_row_0">
+											<div class="text">Permite ambos, a visualização e a alteração de valores dos objetos MIB. </div>
+										</td>
+									</tr>
+									<tr class="table_matrix_level1">
+										<td colspan="1" rowspan="1" class="col_0 row_1 table_matrix_level1 table_matrix_level1_col_0 table_matrix_level1_row_1">
+											<div class="text">[Read Only]</div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_1 table_matrix_level1 table_matrix_level1_col_1 table_matrix_level1_row_1">
+											<div class="text">Permite apenas a visualização de valores dos objetos MIB. </div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="text_level1_sub"><span class="bold">[Security Settings]<br /></span>Selecione [Authentication On/Encryption On], [Authentication On/Encryption Off] ou [Authentication Off/Encryption Off] para a combinação desejada para as definições desejadas de autenticação e criptografia. </div>
+						<div class="text_level1_sub"><span class="bold">[Authentication Algorithm]</span><br />Quando [Security Settings] é definido como [Authentication On/Encryption On] ou [Authentication On/Encryption Off], selecione [MD5] ou [SHA1] como o algoritmo de autenticação, de acordo com o seu ambiente. </div>
+						<div class="text_level1_sub"><span class="bold">[Encryption Algorithm]</span><br />Quando [Security Settings] é definido como [Authentication On/Encryption On], selecione [DES] ou [AES] como o algoritmo de criptografia, de acordo com o seu ambiente. </div>
+						<div class="text_level1_sub"><span class="bold">[Set/Change Password]</span><br />Para definir ou alterar a senha, marque a caixa de seleção e digite entre 6 e 16 caracteres alfanuméricos para a senha na caixa de texto [Authentication Password] ou [Encryption Password]. Para confirmação, digite a mesma senha na caixa de texto [Confirm]. As senhas podem ser definidas independentemente para os algoritmos de autenticação e criptografia. </div>
+						<div class="text_level1_sub"><span class="bold">[Context Name 1]/[Context Name 2]/[Context Name 3]</span><br />Digite até 32 caracteres alfanuméricos para o nome do contexto. Até três nomes de contexto podem ser registrados. </div>
+						<div class="step_number">7</div>
+						<div class="step_text">Especifique as definições de aquisição das informações de gerenciamento da impressora.</div>
+						<div class="list">Com o SNMP, as informações de gerenciamento da impressora, como os protocolos de impressão e portas da impressora, podem ser monitoradas e obtidas regularmente de um computador na rede. </div>
+						<div class="figure_level1"><img src="./images/book_images/b_RUI031_c.gif" alt="" /></div>
+						<div class="text_level1_sub"><span class="bold">[Acquire Printer Management Information from Host]</span></div>
+						<div class="text_level1">Marque a caixa de seleção para ativar o monitoramento das informações de gerenciamento da impressora da impressora através de SNMP. Para desativar o monitoramento das informações da impressoras, desmarque a caixa de seleção. </div>
+						<div class="step_number">8</div>
+						<div class="step_text">Clique em [OK].</div>
+						<div class="figure_level1"><img src="./images/book_images/b_RUI029a_c.gif" alt="" /></div>
+						<div class="step_number">9</div>
+						<div class="step_text">Reinicie a impressora.</div>
+						<div class="list">Desligue a impressora, espere pelo menos 10 segundos e ligue novamente. </div>
+						<div class="annotation"> </div>
+						<div class="table_note_level0">
+							<table class="table_note_level0">
+								<thead class="table_note_level0">
+									<tr class="table_note_level0">
+										<td colspan="1" rowspan="1" class="col_0 row_0 table_note_level0 table_note_level0_col_0 table_note_level0_row_0">
+											<div class="text"><img src="./images/book_images/b_style_note1.gif" alt="" /></div>
+										</td>
+									</tr>
+								</thead>
+								<tbody class="table_note_level0">
+									<tr class="table_note_level0">
+										<td colspan="1" rowspan="1" class="col_0 row_1 table_note_level0 table_note_level0_col_0 table_note_level0_row_1">
+											<div class="h5">Desativando o SNMPv1 e o SNMPv3</div>
+											<div class="text_level0">Se ambas as versões do SNMP forem desativadas, algumas das funções da impressora ficam indisponíveis, como obter a informação da impressora através do driver de impressora. </div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="table_tips_level0">
+							<table class="table_tips_level0">
+								<thead class="table_tips_level0">
+									<tr class="table_tips_level0">
+										<td colspan="1" rowspan="1" class="col_0 row_0 table_tips_level0 table_tips_level0_col_0 table_tips_level0_row_0">
+											<div class="text">Ativando ambos, SNMPv1 e SNMPv3</div>
+										</td>
+									</tr>
+								</thead>
+								<tbody class="table_tips_level0">
+									<tr class="table_tips_level0">
+										<td colspan="1" rowspan="1" class="col_0 row_1 table_tips_level0 table_tips_level0_col_0 table_tips_level0_row_1">
+											<div class="text_level0">Se ambas as versões do SNMP forem ativadas, recomenda-se que a permissão do acesso ao MIB no SNMPv1 seja definida para [Read Only]. A permissão de acesso ao MIB pode ser definida independentemente no SNMPv1 e no SNMPv3 (e para cada usuário no SNMPv3). Selecionar [Read/Write] (permissão de acesso total) no SNMPv1 nega os recursos robustos de segurança que caracterizam o SNMPv3 dado que a maioria das definições da impressora podem ser controladas com o SNMPv1. </div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="related">LINKS</div>
+						<div class="list_link_level0"><a href="SS6230_security73_enablingsslencryptedcommunicationfortheremoteu.html#06030000">Ativando a comunicação criptografada SSL para o Remote UI</a></div>
+					</div>
+					<!--CONTENT_END-->
+				</div>
+				<div class="footer"><ul id="id_footer_include"></ul></div>
+				<div id="back_to_the_top"><a href="#id_header"><img src="../frame_images/f_back_3.png" title="" /></a></div>
+			</div>
+		</div>
+	</body>
+</html>

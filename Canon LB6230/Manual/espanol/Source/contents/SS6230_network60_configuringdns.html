@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="es" xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta name="Generator" content="CAESAR" />
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+		<meta http-equiv="content-style-type" content="text/css" />
+		<meta http-equiv="content-script-type" content="text/javascript" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Configuración de DNS - e-Manual</title>
+		<link rel="stylesheet" type="text/css" href="../styles/frame_style.css" />
+		<link rel="stylesheet" type="text/css" href="../styles/frame_sub.css" disabled="disabled" title="sub" />
+		<link href="styles/style000/style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" charset="UTF-8" src="../jsons/resource.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../jsons/toc.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../jsons/search.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../scripts/jquery.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="../scripts/library.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="../scripts/script.js"></script>
+	</head>
+	<body>
+		<div class="page">
+			<div class="center">
+				<div class="header" id="id_header">
+					<div class="right"><ul id="id_header_include"></ul></div>
+					<a href="../frame_htmls/home.html">
+						<img src="../frame_images/C100.gif" title="Canon" class="canon_logo" />
+					</a>
+					<img src="../frame_images/f_product_logo.gif" class="product_logo" />
+				</div>
+				<div class="left" id="id_left">
+					<div class="tab"><button id="id_res_contents" class="active"></button><button id="id_res_search" class="inactive"></button></div>
+					<div class="chapter_title"><span class="chapter_title_left"></span><span class="chapter_title_center" id="id_chapter_title"></span><span class="chapter_title_right"><button id="id_btn_toggle_s"></button><button id="id_btn_toggle_l"></button></span></div>
+					<div id="id_panel_toc">
+						<div class="open_close"><a id="id_res_open_toc_all" href="javascript:void(0);"></a>
+									|
+									<a id="id_res_close_toc_all" href="javascript:void(0);"></a></div>
+						<ul id="id_chapter_icons"></ul>
+						<ul id="id_toc"></ul>
+						<div class="print"><a id="id_res_print_all" href="javascript:void(0);"></a></div>
+					</div>
+					<div id="id_panel_search">
+						<div class="input">
+							<input name="search" type="text" id="id_search" onkeydown="return fncSearchKeyDown(event.keyCode, this.value);" />
+							<button id="id_search_button"></button>
+							<div class="search_options"><button id="id_res_search_options_show"></button></div>
+						</div>
+						<div id="id_search_options">
+							<ul>
+								<li>
+									<input type="radio" name="search_options_search_scope" id="id_search_options_search_scope_all" />
+									<label for="id_search_options_search_scope_all" id="id_res_search_options_search_scope_all"></label>
+								</li>
+								<li>
+									<input type="radio" name="search_options_search_scope" id="id_search_options_search_scope_chapter" />
+									<label for="id_search_options_search_scope_chapter" id="id_res_search_options_search_scope_chapter"></label>
+								</li>
+							</ul>
+							<div id="id_search_chapters"></div>
+							<ul>
+								<li>
+									<input type="checkbox" id="id_search_options_case" />
+									<label for="id_search_options_case" id="id_res_search_options_case"></label>
+								</li>
+								<li>
+									<input type="checkbox" id="id_search_options_multibyte" />
+									<label for="id_search_options_multibyte" id="id_res_search_options_multibyte"></label>
+								</li>
+							</ul>
+							<div class="bottom"><button id="id_res_search_button"></button></div>
+						</div>
+						<div id="id_search_results"></div>
+						<div id="id_search_status"></div>
+					</div>
+				</div>
+				<div class="right" id="id_right">
+					<div id="id_breadcrumbs"><a href="../frame_htmls/home.html" id="id_res_home"></a> » <a href="SS6230_network45_network.html" id="id_level_1" toc_id="SS6230_network45_network" title="Red" >Red</a> » <a href="SS6230_network56_configuringthemachineforyournetworkenvironment.html" id="id_level_2" toc_id="SS6230_network56_configuringthemachineforyournetworkenvironment" title="Configuración del equipo para su entorno de red" >Configuración del equipo para su entorno de red</a> » <a id="id_level_3" toc_id="SS6230_network60_configuringdns" title="Configuración de DNS" >Configuración de DNS</a></div>
+					<div id="id_document_number">0KXF-02C</div>
+					<div class="nav"><button id="id_res_bar_icon_previous"></button><button id="id_res_bar_icon_next"></button></div>
+					<!--CONTENT_START-->
+					<div id="id_content">
+						<div class="h1"><a id="05040040"></a>Configuración de DNS</div>
+						<div class="lead">DNS (Sistema de nombres de dominio) ofrece un servicio de resolución de nombres que asocia un nombre de host (o dominio) con una dirección IP. Configure las opciones de DNS, mDNS o DHCP en función de su red. Tenga en cuenta que los procedimientos para configurar DNS difieren de los de IPv4 e IPv6. </div>
+						<div class="figure_center"><img src="./images/book_images/b_C212_L.gif" alt="" /></div>
+						<div class="text"> </div>
+						<div class="step_number">1</div>
+						<div class="step_text">Inicie el IU remoto e inicie sesión en modo Administrador del Sistema. <a href="SS6230_using79_startingtheremoteui.html#07010000">Inicio del IU remoto</a></div>
+						<div class="step_number">2</div>
+						<div class="step_text">Haga clic en [Configuración].</div>
+						<div class="figure_level1"><img src="./images/book_images/b_RUI001_c.gif" alt="" /></div>
+						<div class="step_number">3</div>
+						<div class="step_text">Haga clic en [Opciones de red] <img src="./images/book_images/b_key_arrow_right.gif" alt="" /> [Opciones de TCP/IP].</div>
+						<div class="figure_level1"><img src="./images/book_images/b_RUI002_c.gif" alt="" /></div>
+						<div class="step_number">4</div>
+						<div class="step_text">Configure las opciones de DNS.</div>
+						<div class="h6"><img src="./images/book_images/b_C241.gif" alt="" />Configuración de las opciones de DNS IPv4</div>
+						<div class="table_number">
+							<table class="table_number">
+								<tbody class="table_number">
+									<tr class="table_number">
+										<td colspan="1" rowspan="1" class="col_0 row_0 table_number table_number_col_0 table_number_row_0">
+											<div class="text"><span class="bold">1</span></div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_0 table_number table_number_col_1 table_number_row_0">
+											<div class="text"><span class="bold">Haga clic en [Editar] en [Opciones de IPv4].</span></div>
+											<div class="figure"><img src="./images/book_images/b_RUI003_c.gif" alt="" /></div>
+										</td>
+									</tr>
+									<tr class="table_number">
+										<td colspan="1" rowspan="1" class="col_0 row_1 table_number table_number_col_0 table_number_row_1">
+											<div class="text"><span class="bold">2</span></div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_1 table_number table_number_col_1 table_number_row_1">
+											<div class="text"><span class="bold">Configure las opciones de DNS IPv4.</span></div>
+											<div class="figure"><img src="./images/book_images/b_RUI017_c.gif" alt="" /></div>
+											<div class="text_sub"><img src="./images/book_images/b_C043.gif" alt="" /> <span class="bold">[Opciones de DNS]</span></div>
+											<div class="text_level3_sub"><span class="bold">[Dirección de servidor DNS primario]<br /></span>Introduzca la dirección IP del servidor DNS. </div>
+											<div class="text_level3_sub"><span class="bold">[Dirección de servidor DNS secundario]<br /></span>Si existe un servidor DNS secundario, introduzca su dirección IP. </div>
+											<div class="text_level3_sub"><span class="bold">[Nombre de host]<br /></span>Introduzca hasta 47 caracteres alfanuméricos en el nombre de host del equipo que vaya a registrar con el servidor DNS. </div>
+											<div class="text_level3_sub"><span class="bold">[Nombre de dominio]<br /></span>Introduzca hasta 47 caracteres alfanuméricos en el nombre del dominio al que pertenezca el equipo (como &quot;ejemplo.com&quot;). </div>
+											<div class="text_level3_sub"><span class="bold">[Actualización dinámica de DNS]<br /></span>Marque la casilla de verificación para actualizar automáticamente los registros DNS cuando cambie la asociación entre la dirección IP del equipo y su nombre de host (por ejemplo, en un entorno DHCP). Para especificar el intervalo entre actualizaciones, introduzca el tiempo en horas en el cuadro de texto [Intervalo de actualización dinámica de DNS]. Desmarque la casilla de verificación si no desea utilizar una actualización dinámica. </div>
+											<div class="text_sub"><img src="./images/book_images/b_C044.gif" alt="" /> <span class="bold">[Opciones de mDNS]</span></div>
+											<div class="text_level3_sub"><span class="bold">[Usar mDNS]<br /></span>Adoptado por servicios como Bonjour, mDNS (DNS multidifusión) es un protocolo para asociar un nombre de host con una dirección IP sin utilizar DNS. Marque la casilla de verificación para activar mDNS e introduzca el nombre de mDNS en el cuadro de texto [Nombre de mDNS]. Desmarque la casilla de verificación si no desea utilizar mDNS. </div>
+											<div class="text_sub"><img src="./images/book_images/b_C045.gif" alt="" /> <span class="bold">[Opciones de DHCP]</span></div>
+											<div class="text_level3_sub"><span class="bold">[Obtener nombre de host]<br /></span>Marque la casilla de verificación para activar la Opción 12 y obtener el nombre de host del servidor DHCP. Desmárquela si no desea utilizar esta función. </div>
+											<div class="text_level3_sub"><span class="bold">[Actualización dinámica de DNS]<br /></span>Marque la casilla de verificación para activar la Opción 81 y actualizar dinámicamente los registros DNS a través del servidor DHCP en lugar de hacerlo a través de este equipo. Desmárquela si no desea utilizar esta función. </div>
+										</td>
+									</tr>
+									<tr class="table_number">
+										<td colspan="1" rowspan="1" class="col_0 row_2 table_number table_number_col_0 table_number_row_2">
+											<div class="text"><span class="bold">3</span></div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_2 table_number table_number_col_1 table_number_row_2">
+											<div class="text"><span class="bold">Haga clic en [Aceptar].</span></div>
+											<div class="figure"><img src="./images/book_images/b_RUI004a_c.gif" alt="" /></div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="h6"><img src="./images/book_images/b_C241.gif" alt="" />Configuración de las opciones de DNS IPv6</div>
+						<div class="table_number">
+							<table class="table_number">
+								<tbody class="table_number">
+									<tr class="table_number">
+										<td colspan="1" rowspan="1" class="col_0 row_0 table_number table_number_col_0 table_number_row_0">
+											<div class="text"><span class="bold">1</span></div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_0 table_number table_number_col_1 table_number_row_0">
+											<div class="text"><span class="bold">Haga clic en [Editar] en [Opciones de IPv6].</span></div>
+											<div class="figure"><img src="./images/book_images/b_RUI005_c.gif" alt="" /></div>
+										</td>
+									</tr>
+									<tr class="table_number">
+										<td colspan="1" rowspan="1" class="col_0 row_1 table_number table_number_col_0 table_number_row_1">
+											<div class="text"><span class="bold">2</span></div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_1 table_number table_number_col_1 table_number_row_1">
+											<div class="text"><span class="bold">Configure las opciones de DNS IPv6.</span></div>
+											<div class="list">Debe seleccionarse la casilla de verificación [Usar IPv6] para configurar las opciones. <a href="SS6230_network51_settingipv6addresses.html#05010040_020">Configuración de direcciones IPv6</a></div>
+											<div class="figure"><img src="./images/book_images/b_RUI019_c.gif" alt="" /></div>
+											<div class="text_sub"><img src="./images/book_images/b_C043.gif" alt="" /> <span class="bold">[Opciones de DNS]</span></div>
+											<div class="text_level3_sub"><span class="bold">[Dirección de servidor DNS primario]<br /></span>Introduzca la dirección IP del servidor DNS. No es posible introducir direcciones que comienzan por &quot;ff&quot; (direcciones multidifusión) ni la dirección de bucle (::1). </div>
+											<div class="text_level3_sub"><span class="bold">[Dirección de servidor DNS secundario]<br /></span>Si existe un servidor DNS secundario, introduzca su dirección IP. No es posible introducir direcciones que comienzan por &quot;ff&quot; (direcciones multidifusión) ni la dirección de bucle (::1). </div>
+											<div class="text_level3_sub"><span class="bold">[Usar el mismo nombre de host/nombre de dominio que para IPv4]<br /></span>Marque la casilla de verificación para utilizar las mismas opciones que en IPv4. El nombre de host y el nombre de dominio que se utilizan en IPv4 se establecerán automáticamente cuando se reinicie el equipo. Desmarque la casilla de verificación si desea utilizar opciones distintas a las de IPv4. </div>
+											<div class="text_level3_sub"><span class="bold">[Nombre de host]<br /></span>Introduzca hasta 47 caracteres alfanuméricos en el nombre de host del equipo que vaya a registrar con el servidor DNS. </div>
+											<div class="text_level3_sub"><span class="bold">[Nombre de dominio]<br /></span>Introduzca hasta 47 caracteres alfanuméricos en el nombre del dominio al que pertenezca el equipo (como &quot;ejemplo.com&quot;). </div>
+											<div class="text_level3_sub"><span class="bold">[Actualización dinámica de DNS]<br /></span>Seleccione la casilla de verificación para actualizar automáticamente los registros DNS cuando cambie la asociación entre la dirección IP del equipo y su nombre de host (por ejemplo, en un entorno DHCP). Para especificar las direcciones que desea registrar con el servidor DNS, seleccione una o varias casillas de verificación para [Guardar dirección manual], [Guardar dirección con estado] y [Guardar dirección sin estado]. Para especificar el intervalo entre actualizaciones, introduzca el tiempo en horas en el cuadro de texto [Intervalo de actualización dinámica de DNS]. Desmarque la casilla de verificación si no desea utilizar una actualización dinámica. </div>
+											<div class="text_sub"><img src="./images/book_images/b_C044.gif" alt="" /> <span class="bold">[Opciones de mDNS]</span></div>
+											<div class="text_level3_sub"><span class="bold">[Usar mDNS]<br /></span>Adoptado por servicios como Bonjour, mDNS (DNS multidifusión) es un protocolo para asociar un nombre de host con una dirección IP sin utilizar DNS. Seleccione la casilla de verificación para activar mDNS. Desmárquela si no desea utilizar mDNS. </div>
+											<div class="text_level3_sub"><span class="bold">[Usar mismo nombre mDNS que IPv4]<br /></span>Marque la casilla de verificación para utilizar las mismas opciones que en IPv4. El nombre de mDNS que se utiliza en IPv4 se establecerá automáticamente cuando se reinicie el equipo. Desmarque la casilla de verificación e introduzca un nombre en [Nombre de mDNS] si desea utilizar opciones distintas a las de IPv4. </div>
+										</td>
+									</tr>
+									<tr class="table_number">
+										<td colspan="1" rowspan="1" class="col_0 row_2 table_number table_number_col_0 table_number_row_2">
+											<div class="text"><span class="bold">3</span></div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_2 table_number table_number_col_1 table_number_row_2">
+											<div class="text"><span class="bold">Haga clic en [Aceptar].</span></div>
+											<div class="figure"><img src="./images/book_images/b_RUI007_c.gif" alt="" /></div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="step_number">5</div>
+						<div class="step_text">Reinicie el equipo.</div>
+						<div class="list">Apague el equipo, espere al menos 10 segundos y vuelva a encenderlo. </div>
+						<div class="related">VÍNCULOS</div>
+						<div class="list_link_level0"><a href="SS6230_network50_settingipv4address.html#05010040_010">Configuración de la dirección IPv4</a></div>
+						<div class="list_link_level0"><a href="SS6230_network51_settingipv6addresses.html#05010040_020">Configuración de direcciones IPv6</a></div>
+						<div class="list_link_level0"><a href="SS6230_network52_viewingnetworksettings.html#05020000">Visualización de las opciones de red</a></div>
+					</div>
+					<!--CONTENT_END-->
+				</div>
+				<div class="footer"><ul id="id_footer_include"></ul></div>
+				<div id="back_to_the_top"><a href="#id_header"><img src="../frame_images/f_back_3.png" title="" /></a></div>
+			</div>
+		</div>
+	</body>
+</html>

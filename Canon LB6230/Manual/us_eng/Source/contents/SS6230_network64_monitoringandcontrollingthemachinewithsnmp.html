@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta name="Generator" content="CAESAR" />
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+		<meta http-equiv="content-style-type" content="text/css" />
+		<meta http-equiv="content-script-type" content="text/javascript" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Monitoring and Controlling the Machine with SNMP</title>
+		<link href="styles/style000/style.css" rel="alternate stylesheet" type="text/css" disabled="disabled" title="local" />
+		<script type="text/javascript" charset="UTF-8" src="../jsons/resource.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../jsons/toc.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../scripts/loader.js"></script>
+	</head>
+	<body>
+		<div id="id_header" class="nocontent"><table cellpadding="0" cellspacing="0"><tr><th class="header"><span id="id_res_canon_logo"></span><span id="id_res_guide_name"></span></th><td class="header" id="id_header_include"></td></tr><tr><th class="bar" id="id_tabs"><button id="id_res_contents" class="tab_active" accesskey="c"></button><button id="id_res_search" class="tab_inactive" accesskey="s"></button></th><td class="bar"><button id="id_res_bar_icon_previous" accesskey="b" style="display: none;"></button><label id="id_res_bar_label_previous" for="id_res_bar_icon_previous"></label><button id="id_res_bar_icon_next" accesskey="n" style="display: none;"></button><label id="id_res_bar_label_next" for="id_res_bar_icon_next"></label><button id="id_res_bar_icon_print" accesskey="p" style="display: none;"></button><label id="id_res_bar_label_print" for="id_res_bar_icon_print"></label></td></tr></table></div>
+		<div id="id_panel" class="nocontent">
+			<div id="id_panel_toc" style="display:None;">
+				<div id="id_panel_label"><label id="id_res_chapter"></label><select id="id_chapter_select"></select></div>
+				<div id="id_toc_open_close"><a id="id_res_open_toc_all" href="#"></a><a id="id_res_close_toc_all" href="#"></a></div>
+				<ul id="id_toc"></ul>
+				<div id="id_print_all"><a id="id_res_print_all" href="#"></a></div>
+			</div>
+			<div id="id_panel_search" style="display:None;"></div>
+		</div>
+		<!--CONTENT_START-->
+		<div id="id_content">
+			<h1><a id="05040080"></a>Monitoring and Controlling the Machine with SNMP</h1>
+			<div class="lead">Simple Network Management Protocol (SNMP) is a protocol for monitoring and controlling communication devices in a network by using a Management Information Base (MIB) database. The machine supports SNMPv1 and security-enhanced SNMPv3. They allow you to check the status of the machine from a computer when you print documents or use the Remote UI. You can enable either SNMPv1 or SNMPv3, or both at the same time. Specify the settings for each version to suit your network environment and the purpose of use. </div>
+			<div class="figure_center"><img src="./images/book_images/b_C214_L.gif" alt="" /></div>
+			<h5>SNMPv1</h5>
+			<div class="text">SNMPv1 uses data called a &quot;community string&quot; (in effect a kind of password) to define the scope of SNMP communication. Because this information is exposed to the network in plain text, your network will be vulnerable to attacks. If you want to ensure network security, disable SNMPv1 and use SNMPv3. </div>
+			<h5>SNMPv3</h5>
+			<div class="text">With SNMPv3, you can implement network device management that is protected by robust security features. Use the Remote UI to make settings. Before starting, enable SSL (<a href="SS6230_security73_enablingsslencryptedcommunicationfortheremoteu.html#06030000">Enabling SSL Encrypted Communication for the Remote UI</a>). </div>
+			<div class="annotation"> </div>
+			<div class="table_note_level0">
+				<table class="table_note_level0">
+					<thead class="table_note_level0">
+						<tr class="table_note_level0">
+							<td colspan="1" rowspan="1" class="col_0 row_0 table_note_level0 table_note_level0_col_0 table_note_level0_row_0">
+								<div class="text"><img src="./images/book_images/b_style_note2.gif" alt="" /></div>
+							</td>
+						</tr>
+					</thead>
+					<tbody class="table_note_level0">
+						<tr class="table_note_level0">
+							<td colspan="1" rowspan="1" class="col_0 row_1 table_note_level0 table_note_level0_col_0 table_note_level0_row_1">
+								<div class="list">The machine does not support the trap notification feature of SNMP. </div>
+								<div class="list">To change the SNMP port numbers <span class="no_break"><a href="SS6230_security72_changingportnumbers.html#06010030">Changing Port Numbers</a></span></div>
+								<div class="list">SNMP management software enables you to configure, monitor, and control the machine remotely from the computer where the software is installed. For more information, see the instruction manuals for your management software. </div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="step_number">1</div>
+			<div class="step_text">Start the Remote UI and log on in System Manager Mode. <a href="SS6230_using79_startingtheremoteui.html#07010000">Starting the Remote UI</a></div>
+			<div class="step_number">2</div>
+			<div class="step_text">Click [Settings/Registration].</div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI001_c.gif" alt="" /></div>
+			<div class="step_number">3</div>
+			<div class="step_text">Click [Network Settings] <img src="./images/book_images/b_key_arrow_right.gif" alt="" /> [SNMP Settings].</div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI002b_c.gif" alt="" /></div>
+			<div class="step_number">4</div>
+			<div class="step_text">Click [Edit].</div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI028_c.gif" alt="" /></div>
+			<div class="step_number">5</div>
+			<div class="step_text">Specify SNMPv1 settings.</div>
+			<div class="list">If you do not need to change SNMPv1 settings, proceed to the next step. </div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI029_c.gif" alt="" /></div>
+			<div class="text_level1_sub"><span class="bold">[Use SNMPv1]<br /></span>Select the check box to enable SNMPv1. You can specify the rest of the SNMPv1 settings only when this check box is selected. </div>
+			<div class="text_level1_sub"><span class="bold">[Community Name 1]/[Community Name 2]<br /></span>Enter up to 32 alphanumeric characters for the name of the community. </div>
+			<div class="text_level1_sub"><span class="bold">[MIB Access Permission 1]/[MIB Access Permission 2]<br /></span>For each community, select [Read/Write] or [Read Only] for the access privileges to MIB objects. </div>
+			<div class="table_matrix_level1">
+				<table class="table_matrix_level1">
+					<tbody class="table_matrix_level1">
+						<tr class="table_matrix_level1">
+							<td colspan="1" rowspan="1" class="col_0 row_0 table_matrix_level1 table_matrix_level1_col_0 table_matrix_level1_row_0">
+								<div class="text">[Read/Write]</div>
+							</td>
+							<td colspan="1" rowspan="1" class="col_1 row_0 table_matrix_level1 table_matrix_level1_col_1 table_matrix_level1_row_0">
+								<div class="text">Allows both viewing and changing the values of MIB objects. </div>
+							</td>
+						</tr>
+						<tr class="table_matrix_level1">
+							<td colspan="1" rowspan="1" class="col_0 row_1 table_matrix_level1 table_matrix_level1_col_0 table_matrix_level1_row_1">
+								<div class="text">[Read Only]</div>
+							</td>
+							<td colspan="1" rowspan="1" class="col_1 row_1 table_matrix_level1 table_matrix_level1_col_1 table_matrix_level1_row_1">
+								<div class="text">Allows only viewing the values of MIB objects. </div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="text_level1_sub"><span class="bold">[Dedicated Community Settings]<br /></span>Dedicated Community is a preset community, intended exclusively for administrators using Canon software, such as imageWARE Enterprise Management Console. Select [Off], [Read/Write] or [Read Only] for access privileges to MIB objects. </div>
+			<div class="table_matrix_level1">
+				<table class="table_matrix_level1">
+					<tbody class="table_matrix_level1">
+						<tr class="table_matrix_level1">
+							<td colspan="1" rowspan="1" class="col_0 row_0 table_matrix_level1 table_matrix_level1_col_0 table_matrix_level1_row_0">
+								<div class="text">[Off]</div>
+							</td>
+							<td colspan="1" rowspan="1" class="col_1 row_0 table_matrix_level1 table_matrix_level1_col_1 table_matrix_level1_row_0">
+								<div class="text">Do not use the Dedicated Community. </div>
+							</td>
+						</tr>
+						<tr class="table_matrix_level1">
+							<td colspan="1" rowspan="1" class="col_0 row_1 table_matrix_level1 table_matrix_level1_col_0 table_matrix_level1_row_1">
+								<div class="text">[Read/Write]</div>
+							</td>
+							<td colspan="1" rowspan="1" class="col_1 row_1 table_matrix_level1 table_matrix_level1_col_1 table_matrix_level1_row_1">
+								<div class="text">Allows the Dedicated Community to both view and change the values of MIB objects. </div>
+							</td>
+						</tr>
+						<tr class="table_matrix_level1">
+							<td colspan="1" rowspan="1" class="col_0 row_2 table_matrix_level1 table_matrix_level1_col_0 table_matrix_level1_row_2">
+								<div class="text">[Read Only]</div>
+							</td>
+							<td colspan="1" rowspan="1" class="col_1 row_2 table_matrix_level1 table_matrix_level1_col_1 table_matrix_level1_row_2">
+								<div class="text">Allows the Dedicated Community to only view MIB objects. </div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="step_number">6</div>
+			<div class="step_text">Specify SNMPv3 settings.</div>
+			<div class="list">If you do not need to change SNMPv3 settings, proceed to the next step. </div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI030_c.gif" alt="" /></div>
+			<div class="text_level1_sub"><span class="bold">[Use SNMPv3]<br /></span>Select the check box to enable SNMPv3. You can specify the rest of the SNMPv3 settings only when this check box is selected. </div>
+			<div class="text_level1_sub"><span class="bold">[Enable User]<br /></span>Select the check box to enable [User Settings 1]/[User Settings 2]/[User Settings 3]. To disable user settings, clear the corresponding check box. </div>
+			<div class="text_level1_sub"><span class="bold">[User Name]<br /></span>Enter up to 32 alphanumeric characters for the user name. </div>
+			<div class="text_level1_sub"><span class="bold">[MIB Access Permission]<br /></span>Select [Read/Write] or [Read Only] for access privileges to MIB objects. </div>
+			<div class="table_matrix_level1">
+				<table class="table_matrix_level1">
+					<tbody class="table_matrix_level1">
+						<tr class="table_matrix_level1">
+							<td colspan="1" rowspan="1" class="col_0 row_0 table_matrix_level1 table_matrix_level1_col_0 table_matrix_level1_row_0">
+								<div class="text">[Read/Write]</div>
+							</td>
+							<td colspan="1" rowspan="1" class="col_1 row_0 table_matrix_level1 table_matrix_level1_col_1 table_matrix_level1_row_0">
+								<div class="text">Allows both viewing and changing the values of MIB objects. </div>
+							</td>
+						</tr>
+						<tr class="table_matrix_level1">
+							<td colspan="1" rowspan="1" class="col_0 row_1 table_matrix_level1 table_matrix_level1_col_0 table_matrix_level1_row_1">
+								<div class="text">[Read Only]</div>
+							</td>
+							<td colspan="1" rowspan="1" class="col_1 row_1 table_matrix_level1 table_matrix_level1_col_1 table_matrix_level1_row_1">
+								<div class="text">Allows only viewing the values of MIB objects. </div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="text_level1_sub"><span class="bold">[Security Settings]<br /></span>Select [Authentication On/Encryption On], [Authentication On/Encryption Off], or [Authentication Off/Encryption Off] for the desired combination of authentication and encryption settings. </div>
+			<div class="text_level1_sub"><span class="bold">[Authentication Algorithm]</span><br />When [Security Settings] has been set to [Authentication On/Encryption On] or [Authentication On/Encryption Off], select [MD5] or [SHA1] as the authentication algorithm, according to your environment. </div>
+			<div class="text_level1_sub"><span class="bold">[Encryption Algorithm]</span><br />When [Security Settings] has been set to [Authentication On/Encryption On], select [DES] or [AES] as the encryption algorithm, according to your environment. </div>
+			<div class="text_level1_sub"><span class="bold">[Set/Change Password]</span><br />To set or change the password, select the check box and enter between 6 and 16 alphanumeric characters for the password in the [Authentication Password] or [Encryption Password] text box. For confirmation, enter the same password in the [Confirm] text box. Passwords can be set independently for authentication and encryption algorithms. </div>
+			<div class="text_level1_sub"><span class="bold">[Context Name 1]/[Context Name 2]/[Context Name 3]</span><br />Enter up to 32 alphanumeric characters for context names. Up to three context names can be registered. </div>
+			<div class="step_number">7</div>
+			<div class="step_text">Specify printer management information acquisition settings.</div>
+			<div class="list">With SNMP, printer management information (such as printing protocols and printer ports) can be monitored and obtained regularly from a computer on the network. </div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI031_c.gif" alt="" /></div>
+			<div class="text_level1_sub"><span class="bold">[Acquire Printer Management Information from Host]</span></div>
+			<div class="text_level1">Select the check box to enable monitoring of the printer management information of the machine via SNMP. To disable monitoring of the printer management information, clear the check box. </div>
+			<div class="step_number">8</div>
+			<div class="step_text">Click [OK].</div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI029a_c.gif" alt="" /></div>
+			<div class="step_number">9</div>
+			<div class="step_text">Restart the machine.</div>
+			<div class="list">Turn OFF the machine, wait for at least 10 seconds, and turn it back ON. </div>
+			<div class="annotation"> </div>
+			<div class="table_note_level0">
+				<table class="table_note_level0">
+					<thead class="table_note_level0">
+						<tr class="table_note_level0">
+							<td colspan="1" rowspan="1" class="col_0 row_0 table_note_level0 table_note_level0_col_0 table_note_level0_row_0">
+								<div class="text"><img src="./images/book_images/b_style_note1.gif" alt="" /></div>
+							</td>
+						</tr>
+					</thead>
+					<tbody class="table_note_level0">
+						<tr class="table_note_level0">
+							<td colspan="1" rowspan="1" class="col_0 row_1 table_note_level0 table_note_level0_col_0 table_note_level0_row_1">
+								<h5>Disabling both SNMPv1 and SNMPv3</h5>
+								<div class="text_level0">If both versions of SNMP are disabled, some of the functions of the machine become unavailable, such as obtaining machine information via the printer driver. </div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="table_tips_level0">
+				<table class="table_tips_level0">
+					<thead class="table_tips_level0">
+						<tr class="table_tips_level0">
+							<td colspan="1" rowspan="1" class="col_0 row_0 table_tips_level0 table_tips_level0_col_0 table_tips_level0_row_0">
+								<div class="text">Enabling Both SNMPv1 and SNMPv3</div>
+							</td>
+						</tr>
+					</thead>
+					<tbody class="table_tips_level0">
+						<tr class="table_tips_level0">
+							<td colspan="1" rowspan="1" class="col_0 row_1 table_tips_level0 table_tips_level0_col_0 table_tips_level0_row_1">
+								<div class="text_level0">If both versions of SNMP are enabled, it is recommended that MIB access permission in SNMPv1 be set to [Read Only]. MIB access permission can be set independently in SNMPv1 and SNMPv3 (and for each user in SNMPv3). Selecting [Read/Write] (full access permission) in SNMPv1 negates the robust security features that characterize SNMPv3 because most of the machine settings can then be controlled with SNMPv1. </div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="related">LINKS</div>
+			<div class="list_link_level0"><a href="SS6230_security73_enablingsslencryptedcommunicationfortheremoteu.html#06030000">Enabling SSL Encrypted Communication for the Remote UI</a></div>
+		</div>
+		<!--CONTENT_END-->
+		<div id="id_footer" class="nocontent"><table cellpadding="0" cellspacing="0"><tr><th><span id="id_res_copy_right"></span></th><td id="id_footer_include"></td></tr></table></div>
+		<div id="id_breadcrumbs" class="nocontent"><a href="../frame_htmls/home.html" id="id_res_home"></a> &gt; <a href="SS6230_network45_network.html" id="id_level_1" toc_id="SS6230_network45_network" title="Network" >Network</a> &gt; <a href="SS6230_network56_configuringthemachineforyournetworkenvironment.html" id="id_level_2" toc_id="SS6230_network56_configuringthemachineforyournetworkenvironment" title="Configuring the Machine for Your Network Environment" >Configuring the Machine for Your Network Environment</a> &gt; <a id="id_level_3" toc_id="SS6230_network64_monitoringandcontrollingthemachinewithsnmp" title="Monitoring and Controlling the Machine with SNMP" >Monitoring and Controlling the Machine with SNMP</a></div>
+		<div id="id_document_number">0JWS-02J</div>
+	</body>
+</html>

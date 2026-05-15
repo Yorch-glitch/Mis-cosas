@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta name="Generator" content="CAESAR" />
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+		<meta http-equiv="content-style-type" content="text/css" />
+		<meta http-equiv="content-script-type" content="text/javascript" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Using CA-issued Key Pairs and Digital Certificates</title>
+		<link href="styles/style000/style.css" rel="alternate stylesheet" type="text/css" disabled="disabled" title="local" />
+		<script type="text/javascript" charset="UTF-8" src="../jsons/resource.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../jsons/toc.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../scripts/loader.js"></script>
+	</head>
+	<body>
+		<div id="id_header" class="nocontent"><table cellpadding="0" cellspacing="0"><tr><th class="header"><span id="id_res_canon_logo"></span><span id="id_res_guide_name"></span></th><td class="header" id="id_header_include"></td></tr><tr><th class="bar" id="id_tabs"><button id="id_res_contents" class="tab_active" accesskey="c"></button><button id="id_res_search" class="tab_inactive" accesskey="s"></button></th><td class="bar"><button id="id_res_bar_icon_previous" accesskey="b" style="display: none;"></button><label id="id_res_bar_label_previous" for="id_res_bar_icon_previous"></label><button id="id_res_bar_icon_next" accesskey="n" style="display: none;"></button><label id="id_res_bar_label_next" for="id_res_bar_icon_next"></label><button id="id_res_bar_icon_print" accesskey="p" style="display: none;"></button><label id="id_res_bar_label_print" for="id_res_bar_icon_print"></label></td></tr></table></div>
+		<div id="id_panel" class="nocontent">
+			<div id="id_panel_toc" style="display:None;">
+				<div id="id_panel_label"><label id="id_res_chapter"></label><select id="id_chapter_select"></select></div>
+				<div id="id_toc_open_close"><a id="id_res_open_toc_all" href="#"></a><a id="id_res_close_toc_all" href="#"></a></div>
+				<ul id="id_toc"></ul>
+				<div id="id_print_all"><a id="id_res_print_all" href="#"></a></div>
+			</div>
+			<div id="id_panel_search" style="display:None;"></div>
+		</div>
+		<!--CONTENT_START-->
+		<div id="id_content">
+			<h1><a id="06030040_020"></a>Using CA-issued Key Pairs and Digital Certificates</h1>
+			<div class="lead">Key pairs and digital certificates can be obtained from a certification authority (CA) for use with the machine. After obtaining them from a CA, you can install and register key pairs and CA certificate files on the machine by using the Remote UI. Make sure that the key pair and the certificate satisfy the requirements of the machine (<a href="SS6230_security74_configuringsettingsforkeypairsanddigitalcertif.html#09040000-01">Key and Certificate Operating Requirements</a>). You can register up to three key pairs and three CA certificates including the preinstalled ones. </div>
+			<div class="figure_center"><img src="./images/book_images/b_C407.gif" alt="" /></div>
+			<div class="text"> </div>
+			<div class="step_number">1</div>
+			<div class="step_text">Start the Remote UI and log on in System Manager Mode. <a href="SS6230_using79_startingtheremoteui.html#07010000">Starting the Remote UI</a></div>
+			<div class="step_number">2</div>
+			<div class="step_text">Click [Settings/Registration].</div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI001_c.gif" alt="" /></div>
+			<div class="step_number">3</div>
+			<div class="step_text">Click [Security Settings] <img src="./images/book_images/b_key_arrow_right.gif" alt="" /> Click [Key and Certificate Settings] or [CA Certificate Settings].</div>
+			<div class="list">Click [Key and Certificate Settings] to install a key pair, or [CA Certificate Settings] to install a CA certificate. </div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI038c_c.gif" alt="" /></div>
+			<div class="step_number">4</div>
+			<div class="step_text">Click [Register Key and Certificate] or [Register CA Certificate].</div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI048a_c.gif" alt="" /></div>
+			<div class="text_level1"><span class="bold+color_green"><img src="./images/book_images/b_style_note2.gif" alt="" /></span></div>
+			<div class="text_level1"><span class="bold+color_green">To delete a registered key pair or CA certificate</span></div>
+			<div class="list_level1">On the right of the key pair or CA certificate you want to delete, click [Delete] <img src="./images/book_images/b_key_arrow_right.gif" alt="" /> [OK]. </div>
+			<div class="list_level1">A key pair cannot be deleted when &quot;SSL&quot; is displayed under [Key Usage], indicating that the key pair is currently in use. In this case, disable SSL or replace the key pair with another. You will then be able to delete it. </div>
+			<div class="step_number">5</div>
+			<div class="step_text">Click [Install].</div>
+			<div class="list">You can only install one file on this machine. If another file is already installed, click [Delete] <img src="./images/book_images/b_key_arrow_right.gif" alt="" /> [OK] to delete the previously installed file. </div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI051_c.gif" alt="" /></div>
+			<div class="step_number">6</div>
+			<div class="step_text">Click [Browse], specify the file to install, and click [Start Installation].</div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI052_c.gif" alt="" /></div>
+			<div class="table_no_border">
+				<table class="table_no_border">
+					<tbody class="table_no_border">
+						<tr class="table_no_border">
+							<td colspan="1" rowspan="1" class="col_0 row_0 table_no_border table_no_border_col_0 table_no_border_row_0">
+								<div class="figure"><img src="./images/book_images/b_mark_result.gif" alt="" /></div>
+							</td>
+							<td colspan="1" rowspan="1" class="col_1 row_0 table_no_border table_no_border_col_1 table_no_border_row_0">
+								<div class="text">The key pair or CA certificate from the computer is installed in the machine. <br /><img src="./images/book_images/b_spacer_w530.gif" alt="" /></div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="step_number">7</div>
+			<div class="step_text">Register the key pair or CA certificate.</div>
+			<h6><img src="./images/book_images/b_C241.gif" alt="" />Registering a key pair</h6>
+			<div class="table_number">
+				<table class="table_number">
+					<tbody class="table_number">
+						<tr class="table_number">
+							<td colspan="1" rowspan="1" class="col_0 row_0 table_number table_number_col_0 table_number_row_0">
+								<div class="text"><span class="bold">1</span></div>
+							</td>
+							<td colspan="1" rowspan="1" class="col_1 row_0 table_number table_number_col_1 table_number_row_0">
+								<div class="text"><span class="bold">Click [Register] on the right of the key pair you want to register.</span></div>
+								<div class="text"><img src="./images/book_images/b_RUI053_c.gif" alt="" /></div>
+							</td>
+						</tr>
+						<tr class="table_number">
+							<td colspan="1" rowspan="1" class="col_0 row_1 table_number table_number_col_0 table_number_row_1">
+								<div class="text"><span class="bold">2</span></div>
+							</td>
+							<td colspan="1" rowspan="1" class="col_1 row_1 table_number table_number_col_1 table_number_row_1">
+								<div class="text"><span class="bold">Enter the name of the key pair and password, and then click [OK].</span></div>
+								<div class="figure"><img src="./images/book_images/b_RUI054_c.gif" alt="" /></div>
+								<div class="text_sub"><span class="bold">[Key Name]</span></div>
+								<div class="text">Enter a name of up to 24 alphanumeric characters for registering the key pair in the machine. Set a name that will be easy for you to find later in a list. </div>
+								<div class="text_sub"><span class="bold">[Password]</span></div>
+								<div class="text">Enter up to 24 alphanumeric characters for the password of the secret key that is set in the file to be registered. </div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<h6><img src="./images/book_images/b_C241.gif" alt="" />Registering a CA certificate</h6>
+			<div class="text_level1">Click [Register] on the right of the CA certificate you want to register. </div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI055_c.gif" alt="" /></div>
+			<div class="related">LINKS</div>
+			<div class="list_link_level0"><a href="SS6230_security75_generatingkeypairs.html#06030040_010">Generating Key Pairs</a></div>
+			<div class="list_link_level0"><a href="SS6230_security77_verifyingkeypairsandcacertificates.html#06030040_030">Verifying Key Pairs and CA Certificates</a></div>
+			<div class="list_link_level0"><a href="SS6230_security73_enablingsslencryptedcommunicationfortheremoteu.html#06030000">Enabling SSL Encrypted Communication for the Remote UI</a></div>
+		</div>
+		<!--CONTENT_END-->
+		<div id="id_footer" class="nocontent"><table cellpadding="0" cellspacing="0"><tr><th><span id="id_res_copy_right"></span></th><td id="id_footer_include"></td></tr></table></div>
+		<div id="id_breadcrumbs" class="nocontent"><a href="../frame_htmls/home.html" id="id_res_home"></a> &gt; <a href="SS6230_security66_security.html" id="id_level_1" toc_id="SS6230_security66_security" title="Security" >Security</a> &gt; <a href="SS6230_security73_enablingsslencryptedcommunicationfortheremoteu.html" id="id_level_2" toc_id="SS6230_security73_enablingsslencryptedcommunicationfortheremoteu" title="Enabling SSL Encrypted Communication for the Remote UI" >Enabling SSL Encrypted Communication for the Remote UI</a> &gt; <a href="SS6230_security74_configuringsettingsforkeypairsanddigitalcertif.html" id="id_level_3" toc_id="SS6230_security74_configuringsettingsforkeypairsanddigitalcertif" title="Configuring Settings for Key Pairs and Digital Certificates" >Configuring Settings for Key Pairs and Digital Certificates</a> &gt; <a id="id_level_4" toc_id="SS6230_security76_usingcaissuedkeypairsanddigitalcertificates" title="Using CA-issued Key Pairs and Digital Certificates" >Using CA-issued Key Pairs and Digital Certificates</a></div>
+		<div id="id_document_number">0JWS-033</div>
+	</body>
+</html>

@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="pt" xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta name="Generator" content="CAESAR" />
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+		<meta http-equiv="content-style-type" content="text/css" />
+		<meta http-equiv="content-script-type" content="text/javascript" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Configurando o DNS - Manual eletrônico</title>
+		<link rel="stylesheet" type="text/css" href="../styles/frame_style.css" />
+		<link rel="stylesheet" type="text/css" href="../styles/frame_sub.css" disabled="disabled" title="sub" />
+		<link href="styles/style000/style.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" charset="UTF-8" src="../jsons/resource.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../jsons/toc.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../jsons/search.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../scripts/jquery.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="../scripts/library.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="../scripts/script.js"></script>
+	</head>
+	<body>
+		<div class="page">
+			<div class="center">
+				<div class="header" id="id_header">
+					<div class="right"><ul id="id_header_include"></ul></div>
+					<a href="../frame_htmls/home.html">
+						<img src="../frame_images/C100.gif" title="Canon" class="canon_logo" />
+					</a>
+					<img src="../frame_images/f_product_logo.gif" class="product_logo" />
+				</div>
+				<div class="left" id="id_left">
+					<div class="tab"><button id="id_res_contents" class="active"></button><button id="id_res_search" class="inactive"></button></div>
+					<div class="chapter_title"><span class="chapter_title_left"></span><span class="chapter_title_center" id="id_chapter_title"></span><span class="chapter_title_right"><button id="id_btn_toggle_s"></button><button id="id_btn_toggle_l"></button></span></div>
+					<div id="id_panel_toc">
+						<div class="open_close"><a id="id_res_open_toc_all" href="javascript:void(0);"></a>
+									|
+									<a id="id_res_close_toc_all" href="javascript:void(0);"></a></div>
+						<ul id="id_chapter_icons"></ul>
+						<ul id="id_toc"></ul>
+						<div class="print"><a id="id_res_print_all" href="javascript:void(0);"></a></div>
+					</div>
+					<div id="id_panel_search">
+						<div class="input">
+							<input name="search" type="text" id="id_search" onkeydown="return fncSearchKeyDown(event.keyCode, this.value);" />
+							<button id="id_search_button"></button>
+							<div class="search_options"><button id="id_res_search_options_show"></button></div>
+						</div>
+						<div id="id_search_options">
+							<ul>
+								<li>
+									<input type="radio" name="search_options_search_scope" id="id_search_options_search_scope_all" />
+									<label for="id_search_options_search_scope_all" id="id_res_search_options_search_scope_all"></label>
+								</li>
+								<li>
+									<input type="radio" name="search_options_search_scope" id="id_search_options_search_scope_chapter" />
+									<label for="id_search_options_search_scope_chapter" id="id_res_search_options_search_scope_chapter"></label>
+								</li>
+							</ul>
+							<div id="id_search_chapters"></div>
+							<ul>
+								<li>
+									<input type="checkbox" id="id_search_options_case" />
+									<label for="id_search_options_case" id="id_res_search_options_case"></label>
+								</li>
+								<li>
+									<input type="checkbox" id="id_search_options_multibyte" />
+									<label for="id_search_options_multibyte" id="id_res_search_options_multibyte"></label>
+								</li>
+							</ul>
+							<div class="bottom"><button id="id_res_search_button"></button></div>
+						</div>
+						<div id="id_search_results"></div>
+						<div id="id_search_status"></div>
+					</div>
+				</div>
+				<div class="right" id="id_right">
+					<div id="id_breadcrumbs"><a href="../frame_htmls/home.html" id="id_res_home"></a> » <a href="SS6230_network45_network.html" id="id_level_1" toc_id="SS6230_network45_network" title="Rede" >Rede</a> » <a href="SS6230_network56_configuringthemachineforyournetworkenvironment.html" id="id_level_2" toc_id="SS6230_network56_configuringthemachineforyournetworkenvironment" title="Configurando sua impressora para seu ambiente de rede" >Configurando sua impressora para seu ambiente de rede</a> » <a id="id_level_3" toc_id="SS6230_network60_configuringdns" title="Configurando o DNS" >Configurando o DNS</a></div>
+					<div id="id_document_number">0KU8-02C</div>
+					<div class="nav"><button id="id_res_bar_icon_previous"></button><button id="id_res_bar_icon_next"></button></div>
+					<!--CONTENT_START-->
+					<div id="id_content">
+						<div class="h1"><a id="05040040"></a>Configurando o DNS</div>
+						<div class="lead">O DNS (Domain Name System) fornece um serviço para a resolução de nome associado a um nome de host (ou domínio) com um endereço IP. Configure as definições de opção DNS, mDNS ou DHCP conforme necessário e de acordo com sua rede. Observe que os procedimentos para a configuração do DNS são diferentes para o IPv4 e o IPv6. </div>
+						<div class="figure_center"><img src="./images/book_images/b_C212_L.gif" alt="" /></div>
+						<div class="text"> </div>
+						<div class="step_number">1</div>
+						<div class="step_text">Inicie o Remote UI e faça o logon no modo Administrador Sistema. <a href="SS6230_using79_startingtheremoteui.html#07010000">Iniciando o Remote UI</a></div>
+						<div class="step_number">2</div>
+						<div class="step_text">Clique em [Settings/Registration].</div>
+						<div class="figure_level1"><img src="./images/book_images/b_RUI001_c.gif" alt="" /></div>
+						<div class="step_number">3</div>
+						<div class="step_text">Clique em [Network Settings] <img src="./images/book_images/b_key_arrow_right.gif" alt="" /> [TCP/IP Settings].</div>
+						<div class="figure_level1"><img src="./images/book_images/b_RUI002_c.gif" alt="" /></div>
+						<div class="step_number">4</div>
+						<div class="step_text">Configure as definições de DNS</div>
+						<div class="h6"><img src="./images/book_images/b_C241.gif" alt="" />Configurando as definições de DNS do IPv4</div>
+						<div class="table_number">
+							<table class="table_number">
+								<tbody class="table_number">
+									<tr class="table_number">
+										<td colspan="1" rowspan="1" class="col_0 row_0 table_number table_number_col_0 table_number_row_0">
+											<div class="text"><span class="bold">1</span></div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_0 table_number table_number_col_1 table_number_row_0">
+											<div class="text"><span class="bold">Clique em [Edit] em [IPv4 Settings].</span></div>
+											<div class="figure"><img src="./images/book_images/b_RUI003_c.gif" alt="" /></div>
+										</td>
+									</tr>
+									<tr class="table_number">
+										<td colspan="1" rowspan="1" class="col_0 row_1 table_number table_number_col_0 table_number_row_1">
+											<div class="text"><span class="bold">2</span></div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_1 table_number table_number_col_1 table_number_row_1">
+											<div class="text"><span class="bold">Defina as configurações de DNS do IPv4.</span></div>
+											<div class="figure"><img src="./images/book_images/b_RUI017_c.gif" alt="" /></div>
+											<div class="text_sub"><img src="./images/book_images/b_C043.gif" alt="" /> <span class="bold">[DNS Settings]</span></div>
+											<div class="text_level3_sub"><span class="bold">[Primary DNS Server Address]<br /></span>Digite o endereço IP do servidor DNS. </div>
+											<div class="text_level3_sub"><span class="bold">[Secondary DNS Server Address]<br /></span>Quando houver um servidor de DNS secundário, digite seu endereço IP. </div>
+											<div class="text_level3_sub"><span class="bold">[Host Name]<br /></span>Digite até 47 caracteres alfanuméricos para o nome do host da impressora que será registrada no servidor DNS. </div>
+											<div class="text_level3_sub"><span class="bold">[Domain Name]<br /></span>Digite até 47 caracteres alfanuméricos para o nome do domínio pertencente à impressora, como &quot;exemplo.com&quot;. </div>
+											<div class="text_level3_sub"><span class="bold">[DNS Dynamic Update]<br /></span>Marque a caixa de seleção para atualizar automaticamente os registros de DNS sempre que a associação entre o endereço IP da impressora e seu nome do host for alterado (por exemplo, em um ambiente DHCP). Para especificar o intervalo entre as atualizações, digite as horas na caixa de texto [DNS Dynamic Update Interval]. Desmarque a caixa de seleção se não quiser usar a atualização dinâmica. </div>
+											<div class="text_sub"><img src="./images/book_images/b_C044.gif" alt="" /> <span class="bold">[mDNS Settings]</span></div>
+											<div class="text_level3_sub"><span class="bold">[Use mDNS]<br /></span>Adotado por serviços como o Bonjour, o mDNS (DNS multicast) é um protocolo de associação de nome do host com um endereço IP sem usar DNS. Marque a caixa de seleção para ativar o mDNS e digite o nome do mDNS na caixa de texto [mDNS Name]. Desmarque a caixa de seleção se não quiser usar o mDNS. </div>
+											<div class="text_sub"><img src="./images/book_images/b_C045.gif" alt="" /> <span class="bold">[DHCP Option Settings]</span></div>
+											<div class="text_level3_sub"><span class="bold">[Acquire Host Name]<br /></span>Marque a caixa de seleção para ativar a Opção 12 para obter o nome do host a partir do servidor DHCP. Desmarque a caixa de seleção se não quiser usar esta função. </div>
+											<div class="text_level3_sub"><span class="bold">[DNS Dynamic Update]<br /></span>Marque a caixa de seleção para ativar a Opção 81 para atualizar dinamicamente os registros do DHCP. Desmarque a caixa de seleção se não quiser usar esta função. </div>
+										</td>
+									</tr>
+									<tr class="table_number">
+										<td colspan="1" rowspan="1" class="col_0 row_2 table_number table_number_col_0 table_number_row_2">
+											<div class="text"><span class="bold">3</span></div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_2 table_number table_number_col_1 table_number_row_2">
+											<div class="text"><span class="bold">Clique em [OK].</span></div>
+											<div class="figure"><img src="./images/book_images/b_RUI004a_c.gif" alt="" /></div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="h6"><img src="./images/book_images/b_C241.gif" alt="" />Configurando as definições de DNS do IPv6</div>
+						<div class="table_number">
+							<table class="table_number">
+								<tbody class="table_number">
+									<tr class="table_number">
+										<td colspan="1" rowspan="1" class="col_0 row_0 table_number table_number_col_0 table_number_row_0">
+											<div class="text"><span class="bold">1</span></div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_0 table_number table_number_col_1 table_number_row_0">
+											<div class="text"><span class="bold">Clique em [Edit] em [IPv6 Settings].</span></div>
+											<div class="figure"><img src="./images/book_images/b_RUI005_c.gif" alt="" /></div>
+										</td>
+									</tr>
+									<tr class="table_number">
+										<td colspan="1" rowspan="1" class="col_0 row_1 table_number table_number_col_0 table_number_row_1">
+											<div class="text"><span class="bold">2</span></div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_1 table_number table_number_col_1 table_number_row_1">
+											<div class="text"><span class="bold">Defina as configurações de DNS do IPv6.</span></div>
+											<div class="list">A [Use IPv6] caixa de seleção deve ser marcada para configurar as definições. <a href="SS6230_network51_settingipv6addresses.html#05010040_020">Definindo endereços IPv6</a></div>
+											<div class="figure"><img src="./images/book_images/b_RUI019_c.gif" alt="" /></div>
+											<div class="text_sub"><img src="./images/book_images/b_C043.gif" alt="" /> <span class="bold">[DNS Settings]</span></div>
+											<div class="text_level3_sub"><span class="bold">[Primary DNS Server Address]<br /></span>Digite o endereço IP do servidor DNS. Endereços que começam com &quot;ff&quot; (endereços multicast) e endereços de loopback (::1) não podem ser inseridos. </div>
+											<div class="text_level3_sub"><span class="bold">[Secondary DNS Server Address]<br /></span>Quando há um servidor de DNS secundário, digite seu endereço IP. Endereços que começam com &quot;ff&quot; (endereços multicast) e endereços de loopback (::1) não podem ser inseridos. </div>
+											<div class="text_level3_sub"><span class="bold">[Use Same Host Name/Domain Name as IPv4]<br /></span>Marque a caixa de seleção para usar as mesmas definições usadas no IPv4. O nome do host e nome de domínio usados no IPv4 serão definidos automaticamente depois que a impressora for reinicializada. Desmarque a caixa de seleção se quiser usar definições diferentes do IPv4. </div>
+											<div class="text_level3_sub"><span class="bold">[Host Name]<br /></span>Digite até 47 caracteres alfanuméricos para o nome do host da impressora que será registrada no servidor DNS. </div>
+											<div class="text_level3_sub"><span class="bold">[Domain Name]<br /></span>Digite até 47 caracteres alfanuméricos para o nome do domínio pertencente à impressora, como &quot;exemplo.com&quot;. </div>
+											<div class="text_level3_sub"><span class="bold">[DNS Dynamic Update]<br /></span>Marque a caixa de seleção para atualizar automaticamente os registros de DNS sempre que a associação entre o endereço IP da impressora e seu nome de host altera (por exemplo, em um ambiente DHCP). Para especificar os endereços que você deseja registrar com o servidor de DNS, marque uma ou mais das caixas de seleção de [Register Manual Address], [Register Stateful Address] e [Register Stateless Address]. Para especificar o intervalo entre as atualizações, digite as horas na caixa de texto [DNS Dynamic Update Interval]. Desmarque a caixa de seleção se não quiser usar a atualização dinâmica. </div>
+											<div class="text_sub"><img src="./images/book_images/b_C044.gif" alt="" /> <span class="bold">[mDNS Settings]</span></div>
+											<div class="text_level3_sub"><span class="bold">[Use mDNS]<br /></span>Adotado por serviços como o Bonjour, o mDNS (multicast DNS) é um protocolo de associação de nome do host com um endereço IP sem usar DNS. Marque a caixa de seleção para ativar o mDNS. Desmarque a caixa de seleção se não quiser usar o mDNS. </div>
+											<div class="text_level3_sub"><span class="bold">[Use Same mDNS Name as IPv4]<br /></span>Marque a caixa de seleção para usar as mesmas definições usadas no IPv4. O nome do mDNS usado no IPv4 será definido automaticamente depois que a impressora for reinicializada. Desmarque a caixa de seleção e digite um nome em [mDNS Name] se quiser usar definições diferentes do IPv4. </div>
+										</td>
+									</tr>
+									<tr class="table_number">
+										<td colspan="1" rowspan="1" class="col_0 row_2 table_number table_number_col_0 table_number_row_2">
+											<div class="text"><span class="bold">3</span></div>
+										</td>
+										<td colspan="1" rowspan="1" class="col_1 row_2 table_number table_number_col_1 table_number_row_2">
+											<div class="text"><span class="bold">Clique em [OK].</span></div>
+											<div class="figure"><img src="./images/book_images/b_RUI007_c.gif" alt="" /></div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="step_number">5</div>
+						<div class="step_text">Reinicie a impressora.</div>
+						<div class="list">Desligue a impressora, espere pelo menos 10 segundos e ligue novamente. </div>
+						<div class="related">LINKS</div>
+						<div class="list_link_level0"><a href="SS6230_network50_settingipv4address.html#05010040_010">Definindo endereços IPv4</a></div>
+						<div class="list_link_level0"><a href="SS6230_network51_settingipv6addresses.html#05010040_020">Definindo endereços IPv6</a></div>
+						<div class="list_link_level0"><a href="SS6230_network52_viewingnetworksettings.html#05020000">Visualizando as definições de rede</a></div>
+					</div>
+					<!--CONTENT_END-->
+				</div>
+				<div class="footer"><ul id="id_footer_include"></ul></div>
+				<div id="back_to_the_top"><a href="#id_header"><img src="../frame_images/f_back_3.png" title="" /></a></div>
+			</div>
+		</div>
+	</body>
+</html>

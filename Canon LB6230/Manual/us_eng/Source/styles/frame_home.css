@@ -1,0 +1,378 @@
+/* --------------------------------------------------------------------------------------------- */
+#id_flow_toolbar {
+	margin-bottom: 0;
+}
+#pc_home {
+	margin: 0 40px 20px 40px;
+	display: none;
+	max-width: 980px;
+}
+#pc_home h1 { /* シリーズ名 */
+	font-size: 22pt;
+	text-align: left;
+	margin-top: 20px;
+	margin-bottom: 0;
+}
+#pc_home h2.model_number { /*  デバイスの型番 */
+	font-size: 12pt;
+	text-align: left;
+	margin-top: 0;
+}
+#pc_home h2.software { /* ソフト系の製品名 */
+	font-size: 18pt;
+	text-align: left;
+	margin-top: 0;
+}
+#pc_home h3 {
+	color: #000;
+	border-bottom: solid 1px #090405;
+	padding: 30px 0 0 0;
+	position: relative;
+	font-size: 100%;
+	font-weight: normal;
+	line-height: 150%;
+}
+/*
+#pc_home #region {
+	margin: 20px 0 0 0px;
+	color: #fff;
+	font-size: 80%;
+	font-weight: bold;
+	font-family: 'arial';
+	text-align: right;
+}
+div #pc_home #region :first-of-type {
+	margin-left: 0px;
+}
+#pc_home #region span {
+	display: inline-block;
+	white-space: nowrap;
+	margin: 0 0 3px 3px;
+	background: #929292;
+	padding: 1px 15px 1px 15px;
+}
+*/
+#pc_home #product_logo {
+	margin-top: 25px;
+	margin-bottom: 0;
+}
+#pc_home #id_res_version {
+	font-size: 90%;
+	line-height: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: 2px;
+}
+#pc_home .lead, 
+#pc_home #id_res_gb, 
+#pc_home #id_res_portal,
+#pc_home #id_res_com_address {
+	font-size: 80%;
+	line-height: 150%;
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+#pc_home #id_res_gb_place_of_origin, 
+#pc_home #id_res_gb_importer, 
+#pc_home #id_res_gb_address, 
+#pc_home #id_res_gb_revised {
+	font-size: 80%;
+	line-height: 150%;
+}
+#pc_home #id_res_gb_revised {
+	margin-top: 15px;
+	margin-bottom: 40px;
+}
+#pc_home #id_res_gb_name {
+	font-size: 12pt;
+	margin-top: 0;
+	position: absolute;
+}
+#pc_home .theme {
+	margin-top: 50px;
+}
+#pc_home .pdf {
+	width: 45px;
+	color: #fff;
+	background: #df815e;
+	margin: 0 5px 0 0;
+	padding: 1px 0 0 0;
+	display: inline-block;
+	text-align: center;
+	text-indent: 0;
+	vertical-align: middle;
+}
+#pc_home .html {
+	width: 45px;
+	color: #fff;
+	background: #727171;
+	margin: 0 5px 0px 0;
+	padding: 1px 0 0 0;
+	display: inline-block;
+	text-align: center;
+	text-indent: 0;
+	vertical-align: middle;
+}
+#pc_home .a div,
+#pc_home .b div,
+#pc_home .c div,
+#pc_home .d .right div,
+#pc_home .e div,
+#pc_home .f div {
+	font-size: 80%;
+	line-height: 125%;
+	margin-top: 5px;
+}
+#pc_home div a {
+	color: inherit;
+	margin-right: 0;
+}
+#pc_home ul {
+	margin-top: 5px;
+	font-size: 80%;
+}
+#pc_home ul li {
+	margin-top: 5px;
+	margin-left: 20px;
+	line-height: 125%;
+	list-style-image: url('../images/style_list.png');
+}
+#pc_home .a {
+	margin: 0 0 24px 0;
+	background: #fdede3;
+	padding: 15px 20px 20px 20px;
+}
+#pc_home .a ul li {
+	list-style-image: url('../images/style_list_warning.png');
+}
+#pc_home .b {
+	margin: 0 0 24px 0;
+	background: #eeefef;
+	padding: 15px 20px 20px 20px;
+}
+#pc_home .c {
+	margin: 24px 0 24px 0;
+	background: #eaf6fd;
+	padding: 15px 20px 20px 20px;
+}
+#pc_home .c h2 {
+	color: #0e6eb8;
+}
+#pc_home .c .column,
+#pc_home .c .left,
+#pc_home .c .right {
+	margin-top: 0!important;
+	font-size: 100%;
+}
+#pc_home .c ul {
+	margin-top: 0;
+}
+#pc_home .c ul li {
+	list-style-image: url('../images/style_list_important.png');
+}
+#pc_home .d {
+	display: table;
+	width: 100%;
+	margin: 24px 0 70px 0;
+	font-size: 100%;
+}
+#pc_home .d .left {
+	display: table-cell;
+	width: 90px; /* 画像の幅＋αを指定する */
+}
+#pc_home .d .right {
+	display: table-cell;
+	padding: 0 20px 10px 5px;
+	vertical-align: top;
+}
+#pc_home .e,
+#pc_home .f {
+	margin: 0 0 15px 0;
+	padding: 5px 20px;
+}
+#pc_home .column {
+	margin-top: 50px;
+	position: relative;
+}
+#pc_home div.hr {
+	height: 10px;
+	border: 0;
+	margin: 0 0 10px 0;
+	background-color: #e6e6e7;
+	vertical-align: middle;
+}
+#pc_home div.footer {
+	margin: 80px 0 0 0;
+	font-size: 100%;
+}
+#pc_home div.footer div.hr {
+	margin: 0 0 10px 0;
+	height: 1px;
+	width: 100%;
+	border: none;
+	background: #000;
+}
+#pc_home div.footer span {
+	display: inline-block;
+	margin: 5px 30px 0px 0;
+	white-space: nowrap;
+	font-size: 80%;
+}
+#pc_home div.footer a {
+	margin-right: 30px;
+}
+#pc_home div.footer span#id_res_copy_right {
+	margin-right: 0;
+}
+#pc_home div.footer div#disclaimer,
+#pc_home div.footer div#notice {
+	margin: 0 0 5px 0;
+}
+#pc_home div.footer div#disclaimer a,
+#pc_home div.footer div#notice a {
+	display: inline-block;
+	margin-bottom: 20px; 
+	padding: 2px 15px 0 15px;
+	color: #000;
+	border: solid #090405 1px;
+	font-size: 80%;
+	height: 20px;
+}
+#pc_home div.offline {
+	font-size: 80%;
+	color: #555;
+}
+
+/* --------------------------------------------------------------------------------------------- */
+#mobile_home {
+	display: none;
+	margin: 0 auto;
+	width: 80%;
+	text-align: center;
+}
+#mobile_home div a {
+	color: #000;
+}
+#mobile_home h1 { /* シリーズ名 */
+	margin-top: 30px;
+	margin-bottom: 0;
+	font-size: 20pt;
+	line-height: 120%;
+}
+#mobile_home h2.model_number {  /* デバイスの型番 */
+	font-size: 10pt;
+	margin-top: 0.75em;
+	line-height: 120%;
+}
+#mobile_home h2.software {  /* ソフト系の製品名 */
+	font-size: 18pt;
+	margin-top: 0;
+	padding-top: 0;
+	line-height: 120%;
+}
+#mobile_home div#id_res_version {
+	font-size: 10pt;
+	margin-top: 0.75em;
+	line-height: 120%;
+}
+#mobile_home div#guide_name_single { /* ガイド名 1行用 */
+	margin-top: 20px;
+	margin-bottom: 0px;
+	padding-bottom: 3px;
+	font-size: 10pt;
+	font-weight: bold;
+	line-height: 120%;
+}
+#mobile_home div#wrap {  /* inline-blockを入れる箱 */
+	display: block;
+}
+#mobile_home div#toc {  /* 目次リンク用ボタン */
+	display: inline-block;
+	margin: 20px auto 0 auto;
+	padding: 4px 15px 2px 15px;
+	text-align: center;
+	border: solid 1px #888888;
+	border-radius: 1px;
+	background: #888888;
+	color: #fff;
+	cursor: pointer;
+	font-size: 10pt;
+}
+#mobile_home div.center_left { /* センタリングした箱の中で左寄せする */
+	display: inline-table;
+	text-align: left;
+	margin: 30px 0 0 0;
+}
+#mobile_home div.center_left h2 {  /* 各種リンク部のタイトル */
+	margin: 0 auto 0 auto;
+	padding: 10px 0 0 0; 
+	font-size: 10pt;
+	font-weight: bold;
+	line-height: 120%;
+}
+#mobile_home div.center_left ul {
+	margin-top: 5px;
+}
+#mobile_home div.center_left ul li {
+	margin-top: 5px;
+	margin-left: 20px;
+	line-height: 100%;
+	list-style-image: url('../images/style_list.png');
+	font-size: 10pt;
+}
+#mobile_home div#id_res_gb,
+#mobile_home div#id_res_portal,
+#mobile_home div#id_res_com_address {
+	padding: 10px 0 10px 0;
+	text-align: left;
+	font-size: 10pt;
+}
+#mobile_home div#id_res_gb_place_of_origin,
+#mobile_home div#id_res_gb_importer,
+#mobile_home div#id_res_gb_address,
+#mobile_home div#id_res_gb_revised {
+	font-size: 10pt;
+	line-height: 120%;
+}
+#mobile_home div#id_res_gb_revised {
+	margin-top: 10px;
+}
+#mobile_home #id_res_gb_name {
+	font-size: 10pt;
+	margin-bottom: -30px;
+}
+#mobile_home div#disclaimer,
+#mobile_home div#notice {
+	margin: 35px auto 10px auto;
+	line-height: 110%;
+}
+#mobile_home div#disclaimer a,
+#mobile_home div#notice a {
+	color: #000;
+	font-size: 10pt;
+}
+#mobile_home div.hr {
+	margin: 10px 0 15px 0;
+	height: 1px;
+	width: 100%;
+	border: none;
+	background: #000;
+}
+#mobile_home div#manual_info {
+	margin: 0 auto;
+	font-size: 9pt;
+	line-height: 110%;
+}
+#mobile_home div#manual_info #id_res_pub_number {
+	margin-right: 10px;
+	line-height: 110%;
+}
+#mobile_home div#id_res_copy_right {
+	margin: 4px auto 10px auto;
+	font-size: 9pt;
+	line-height: 100%;
+}
+#mobile_home div.offline {
+	font-size: 80%;
+	color: #555;
+}

@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta name="Generator" content="CAESAR" />
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+		<meta http-equiv="content-style-type" content="text/css" />
+		<meta http-equiv="content-script-type" content="text/javascript" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Specifying MAC Addresses for Firewall Rules</title>
+		<link href="styles/style000/style.css" rel="alternate stylesheet" type="text/css" disabled="disabled" title="local" />
+		<script type="text/javascript" charset="UTF-8" src="../jsons/resource.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../jsons/toc.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../scripts/loader.js"></script>
+	</head>
+	<body>
+		<div id="id_header" class="nocontent"><table cellpadding="0" cellspacing="0"><tr><th class="header"><span id="id_res_canon_logo"></span><span id="id_res_guide_name"></span></th><td class="header" id="id_header_include"></td></tr><tr><th class="bar" id="id_tabs"><button id="id_res_contents" class="tab_active" accesskey="c"></button><button id="id_res_search" class="tab_inactive" accesskey="s"></button></th><td class="bar"><button id="id_res_bar_icon_previous" accesskey="b" style="display: none;"></button><label id="id_res_bar_label_previous" for="id_res_bar_icon_previous"></label><button id="id_res_bar_icon_next" accesskey="n" style="display: none;"></button><label id="id_res_bar_label_next" for="id_res_bar_icon_next"></label><button id="id_res_bar_icon_print" accesskey="p" style="display: none;"></button><label id="id_res_bar_label_print" for="id_res_bar_icon_print"></label></td></tr></table></div>
+		<div id="id_panel" class="nocontent">
+			<div id="id_panel_toc" style="display:None;">
+				<div id="id_panel_label"><label id="id_res_chapter"></label><select id="id_chapter_select"></select></div>
+				<div id="id_toc_open_close"><a id="id_res_open_toc_all" href="#"></a><a id="id_res_close_toc_all" href="#"></a></div>
+				<ul id="id_toc"></ul>
+				<div id="id_print_all"><a id="id_res_print_all" href="#"></a></div>
+			</div>
+			<div id="id_panel_search" style="display:None;"></div>
+		</div>
+		<!--CONTENT_START-->
+		<div id="id_content">
+			<h1><a id="06010020_020"></a>Specifying MAC Addresses for Firewall Rules</h1>
+			<div class="lead">You can allow only communication with devices that have the specified MAC addresses and reject communication with other devices. You can also specify settings to reject only communication with devices that have specific MAC addresses and allow other communications. Up to 32 MAC addresses can be specified.</div>
+			<div class="table_important_level0">
+				<table class="table_important_level0">
+					<thead class="table_important_level0">
+						<tr class="table_important_level0">
+							<td colspan="1" rowspan="1" class="col_0 row_0 table_important_level0 table_important_level0_col_0 table_important_level0_row_0">
+								<div class="text"><img src="./images/book_images/b_style_important1.gif" alt="" /></div>
+							</td>
+						</tr>
+					</thead>
+					<tbody class="table_important_level0">
+						<tr class="table_important_level0">
+							<td colspan="1" rowspan="1" class="col_0 row_1 table_important_level0 table_important_level0_col_0 table_important_level0_row_1">
+								<div class="text_level0">When this machine is connected to a wireless LAN, this function cannot be used.</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="step_number">1</div>
+			<div class="step_text">Start the Remote UI and log on in System Manager Mode. <a href="SS6230_using79_startingtheremoteui.html#07010000">Starting the Remote UI</a></div>
+			<div class="step_number">2</div>
+			<div class="step_text">Click [Settings/Registration].</div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI001_c.gif" alt="" /></div>
+			<div class="step_number">3</div>
+			<div class="step_text">Click [Security Settings] <img src="./images/book_images/b_key_arrow_right.gif" alt="" /> [MAC Address Filter].</div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI038d_c.gif" alt="" /></div>
+			<div class="step_number">4</div>
+			<div class="step_text">Click [Edit] to specify a filter type.</div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI081_c.gif" alt="" /></div>
+			<div class="text_level1_sub"><span class="bold">[Outbound Filter]<br /></span>Restrict data sent from the machine to a computer by specifying a MAC address.</div>
+			<div class="text_level1_sub"><span class="bold">[Inbound Filter]<br /></span>Restrict data received by the machine from a computer by specifying a MAC address.</div>
+			<div class="step_number">5</div>
+			<div class="step_text">Specify the settings for filtering.</div>
+			<div class="list">As the policy conditions, select a default policy to allow or reject communication between the machine and other devices. Then specify MAC addresses for exceptions. </div>
+			<div class="figure_level1"><img src="./images/book_images/b_RUI082_c.gif" alt="" /></div>
+			<div class="table_number">
+				<table class="table_number">
+					<tbody class="table_number">
+						<tr class="table_number">
+							<td colspan="1" rowspan="1" class="col_0 row_0 table_number table_number_col_0 table_number_row_0">
+								<div class="text"><span class="bold">1</span></div>
+							</td>
+							<td colspan="1" rowspan="1" class="col_1 row_0 table_number table_number_col_1 table_number_row_0">
+								<div class="text"><span class="bold">Select the [Use Filter] check box, and then select a policy with [Default Policy].</span></div>
+								<div class="text_sub"><span class="bold">[Use Filter]<br /></span>Select the check box to restrict communication. Clear the check box to communicate without restrictions. </div>
+								<div class="text_sub"><span class="bold">[Default Policy]<br /></span>As the policy conditions, select whether to allow or reject other devices to communicate with the machine. </div>
+								<div class="table_matrix">
+									<table class="table_matrix">
+										<tbody class="table_matrix">
+											<tr class="table_matrix">
+												<td colspan="1" rowspan="1" class="col_0 row_0 table_matrix table_matrix_col_0 table_matrix_row_0">
+													<div class="text">[Reject]</div>
+												</td>
+												<td colspan="1" rowspan="1" class="col_1 row_0 table_matrix table_matrix_col_1 table_matrix_row_0">
+													<div class="text">Select this to communication only when the data is sent to or received from devices whose MAC addresses are entered in [Exception Addresses]. Communication with other devices is prohibited. </div>
+												</td>
+											</tr>
+											<tr class="table_matrix">
+												<td colspan="1" rowspan="1" class="col_0 row_1 table_matrix table_matrix_col_0 table_matrix_row_1">
+													<div class="text">[Allow]</div>
+												</td>
+												<td colspan="1" rowspan="1" class="col_1 row_1 table_matrix table_matrix_col_1 table_matrix_row_1">
+													<div class="text">Select this to data that is sent to or received from devices whose MAC addresses are entered in [Exception Addresses]. Communication with other devices is allowed. </div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</td>
+						</tr>
+						<tr class="table_number">
+							<td colspan="1" rowspan="1" class="col_0 row_1 table_number table_number_col_0 table_number_row_1">
+								<div class="text"><span class="bold">2</span></div>
+							</td>
+							<td colspan="1" rowspan="1" class="col_1 row_1 table_number table_number_col_1 table_number_row_1">
+								<div class="text"><span class="bold">Specify address exceptions.</span></div>
+								<div class="list">Enter a MAC address in the [Address to Register] text box and click [Add]. </div>
+								<div class="list">When entering the address, do not delimit it with hyphens or colons.</div>
+								<div class="text_sub"><span class="bold+color_green"><span class="bold+color_green"><span class="bold+color_green"><img src="./images/book_images/b_style_note2.gif" alt="" /></span></span></span></div>
+								<div class="text"><span class="bold+color_green">When [Reject] is selected for an outbound filter</span></div>
+								<div class="text">Outgoing multicast and broadcast packets cannot be filtered. </div>
+								<div class="text_sub"><span class="bold+color_green">To delete a MAC address that has been set</span></div>
+								<div class="text">Select the MAC address to delete, and then click [Delete]. </div>
+								<div class="figure"><img src="./images/book_images/b_RUI083_c.gif" alt="" /></div>
+							</td>
+						</tr>
+						<tr class="table_number">
+							<td colspan="1" rowspan="1" class="col_0 row_2 table_number table_number_col_0 table_number_row_2">
+								<div class="text"><span class="bold">3</span></div>
+							</td>
+							<td colspan="1" rowspan="1" class="col_1 row_2 table_number table_number_col_1 table_number_row_2">
+								<div class="text"><span class="bold">Click [OK].</span></div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="step_number">6</div>
+			<div class="step_text">Restart the machine.</div>
+			<div class="list">Turn OFF the machine, wait for at least 10 seconds, and turn it back ON. </div>
+			<div class="related">LINKS</div>
+			<div class="list_link_level0"><a href="SS6230_security70_specifyingipaddressesforfirewallrules.html#06010020_010">Specifying IP Addresses for Firewall Rules</a></div>
+		</div>
+		<!--CONTENT_END-->
+		<div id="id_footer" class="nocontent"><table cellpadding="0" cellspacing="0"><tr><th><span id="id_res_copy_right"></span></th><td id="id_footer_include"></td></tr></table></div>
+		<div id="id_breadcrumbs" class="nocontent"><a href="../frame_htmls/home.html" id="id_res_home"></a> &gt; <a href="SS6230_security66_security.html" id="id_level_1" toc_id="SS6230_security66_security" title="Security" >Security</a> &gt; <a href="SS6230_security67_protectingthemachinefromunauthorizedaccess.html" id="id_level_2" toc_id="SS6230_security67_protectingthemachinefromunauthorizedaccess" title="Protecting the Machine from Unauthorized Access" >Protecting the Machine from Unauthorized Access</a> &gt; <a href="SS6230_security69_restrictingcommunicationbyusingfirewalls.html" id="id_level_3" toc_id="SS6230_security69_restrictingcommunicationbyusingfirewalls" title="Restricting Communication by Using Firewalls" >Restricting Communication by Using Firewalls</a> &gt; <a id="id_level_4" toc_id="SS6230_security71_specifyingmacaddressesforfirewallrules" title="Specifying MAC Addresses for Firewall Rules" >Specifying MAC Addresses for Firewall Rules</a></div>
+		<div id="id_document_number">0JWS-02X</div>
+	</body>
+</html>

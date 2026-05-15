@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta name="Generator" content="CAESAR" />
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+		<meta http-equiv="content-style-type" content="text/css" />
+		<meta http-equiv="content-script-type" content="text/javascript" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Viewing Network Settings</title>
+		<link href="styles/style000/style.css" rel="alternate stylesheet" type="text/css" disabled="disabled" title="local" />
+		<script type="text/javascript" charset="UTF-8" src="../jsons/resource.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../jsons/toc.json"></script>
+		<script type="text/javascript" charset="UTF-8" src="../scripts/loader.js"></script>
+	</head>
+	<body>
+		<div id="id_header" class="nocontent"><table cellpadding="0" cellspacing="0"><tr><th class="header"><span id="id_res_canon_logo"></span><span id="id_res_guide_name"></span></th><td class="header" id="id_header_include"></td></tr><tr><th class="bar" id="id_tabs"><button id="id_res_contents" class="tab_active" accesskey="c"></button><button id="id_res_search" class="tab_inactive" accesskey="s"></button></th><td class="bar"><button id="id_res_bar_icon_previous" accesskey="b" style="display: none;"></button><label id="id_res_bar_label_previous" for="id_res_bar_icon_previous"></label><button id="id_res_bar_icon_next" accesskey="n" style="display: none;"></button><label id="id_res_bar_label_next" for="id_res_bar_icon_next"></label><button id="id_res_bar_icon_print" accesskey="p" style="display: none;"></button><label id="id_res_bar_label_print" for="id_res_bar_icon_print"></label></td></tr></table></div>
+		<div id="id_panel" class="nocontent">
+			<div id="id_panel_toc" style="display:None;">
+				<div id="id_panel_label"><label id="id_res_chapter"></label><select id="id_chapter_select"></select></div>
+				<div id="id_toc_open_close"><a id="id_res_open_toc_all" href="#"></a><a id="id_res_close_toc_all" href="#"></a></div>
+				<ul id="id_toc"></ul>
+				<div id="id_print_all"><a id="id_res_print_all" href="#"></a></div>
+			</div>
+			<div id="id_panel_search" style="display:None;"></div>
+		</div>
+		<!--CONTENT_START-->
+		<div id="id_content">
+			<h1><a id="05020000"></a>Viewing Network Settings</h1>
+			<div class="lead">Press this machine's <img src="./images/book_images/b_indi_Paper.gif" alt="" /> (Paper) key and hold it down for 3 seconds to print a partial list of network settings. This allows you to check IPv4 settings, the MAC address, and wired/wireless LAN settings. The setting list is formatted to print on Letter size paper. Before printing, load Letter size paper in the multi-purpose tray or manual feed slot. <a href="SS6230_basic21_loadingpaperinthemultipurposetray.html#03040010">Loading Paper in the Multi-Purpose Tray</a>  <a href="SS6230_basic22_loadingpaperinthemanualfeedslot.html#03040020">Loading Paper in the Manual Feed Slot</a></div>
+			<div class="figure_level0"><img src="./images/book_images/b_BST034_L.gif" alt="" /></div>
+			<div class="annotation"> </div>
+			<div class="text"><span class="bold+color_orange">Output example: </span></div>
+			<div class="figure"><img src="./images/book_images/b_List001.gif" alt="" /></div>
+			<h4><img src="./images/book_images/b_C043.gif" alt="" />Select Wired/Wireless LAN</h4>
+			<div class="text_level1">Displays whether the connection is by wired LAN or wireless LAN.</div>
+			<div class="text"></div>
+			<h4><img src="./images/book_images/b_C044.gif" alt="" />Ethernet Driver Settings</h4>
+			<div class="text_level1">Displays the wired LAN (Ethernet) settings and MAC address.</div>
+			<div class="text_level2_sub"><span class="bold">Auto Detect</span><br />Displays whether the setting to automatically detect the communication mode and Ethernet type is enabled or disabled.</div>
+			<div class="text_level2_sub"><span class="bold">MAC Address</span><br />Displays the MAC address on the wired LAN.</div>
+			<div class="text_level2_sub"><span class="bold">Communication Mode</span><br />Displays the communication mode (Half Duplex/Full Duplex).</div>
+			<div class="text_level2_sub"><span class="bold">Ethernet Type</span><br />Displays the Ethernet type (10BASE-T/100BASE-TX) setting. </div>
+			<h4><img src="./images/book_images/b_C045.gif" alt="" />TCP/IP Settings <img src="./images/book_images/b_key_arrow_right.gif" alt="" />IPv4 Settings</h4>
+			<div class="text_level1">Lists IPv4 settings. </div>
+			<div class="text_level2_sub"><span class="bold">Auto Obtain</span><br />Displays whether the IP address is assigned automatically by a protocol such as DHCP. &quot;On&quot; is displayed if automatic addressing is enabled. </div>
+			<div class="text_level2_sub"><span class="bold">Select Protocol</span><br />Displays the protocol used to assign the IP address automatically. </div>
+			<div class="text_level2_sub"><span class="bold">Auto IP</span><br />Displays whether Auto IP is enabled or disabled. </div>
+			<div class="text_level2_sub"><span class="bold">IP Address</span><br />Displays the IP address. </div>
+			<div class="text_level2_sub"><span class="bold">Subnet Mask</span><br />Displays the subnet mask. </div>
+			<div class="text_level2_sub"><span class="bold">Gateway Address</span><br />Displays the gateway address. </div>
+			<div class="text_level1_sub"><img src="./images/book_images/b_style_note2.gif" alt="" /></div>
+			<div class="list_level1">The IP address is not correctly configured if it is displayed as &quot;0.0.0.0&quot;. </div>
+			<div class="list_level1">Connecting the machine to multiple switching hubs or bridges for redundancy may result in a connection failure even when the IP address is correctly configured. This problem can be solved by setting a certain interval before the machine starts communicating. <a href="SS6230_network59_settingawaittimeforconnectingtoanetwork.html#05040030">Setting a Wait Time for Connecting to a Network</a></div>
+			<h4><img src="./images/book_images/b_C070.gif" alt="" /><span class="bold">Wireless LAN Settings </span></h4>
+			<div class="text_level1">Displays the wireless LAN settings and MAC address. </div>
+			<div class="text_level2_sub"><span class="bold">MAC Address</span><br />Displays the MAC address on the wireless LAN. </div>
+			<div class="text_level2_sub"><span class="bold">SSID Settings</span><br />Displays SSID settings. </div>
+			<div class="text_level2_sub"><span class="bold">Security</span><br />Displays the currently applied security settings. If the security settings have not been configured, &quot;None&quot; is displayed. </div>
+			<div class="text_level2_sub"><span class="bold">Wireless LAN Status</span><br />Displays the connection status (signal strength) of the wireless LAN. If the machine is not connected, &quot;Inactive&quot; or &quot;Disconnected&quot; is displayed. </div>
+			<div class="annotation"> </div>
+			<div class="table_note">
+				<table class="table_note">
+					<thead class="table_note">
+						<tr class="table_note">
+							<td colspan="1" rowspan="1" class="col_0 row_0 table_note table_note_col_0 table_note_row_0">
+								<div class="text"><img src="./images/book_images/b_style_note1.gif" alt="" /></div>
+							</td>
+						</tr>
+					</thead>
+					<tbody class="table_note">
+						<tr class="table_note">
+							<td colspan="1" rowspan="1" class="col_0 row_1 table_note table_note_col_0 table_note_row_1">
+								<div class="text_level0">Note that you cannot check IPv6 settings and some other network settings on this setting list. If you want to check all network settings, print them by selecting [Network Status Print] in the Printer Status Window. <span class="no_break"><a href="SS6230_maintenance107_printingsettinglists.html#10040000">Printing Setting Lists</a></span></div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="related">LINKS</div>
+			<div class="list_link_level0"><a href="SS6230_network47_connectingtoawiredlan.html#05010020">Connecting to a Wired LAN</a></div>
+			<div class="list_link_level0"><a href="SS6230_network48_connectingtoawirelesslan.html#05010030">Connecting to a Wireless LAN</a></div>
+			<div class="list_link_level0"><a href="SS6230_network50_settingipv4address.html#05010040_010">Setting IPv4 Address</a></div>
+			<div class="text"></div>
+		</div>
+		<!--CONTENT_END-->
+		<div id="id_footer" class="nocontent"><table cellpadding="0" cellspacing="0"><tr><th><span id="id_res_copy_right"></span></th><td id="id_footer_include"></td></tr></table></div>
+		<div id="id_breadcrumbs" class="nocontent"><a href="../frame_htmls/home.html" id="id_res_home"></a> &gt; <a href="SS6230_network45_network.html" id="id_level_1" toc_id="SS6230_network45_network" title="Network" >Network</a> &gt; <a id="id_level_2" toc_id="SS6230_network52_viewingnetworksettings" title="Viewing Network Settings" >Viewing Network Settings</a></div>
+		<div id="id_document_number">0JWS-023</div>
+	</body>
+</html>
