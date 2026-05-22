@@ -1,0 +1,20 @@
+Private Sub Workbook_Open()
+    Dim Usuario As String
+    Usuario = Environ("Username")
+    
+    ' Desprotege la hoja temporalmente
+    Sheets("Hoja1").Unprotect "TuContraseñaDeHoja"
+    
+    ' Bloquea todo el contenido por defecto
+    Sheets("Hoja1").Cells.Locked = True
+    
+    ' Permite editar el rango solo al usuario del dominio
+    If Usuario = "Juan.Perez" Then
+        Sheets("Hoja1").Range("A1:C10").Locked = False
+    ElseIf Usuario = "Maria.Gomez" Then
+        Sheets("Hoja1").Range("D1:F10").Locked = False
+    End If
+    
+    ' Vuelve a proteger la hoja
+    Sheets("Hoja1").Protect "TuContraseñaDeHoja"
+End Sub
