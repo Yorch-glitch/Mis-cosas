@@ -1,0 +1,653 @@
+===============================================================================
+DIAGRAMA DE FLUJO - SOFTWARE MATHPATH
+===============================================================================
+Sistema: MathPath - Aplicación educativa de matemáticas gamificada
+Framework: Flet (Python)
+Fecha: Junio 2026
+
+===============================================================================
+FLUJO PRINCIPAL DE LA APLICACIÓN
+===============================================================================
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                           INICIO DE LA APLICACIÓN                         │
+└─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+                    ┌───────────────────────────┐
+                    │  main.py: main(page)      │
+                    │  - Inicializar vistas      │
+                    │  - Preparar base de datos │
+                    │  - Mostrar bienvenida     │
+                    └───────────────────────────┘
+                                    │
+                                    ▼
+                    ┌───────────────────────────┐
+                    │  Pantalla de Bienvenida   │
+                    │  - Logo MathPath          │
+                    │  - Botón "INICIAR"        │
+                    └───────────────────────────┘
+                                    │
+                    ┌───────────────┴───────────────┐
+                    │                               │
+                    ▼                               ▼
+        ┌───────────────────────┐       ┌───────────────────────┐
+        │   LOGIN                │       │   REGISTRO            │
+        │   (login_vista.py)     │       │   (registro_vista.py) │
+        └───────────────────────┘       └───────────────────────┘
+
+===============================================================================
+FLUJO DE LOGIN
+===============================================================================
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                           VISTA LOGIN                                    │
+└─────────────────────────────────────────────────────────────────────────┘
+
+    ┌──────────────────────────────────────────────────────────────┐
+    │  1. Mostrar lista de usuarios registrados (excluyendo admin) │
+    │     - Si hay usuarios: mostrar tarjetas con avatar           │
+    │     - Si no hay usuarios: mostrar formulario directamente    │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+              ┌───────────────┴───────────────┐
+              │                               │
+              ▼                               ▼
+    ┌───────────────────┐           ┌───────────────────┐
+    │ Seleccionar       │           │ "Usar otro        │
+    │ usuario existente │           │ usuario"          │
+    └───────────────────┘           └───────────────────┘
+              │                               │
+              └───────────────┬───────────────┘
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  2. Formulario de Login                                        │
+    │     - Campo: Usuario                                          │
+    │     - Campo: Contraseña                                       │
+    │     - Botón: "INICIAR SESIÓN"                                  │
+    │     - Link: "¿Olvidaste tu contraseña?"                        │
+    │     - Link: "¿No tienes cuenta? Regístrate"                   │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  3. Validaciones del Login                                     │
+    │     a) Campos vacíos? → Error                                  │
+    │     b) Formato usuario válido? (regex: 3-20 chars, sin espacios)│
+    │     c) Contraseña >= 6 caracteres? → Error                     │
+    │     d) Usuario existe en BD? → Error si no                     │
+    │     e) Contraseña coincide? → Error si no                     │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+              ┌───────────────┴───────────────┐
+              │                               │
+              ▼                               ▼
+    ┌───────────────────┐           ┌───────────────────┐
+    │ LOGIN EXITOSO     │           │ LOGIN FALLIDO      │
+    │ - Mostrar mensaje │           │ - Mostrar error    │
+    │   de éxito        │           │ - Limpiar password │
+    │ - Inicializar     │           │ - Permanecer en    │
+    │   NavegadorCentral│           │   login            │
+    │ - Ir a vista      │           └───────────────────┘
+    │   inicial         │
+    └───────────────────┘
+              │
+              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  4. NavegadorCentral.inicializar(user_data)                   │
+    │     - Determinar rol (admin vs estudiante)                    │
+    │     - Crear sidebar persistente                               │
+    │     - Cargar vista inicial:                                   │
+    │       * Admin → "Panel Admin"                                 │
+    │       * Estudiante → "Mi camino"                              │
+    └──────────────────────────────────────────────────────────────┘
+
+===============================================================================
+FLUJO DE REGISTRO
+===============================================================================
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                       VISTA REGISTRO (2 PASOS)                          │
+└─────────────────────────────────────────────────────────────────────────┘
+
+    ┌──────────────────────────────────────────────────────────────┐
+    │  PASO 1: DATOS BÁSICOS                                        │
+    │  - Campo: Usuario                                            │
+    │  - Campo: Correo Electrónico                                 │
+    │  - Campo: Contraseña                                         │
+    │  - Campo: Confirmar Contraseña                               │
+    │  - Botón: "CONTINUAR"                                         │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  Validaciones Paso 1                                          │
+    │  a) Campos vacíos? → Error                                    │
+    │  b) Correo válido? (regex email) → Error                     │
+    │  c) Usuario válido? (regex: 3-20 chars) → Error              │
+    │  d) Contraseña >= 6 caracteres? → Error                       │
+    │  e) Contraseñas coinciden? → Error                            │
+    │  f) Usuario ya existe en BD? → Error                           │
+    │  g) Correo ya registrado? → Error                             │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  Guardar datos temporalmente en variable global              │
+    │  _datos_registro_temp = {usuario, correo, password}         │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  PASO 2: PREGUNTAS DE SEGURIDAD                               │
+    │  - Pregunta 1 (dropdown) + Respuesta 1                        │
+    │  - Pregunta 2 (dropdown) + Respuesta 2                        │
+    │  - Pregunta 3 (dropdown) + Respuesta 3                        │
+    │  - Botón: "COMPLETAR REGISTRO"                               │
+    │  - Botón: "← Volver"                                         │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  Validaciones Paso 2                                          │
+    │  a) 3 preguntas seleccionadas? → Error                       │
+    │  b) 3 respuestas ingresadas? → Error                         │
+    │  c) Preguntas diferentes? → Error                             │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  Guardar en Base de Datos                                     │
+    │  db.crear_usuario_con_preguntas(...)                          │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+              ┌───────────────┴───────────────┐
+              │                               │
+              ▼                               ▼
+    ┌───────────────────┐           ┌───────────────────┐
+    │ REGISTRO EXITOSO  │           │ REGISTRO FALLIDO  │
+    │ - Mostrar mensaje │           │ - Mostrar error    │
+    │ - Ir a login      │           │ - Permanecer en    │
+    └───────────────────┘           │   registro        │
+                                    └───────────────────┘
+
+===============================================================================
+FLUJO DE RECUPERACIÓN DE CONTRASEÑA
+===============================================================================
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    LOBBY DE RECUPERACIÓN                                 │
+└─────────────────────────────────────────────────────────────────────────┘
+
+                              │
+              ┌───────────────┴───────────────┐
+              │                               │
+              ▼                               ▼
+    ┌───────────────────┐           ┌───────────────────┐
+    │ POR CORREO        │           │ POR PREGUNTAS     │
+    │ (email_service)   │           │ DE SEGURIDAD      │
+    └───────────────────┘           └───────────────────┘
+              │                               │
+              ▼                               ▼
+    ┌───────────────────┐           ┌───────────────────┐
+    │ 1. Ingresar correo│           │ 1. Ingresar       │
+    │ 2. Enviar código  │           │    usuario        │
+    │    por email      │           │ 2. Mostrar 3      │
+    │ 3. Ingresar código│           │    preguntas      │
+    │ 4. Verificar      │           │ 3. Ingresar       │
+    │ 5. Cambiar pass   │           │    respuestas     │
+    │                   │           │ 4. Verificar      │
+    │                   │           │ 5. Cambiar pass   │
+    └───────────────────┘           └───────────────────┘
+
+===============================================================================
+NAVEGADOR CENTRAL (SISTEMA DE NAVEGACIÓN)
+===============================================================================
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    NavegadorCentral (config.py)                          │
+└─────────────────────────────────────────────────────────────────────────┘
+
+    ┌──────────────────────────────────────────────────────────────┐
+    │  Estructura:                                                   │
+    │  - Sidebar persistente (izquierda)                            │
+    │  - Contenedor central (derecha)                                │
+    │  - user_data: datos del usuario actual                         │
+    │  - vista_actual: vista mostrada actualmente                  │
+    └──────────────────────────────────────────────────────────────┘
+
+    ┌──────────────────────────────────────────────────────────────┐
+    │  Vistas disponibles:                                            │
+    │  ESTUDIANTES:                                                  │
+    │  - Perfil                                                      │
+    │  - Mi camino                                                  │
+    │  - Etapa                                                       │
+    │  - Biblioteca                                                  │
+    │  - Avatares (Ajustes)                                          │
+    │  - Logros                                                      │
+    │  - Nivel (sin botón cerrar sesión)                            │
+    │                                                                │
+    │  ADMIN:                                                        │
+    │  - Panel Admin                                                 │
+    └──────────────────────────────────────────────────────────────┘
+
+    ┌──────────────────────────────────────────────────────────────┐
+    │  Método navegar_a(vista):                                      │
+    │  - Si vista_actual == "Nivel" y vista != "Nivel":             │
+    │    → Mostrar confirmación de salida                           │
+    │  - Si no:                                                      │
+    │    → _navegar_sin_confirmar(vista)                            │
+    └──────────────────────────────────────────────────────────────┘
+
+    ┌──────────────────────────────────────────────────────────────┐
+    │  Método _navegar_sin_confirmar(vista):                        │
+    │  - Actualizar vista_actual                                    │
+    │  - Cargar contenido de vista específica                       │
+    │  - Reemplazar contenedor_central.content                      │
+    │  - Actualizar sidebar (resaltar vista actual)                 │
+    └──────────────────────────────────────────────────────────────┘
+
+===============================================================================
+FLUJO DE VISTA "MI CAMINO"
+===============================================================================
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                      VISTA MI CAMINO (menu_vista.py)                      │
+└─────────────────────────────────────────────────────────────────────────┘
+
+    ┌──────────────────────────────────────────────────────────────┐
+    │  1. Recargar datos de usuario desde BD                        │
+    │     - etapa_actual, nivel_actual, puntos, racha, vidas       │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  2. Sistema de Recarga de Vidas                                │
+    │     - Cada 30 minutos se recupera 1 vida                       │
+    │     - Timer en tiempo real (threading)                         │
+    │     - Actualizar BD cuando se recupera vida                    │
+    │     - Mostrar tiempo restante para siguiente vida             │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  3. Renderizar Mapa 3D de Niveles                              │
+    │     - 20 niveles por etapa                                    │
+    │     - Líneas conectando niveles                               │
+    │     - Botón de examen final al completar nivel 20             │
+    │     - Animación de revelación por scroll                      │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  4. Panel de Estadísticas (derecha)                            │
+    │     - Vidas (corazones + timer)                                │
+    │     - Puntos                                                   │
+    │     - Racha de días                                            │
+    │     - Rango (con icono y color)                                │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+              ┌───────────────┴───────────────┐
+              │                               │
+              ▼                               ▼
+    ┌───────────────────┐           ┌───────────────────┐
+    │ Click en nivel     │           │ Click en examen    │
+    │ - Verificar vidas  │           │ - Verificar vidas  │
+    │ - Si vidas > 0:    │           │ - Si vidas > 0:    │
+    │   navegar_a(Nivel) │           │   mostrar_examen() │
+    │ - Si vidas = 0:    │           │ - Si vidas = 0:    │
+    │   mostrar error    │           │   mostrar error    │
+    └───────────────────┘           └───────────────────┘
+
+===============================================================================
+FLUJO DE VISTA NIVEL (EJERCICIO)
+===============================================================================
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                      VISTA NIVEL (nivel_vista.py)                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+    ┌──────────────────────────────────────────────────────────────┐
+    │  1. Recargar datos de usuario desde BD                        │
+    │     - etapa_actual, nivel_actual, puntos, racha, vidas       │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  2. Sistema de Recarga de Vidas (sincronizado)                │
+    │     - Timer en tiempo real (threading)                        │
+    │     - Actualizar indicador de vidas en UI                     │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  3. Buscar ejercicio en BD                                     │
+    │     SELECT * FROM ejercicios WHERE etapa = ? AND nivel = ?    │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  4. Renderizar según tipo de ejercicio                        │
+    │                                                                │
+    │  TIPO "seleccion" / "vf":                                      │
+    │  - Mostrar enunciado                                           │
+    │  - Mostrar opciones A, B, C, D                                │
+    │  - Botones clickeables                                         │
+    │                                                                │
+    │  TIPO "completacion":                                          │
+    │  - Mostrar enunciado                                           │
+    │  - Campo de texto para respuesta                              │
+    │  - Botón "COMPROBAR"                                           │
+    │                                                                │
+    │  TIPO "conexion":                                              │
+    │  - Mostrar enunciado                                           │
+    │  - Dividir opciones en pares (izq|der)                        │
+    │  - Mezclar aleatoriamente                                     │
+    │  - Dos columnas de botones                                    │
+    │  - Lógica de conexión (seleccionar izq + der)                 │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  5. Verificar Respuesta                                        │
+    └──────────────────────────────────────────────────────────────┘
+              │
+              ┌───────────────┴───────────────┐
+              │                               │
+              ▼                               ▼
+    ┌───────────────────┐           ┌───────────────────┐
+    │ RESPUESTA         │           │ RESPUESTA         │
+    │ CORRECTA          │           │ INCORRECTA        │
+    └───────────────────┘           └───────────────────┘
+              │                               │
+              ▼                               ▼
+    ┌───────────────────┐           ┌───────────────────┐
+    │ - Sumar puntos    │           │ - Restar 1 vida   │
+    │ - Actualizar racha│           │ - Iniciar timer   │
+    │   (si acceso      │           │   de recarga      │
+    │    consecutivo)   │           │ - Actualizar UI   │
+    │ - Si nivel < 20:  │           │ - Si vidas > 0:   │
+    │   avanzar nivel   │           │   mostrar error   │
+    │ - Si nivel = 20:  │           │ - Si vidas = 0:   │
+    │   nivel = 21      │           │   volver al menú  │
+    │   (desbloquear    │           │                   │
+    │    examen)        │           └───────────────────┘
+    │ - Actualizar BD   │
+    │ - Volver al menú  │
+    └───────────────────┘
+
+===============================================================================
+FLUJO DE VISTA EXAMEN FINAL
+===============================================================================
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                   VISTA EXAMEN FINAL (examen_vista.py)                    │
+└─────────────────────────────────────────────────────────────────────────┘
+
+    ┌──────────────────────────────────────────────────────────────┐
+    │  1. Obtener 10 preguntas aleatorias de la etapa               │
+    │     SELECT * FROM ejercicios                                  │
+    │     WHERE etapa = ? AND tipo IN ('seleccion', 'vf')          │
+    │     ORDER BY RANDOM() LIMIT 10                                │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  2. Mostrar pregunta actual                                    │
+    │     - Contador: "PREGUNTA X DE 10"                            │
+    │     - Barra de progreso                                      │
+    │     - Enunciado                                               │
+    │     - Opciones A, B, C, D                                     │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  3. Procesar respuesta                                        │
+    │     - Marcar respuesta correcta en verde                      │
+    │     - Marcar respuesta incorrecta en rojo                    │
+    │     - Si acierta: puntaje += 1                                │
+    │     - Esperar 1.2 segundos                                   │
+    │     - Pasar a siguiente pregunta                             │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  4. Finalizar examen (después de 10 preguntas)                │
+    │     - Calcular nota: aciertos * 2 (base 20)                   │
+    │     - Nota mínima para aprobar: 10                            │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+              ┌───────────────┴───────────────┐
+              │                               │
+              ▼                               ▼
+    ┌───────────────────┐           ┌───────────────────┐
+    │ EXAMEN APROBADO    │           │ EXAMEN REPROBADO   │
+    │ - Nota >= 10       │           │ - Nota < 10        │
+    │ - Mostrar mensaje  │           │ - Mostrar mensaje  │
+    │   de éxito         │           │   de error         │
+    │ - Actualizar BD:   │           │ - Volver al mapa   │
+    │   etapa_actual += │           │   (sin desbloquear) │
+    │   1                │           │                   │
+    │   nivel_actual = 1│           │                   │
+    │   puntos += 500    │           │                   │
+    │ - Volver al mapa   │           │                   │
+    │   (siguiente      │           │                   │
+    │    etapa)         │           │                   │
+    └───────────────────┘           └───────────────────┘
+
+===============================================================================
+FLUJO DE VISTA ETAPAS
+===============================================================================
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│                    VISTA ETAPAS (etapas_vista.py)                         │
+└─────────────────────────────────────────────────────────────────────────┘
+
+    ┌──────────────────────────────────────────────────────────────┐
+    │  1. Obtener etapa actual del usuario                           │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  2. Renderizar 6 tarjetas de etapas                            │
+    │     - Etapa 1: Fracciones Básicas                             │
+    │     - Etapa 2: Potencias                                       │
+    │     - Etapa 3: Raíces                                          │
+    │     - Etapa 4: Razones y Porcentajes                           │
+    │     - Etapa 5: Ecuaciones Básicas                              │
+    │     - Etapa 6: Ecuaciones Avanzadas                            │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  3. Lógica de candados                                         │
+    │     - Si etapa_usuario >= etapa: desbloqueado (clickeable)    │
+    │     - Si etapa_usuario < etapa: bloqueado (icono candado)    │
+    └──────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+    ┌──────────────────────────────────────────────────────────────┐
+    │  4. Click en etapa desbloqueada                               │
+    │     - navegador._etapa_para_camino = numero_etapa            │
+    │     - navegador.navegar_a("Mi camino")                       │
+    └──────────────────────────────────────────────────────────────┘
+
+===============================================================================
+OTRAS VISTAS
+===============================================================================
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  PERFIL (perfil_vista.py)                                              │
+│  - Mostrar datos del usuario                                           │
+│  - Editar avatar y color                                               │
+│  - Mostrar estadísticas                                                 │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  BIBLIOTECA (biblioteca_vista.py)                                       │
+│  - Mostrar recursos educativos                                         │
+│  - Material de estudio por etapa                                       │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  AVATARES (ajustes_vista.py)                                            │
+│  - Seleccionar avatar                                                  │
+│  - Seleccionar color de avatar                                         │
+│  - Guardar preferencias en BD                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  LOGROS (logros_vista.py)                                               │
+│  - Mostrar logros desbloqueados                                        │
+│  - Mostrar logros pendientes                                           │
+└─────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  PANEL ADMIN (admin_vista.py)                                           │
+│  - Solo visible para usuario "admin"                                   │
+│  - Gestionar usuarios                                                   │
+│  - Ver estadísticas globales                                            │
+│  - Administrar contenido                                               │
+└─────────────────────────────────────────────────────────────────────────┘
+
+===============================================================================
+SISTEMA DE VIDAS
+===============================================================================
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  REGLAS:                                                                │
+│  - 5 vidas iniciales                                                    │
+│  - Se resta 1 vida por respuesta incorrecta en nivel                   │
+│  - Se recupera 1 vida cada 30 minutos                                  │
+│  - Máximo: 5 vidas                                                      │
+│  - Timer en tiempo real (threading)                                     │
+│  - Si vidas = 0: no se puede jugar nivel o examen                       │
+└─────────────────────────────────────────────────────────────────────────┘
+
+    ┌──────────────────────────────────────────────────────────────┐
+    │  Flujo de recarga:                                              │
+    │  1. Usuario pierde vida (vidas -= 1)                            │
+    │  2. Si vidas == 4 o primera vez: registrar ultima_recarga      │
+    │  3. Timer verifica cada segundo:                                │
+    │     - minutos_pasados = ahora - ultima_recarga                 │
+    │     - vidas_a_recuperar = minutos_pasados // 30                │
+    │     - Si vidas_a_recuperar > 0:                                 │
+    │       * vidas = min(5, vidas + vidas_a_recuperar)               │
+    │       * Actualizar ultima_recarga                               │
+    │       * Actualizar BD                                           │
+    │       * Actualizar UI                                            │
+    │  4. Si vidas == 5: detener timer                                │
+    └──────────────────────────────────────────────────────────────┘
+
+===============================================================================
+SISTEMA DE RANGOS
+===============================================================================
+
+┌─────────────────────────────────────────────────────────────────────────┐
+│  Puntos → Rango:                                                        │
+│  0-199:   Bronce    (#CD7F32)                                          │
+│  200-399: Plata     (#C0C0C0)                                          │
+│  400-599: Oro       (#FACC15)                                          │
+│  600-799: Platino   (#2DD4BF)                                          │
+│  800-999: Perla     (#F8FAFC)                                          │
+│  1000+:   Diamante  (#22D3EE)                                          │
+└─────────────────────────────────────────────────────────────────────────┘
+
+===============================================================================
+DIAGRAMA DE FLUJO SIMPLIFICADO (ASCII ART)
+===============================================================================
+
+                    ┌──────────────┐
+                    │   INICIO     │
+                    │  MathPath    │
+                    └──────┬───────┘
+                           │
+                           ▼
+                    ┌──────────────┐
+                    │ Bienvenida   │
+                    │  + INICIAR   │
+                    └──────┬───────┘
+                           │
+              ┌────────────┴────────────┐
+              │                         │
+              ▼                         ▼
+       ┌──────────┐            ┌──────────┐
+       │  LOGIN   │            │ REGISTRO │
+       └────┬─────┘            └────┬─────┘
+            │                      │
+            │ Validar              │ Validar
+            │ Credenciales         │ Datos
+            │                      │
+            ▼                      ▼
+       ┌──────────┐            ┌──────────┐
+       │  ÉXITO   │            │ Guardar  │
+       └────┬─────┘            │ en BD    │
+            │                  └────┬─────┘
+            │                       │
+            └───────────┬───────────┘
+                        ▼
+              ┌──────────────────┐
+              │ NavegadorCentral │
+              │  (Sidebar +      │
+              │   Contenido)     │
+              └────────┬─────────┘
+                       │
+        ┌──────────────┼──────────────┐
+        │              │              │
+        ▼              ▼              ▼
+   ┌────────┐    ┌────────┐    ┌────────┐
+   │Mi Camino│    │ Etapas │    │Perfil  │
+   └───┬────┘    └───┬────┘    └───┬────┘
+       │             │              │
+       │ Click       │ Click        │ Editar
+       │ nivel       │ etapa        │ datos
+       ▼             ▼              │
+   ┌────────┐    ┌────────┐         │
+   │ NIVEL  │    │Mi Camino│         │
+   │(Ejerc.)│    │(etapa   │         │
+   └───┬────┘    │específ.)│         │
+       │         └────────┘         │
+       │                            │
+       │ Correcta/Incorrecta        │
+       │                            │
+       ▼                            │
+   ┌────────┐                      │
+   │Actualizar│                     │
+   │BD + Volver│                     │
+   │al menú    │                     │
+   └────────┘                      │
+                                  │
+                    ┌─────────────┴─────────────┐
+                    │                           │
+                    ▼                           ▼
+               ┌────────┐                 ┌────────┐
+               │Cerrar  │                 │Otras   │
+               │Sesión  │                 │Vistas  │
+               └───┬────┘                 └────────┘
+                   │
+                   ▼
+              ┌────────┐
+              │  LOGIN │
+              └────────┘
+
+===============================================================================
+ARCHIVOS RELACIONADOS
+===============================================================================
+
+- TESIS/src/main.py: Punto de entrada, preparación de BD
+- TESIS/src/enrutador.py: Sistema de enrutamiento centralizado
+- TESIS/src/config.py: Configuración, NavegadorCentral, utilidades
+- TESIS/src/gestor_db.py: Gestor de base de datos (GestorDB)
+- TESIS/src/vistas/login_vista.py: Vista de login
+- TESIS/src/vistas/registro_vista.py: Vista de registro (2 pasos)
+- TESIS/src/vistas/menu_vista.py: Vista Mi camino (mapa de niveles)
+- TESIS/src/vistas/nivel_vista.py: Vista de ejercicios
+- TESIS/src/vistas/examen_vista.py: Vista de examen final
+- TESIS/src/vistas/etapas_vista.py: Vista de selección de etapas
+- TESIS/src/vistas/perfil_vista.py: Vista de perfil
+- TESIS/src/vistas/biblioteca_vista.py: Vista de biblioteca
+- TESIS/src/vistas/ajustes_vista.py: Vista de avatares
+- TESIS/src/vistas/logros_vista.py: Vista de logros
+- TESIS/src/vistas/admin_vista.py: Panel de administración
+
+===============================================================================

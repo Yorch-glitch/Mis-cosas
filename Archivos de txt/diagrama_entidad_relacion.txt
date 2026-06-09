@@ -1,0 +1,281 @@
+===============================================================================
+DIAGRAMA ENTIDAD-RELACIÓN - BASE DE DATOS MATHPATH
+===============================================================================
+Sistema: MathPath - Aplicación educativa de matemáticas
+Motor de Base de Datos: SQLite
+Fecha: Junio 2026
+
+===============================================================================
+TABLAS PRINCIPALES
+===============================================================================
+
+1. TABLA: usuarios
+   Descripción: Almacena información de los usuarios y su progreso en el juego
+   
+   Campos:
+   ---------------------------------------------------------------------------
+   id                  INTEGER PRIMARY KEY AUTOINCREMENT
+   nombre              TEXT NOT NULL
+   apellido            TEXT NOT NULL
+   nombre_usuario      TEXT UNIQUE NOT NULL
+   correo              TEXT UNIQUE NOT NULL
+   password            TEXT NOT NULL
+   etapa_actual        INTEGER DEFAULT 1
+   nivel_actual        INTEGER DEFAULT 1
+   puntos              INTEGER DEFAULT 0
+   racha_dias          INTEGER DEFAULT 0
+   rango               TEXT DEFAULT 'Novato'
+   ultimo_acceso       DATE
+   vidas               INTEGER DEFAULT 5
+   ultima_recarga      TEXT
+   avatar              TEXT DEFAULT 'face'
+   color_avatar        TEXT DEFAULT '#9333EA'
+   pregunta1           TEXT (pregunta de seguridad)
+   respuesta1          TEXT (respuesta de seguridad)
+   pregunta2           TEXT (pregunta de seguridad)
+   respuesta2          TEXT (respuesta de seguridad)
+   pregunta3           TEXT (pregunta de seguridad)
+   respuesta3          TEXT (respuesta de seguridad)
+   ---------------------------------------------------------------------------
+
+2. TABLA: ejercicios
+   Descripción: Almacena los ejercicios matemáticos organizados por etapas y niveles
+   
+   Campos:
+   ---------------------------------------------------------------------------
+   id                  INTEGER PRIMARY KEY AUTOINCREMENT
+   etapa               INTEGER NOT NULL
+   nivel               INTEGER NOT NULL
+   tipo                TEXT NOT NULL
+   enunciado           TEXT NOT NULL
+   ruta_imagen         TEXT (opcional)
+   opcion_a            TEXT
+   opcion_b            TEXT
+   opcion_c            TEXT
+   opcion_d            TEXT
+   opcion_correcta     TEXT NOT NULL
+   puntos_otorga       INTEGER DEFAULT 10
+   ---------------------------------------------------------------------------
+
+3. TABLA: codigos_recuperacion
+   Descripción: Almacena códigos temporales para recuperación de contraseñas
+   
+   Campos:
+   ---------------------------------------------------------------------------
+   id                  INTEGER PRIMARY KEY AUTOINCREMENT
+   correo              TEXT NOT NULL
+   codigo              TEXT NOT NULL
+   creado_en           TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   expira_en           TIMESTAMP
+   usado               INTEGER DEFAULT 0
+   ---------------------------------------------------------------------------
+
+===============================================================================
+RELACIONES
+===============================================================================
+
+Relación 1: codigos_recuperacion → usuarios
+   Tipo: Relación implícita (sin FK explícita)
+   Campo: codigos_recuperacion.correo → usuarios.correo
+   Cardinalidad: 1:m (Uno a Muchos)
+   - Un usuario (1) puede tener múltiples códigos de recuperación (m)
+   - Un código de recuperación pertenece a un solo usuario (1)
+   Descripción: Los códigos de recuperación están asociados al correo del usuario
+
+Relación 2: usuarios → ejercicios (conceptual)
+   Tipo: Relación conceptual (no implementada como FK)
+   Campos: usuarios.etapa_actual → ejercicios.etapa
+            usuarios.nivel_actual → ejercicios.nivel
+   Cardinalidad: m:1 (Muchos a Uno)
+   - Muchos usuarios (m) pueden estar en la misma etapa/nivel (1)
+   - Un usuario está en una sola etapa y nivel específico (1)
+   Descripción: El progreso del usuario determina qué ejercicios debe resolver
+
+===============================================================================
+REPRESENTACIÓN VISUAL (ASCII ART)
+===============================================================================
+
+    ┌─────────────────────────────────────────────────────────────────┐
+    │                          USUARIOS                                 │
+    ├─────────────────────────────────────────────────────────────────┤
+    │ PK  id                                                          │
+    │     nombre                                                       │
+    │     apellido                                                     │
+    │ UK  nombre_usuario                                              │
+    │ UK  correo  ───────────────────────────┐                       │
+    │     password                              │                       │
+    │     etapa_actual  ───┐                   │                       │
+    │     nivel_actual  ────┼───────────────────┼──────┐               │
+    │     puntos                               │      │               │
+    │     racha_dias                           │      │               │
+    │     rango                                │      │               │
+    │     ultimo_acceso                        │      │               │
+    │     vidas                                │      │               │
+    │     ultima_recarga                       │      │               │
+    │     avatar                               │      │               │
+    │     color_avatar                         │      │               │
+    │     pregunta1                            │      │               │
+    │     respuesta1                           │      │               │
+    │     pregunta2                            │      │               │
+    │     respuesta2                           │      │               │
+    │     pregunta3                            │      │               │
+    │     respuesta3                           │      │               │
+    └──────────────────────────────────────────┼──────┼───────────────┘
+                                               │      │
+                                               │      │ (relación conceptual)
+                                               │      │
+    ┌──────────────────────────────────────────┼──────┼───────────────────┐
+    │              CODIGOS_RECUPERACION         │      │                   │
+    ├──────────────────────────────────────────┼──────┼───────────────────┤
+    │ PK  id                                   │      │                   │
+    │ FK  correo  ◄────────────────────────────┘      │                   │
+    │     codigo                                       │                   │
+    │     creado_en                                    │                   │
+    │     expira_en                                   │                   │
+    │     usado                                       │                   │
+    └─────────────────────────────────────────────────┘                   │
+                                                                          │
+                                                                          │
+    ┌─────────────────────────────────────────────────────────────────────┤
+    │                          EJERCICIOS                                 │
+    ├─────────────────────────────────────────────────────────────────────┤
+    │ PK  id                                                              │
+    │     etapa  ◄────────────────────────────────────────────────────────┘
+    │     nivel  ◄────────────────────────────────────────────────────────
+    │     tipo
+    │     enunciado
+    │     ruta_imagen
+    │     opcion_a
+    │     opcion_b
+    │     opcion_c
+    │     opcion_d
+    │     opcion_correcta
+    │     puntos_otorga
+    └─────────────────────────────────────────────────────────────────────┘
+
+    Leyenda:
+    ────────► Relación directa (implícita por campo)
+    ........► Relación conceptual (a nivel de aplicación)
+    PK       Primary Key
+    FK       Foreign Key (implícita)
+    UK       Unique Key
+
+===============================================================================
+DIAGRAMA SIMPLIFICADO
+===============================================================================
+
+    ┌──────────────┐         ┌──────────────────────┐
+    │   USUARIOS    │◄────────│ CODIGOS_RECUPERACION │
+    │              │ correo  │                      │
+    │ - id (PK)    │────────►│ - id (PK)            │
+    │ - correo     │         │ - correo (FK)        │
+    │ - etapa_act  │         │ - codigo             │
+    │ - nivel_act  │         │ - creado_en          │
+    │ - puntos     │         │ - expira_en          │
+    │ - ...        │         │ - usado              │
+    └──────┬───────┘         └──────────────────────┘
+           │
+           │ (conceptual)
+           │
+           ▼
+    ┌──────────────┐
+    │  EJERCICIOS  │
+    │              │
+    │ - id (PK)    │
+    │ - etapa      │◄───────
+    │ - nivel      │◄───────
+    │ - tipo       │
+    │ - enunciado  │
+    │ - ...        │
+    └──────────────┘
+
+===============================================================================
+
+===============================================================================
+ETAPAS DEL SISTEMA (ejercicios.etapa)
+===============================================================================
+
+Etapa 1: Fracciones
+   - 20 niveles (1-20)
+   - Tipos: seleccion, vf, completacion, conexion
+
+Etapa 2: Potencias
+   - 20 niveles (1-20)
+   - Tipos: seleccion, vf, completacion, conexion
+
+Etapa 3: Raíces Exactas
+   - 20 niveles (1-20)
+   - Tipos: seleccion, vf, completacion, conexion
+
+Etapa 4: Razones y Porcentajes
+   - 20 niveles (1-20)
+   - Tipos: seleccion, vf, completacion, conexion
+
+Etapa 5: Ecuaciones Nivel 1 (Básicas)
+   - 20 niveles (1-20)
+   - Tipos: seleccion, vf, completacion, conexion
+
+Etapa 6: Ecuaciones Nivel 2 (Avanzadas)
+   - 20 niveles (1-20)
+   - Tipos: seleccion, vf, completacion, conexion
+
+Total: 120 ejercicios (6 etapas × 20 niveles)
+
+===============================================================================
+TIPOS DE EJERCICIOS (ejercicios.tipo)
+===============================================================================
+
+- seleccion: Ejercicios de selección múltiple (opciones A, B, C, D)
+- vf: Ejercicios de Verdadero/Falso
+- completacion: Ejercicios de completar (respuesta de texto libre)
+- conexion: Ejercicios de conectar/con relacionar elementos
+
+===============================================================================
+SISTEMA DE GAMIFICACIÓN (usuarios)
+===============================================================================
+
+- Puntos: Acumulados al resolver ejercicios correctamente
+- Racha de días: Días consecutivos de uso del sistema
+- Rango: Clasificación del usuario (Novato, Bronce, etc.)
+- Vidas: Sistema de vidas (5 por defecto) que se recargan
+- Avatar: Personalización visual del usuario
+- Progreso: Seguimiento de etapa y nivel actual
+
+===============================================================================
+SISTEMA DE SEGURIDAD
+===============================================================================
+
+- Autenticación: nombre_usuario + password
+- Recuperación de contraseña:
+  * Códigos temporales enviados por correo
+  * Expiración: 15 minutos por defecto
+  * Preguntas de seguridad: 3 preguntas con respuestas almacenadas
+- Campos de seguridad en usuarios:
+  * pregunta1, respuesta1
+  * pregunta2, respuesta2
+  * pregunta3, respuesta3
+
+===============================================================================
+NOTAS TÉCNICAS
+===============================================================================
+
+- No hay Foreign Keys explícitas definidas en el esquema
+- Las relaciones se manejan a nivel de aplicación mediante la clase GestorDB
+- La base de datos se inicializa en dos lugares:
+  * main.py (función preparar_bd())
+  * gestor_db.py (clase GestorDB)
+- Archivo de base de datos: mathpath.db
+- Motor: SQLite
+- Gestor de base de datos: GestorDB (patrón Singleton)
+
+===============================================================================
+ARCHIVOS RELACIONADOS
+===============================================================================
+
+- TESIS/src/main.py: Inicialización de BD y datos de prueba
+- TESIS/src/gestor_db.py: Clase GestorDB con operaciones CRUD
+- TESIS/src/modelos/database.py: Definición básica de tablas
+- TESIS/src/modelos/init_db.py: Script de inicialización
+- TESIS/src/config.py: Configuración de ruta de BD
+
+===============================================================================
